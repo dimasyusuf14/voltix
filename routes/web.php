@@ -14,6 +14,14 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+Route::get('/', function () {
+    return view('landing.landing-page');
+})->name('landing-page');
+
+Route::get('/cek-tagihan', function () {
+    return view('pelanggan.cek-tagihan');
+})->name('cek-tagihan');
+
 Route::get('/admin', function () {
     return view('admin.dashboard.index');
 })->name('dashboard.index');

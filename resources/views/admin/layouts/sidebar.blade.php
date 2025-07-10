@@ -1,119 +1,245 @@
-
-<!-- Sidebar -->
-<ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
-
-    <!-- Sidebar - Brand -->
-    <a class="sidebar-brand d-flex align-items-center justify-content-center" href="index.html">
-        <div class="sidebar-brand-icon rotate-n-15">
-            <i class="fas fa-laugh-wink"></i>
-        </div>
-        <div class="sidebar-brand-text mx-3">SB Admin <sup>2</sup></div>
-    </a>
-
-    <!-- Divider -->
-    <hr class="sidebar-divider my-0">
-
-    <!-- Nav Item - Dashboard -->
-    <li class="nav-item active">
-        <a class="nav-link" href="{{Route('dashboard.index')}}">
-            <i class="fas fa-fw fa-tachometer-alt"></i>
-            <span>Dashboard</span></a>
-    </li>
-
-    <!-- Divider -->
-    <hr class="sidebar-divider">
-
-    <!-- Heading -->
-    <div class="sidebar-heading">
-        Interface
+<aside class="w-64 bg-white shadow-md rounded-3xl ml-10 mt-10">
+    <div class="p-6 text-xl font-bold text-indigo-700 flex items-center gap-2">
+        Voltix Admin
     </div>
+    <nav class=" w-full flex flex-col sidebar-nav px-4 mt-5">
+        <ul id="sidebarnav" class="text-gray-600 text-sm in ">
+            <li class="text-xs font-bold pb-[5px]">
+                <i class="ti ti-dots nav-small-cap-icon text-lg hidden text-center"></i>
+                <span class="text-xs text-gray-400 font-semibold">HOME</span>
+            </li>
 
-    <!-- Nav Item - Pages Collapse Menu -->
-    <li class="nav-item">
-        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo"
-            aria-expanded="true" aria-controls="collapseTwo">
-            <i class="fas fa-fw fa-cog"></i>
-            <span>Components</span>
-        </a>
-        <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
-            <div class="bg-white py-2 collapse-inner rounded">
-                <h6 class="collapse-header">Custom Components:</h6>
-                <a class="collapse-item" href="buttons.html">Buttons</a>
-                <a class="collapse-item" href="cards.html">Cards</a>
+            <li class="sidebar-item selected">
+                <a class="sidebar-link gap-3 py-2.5 my-1 text-base flex items-center relative rounded-md text-gray-500 w-full  hover:bg-blue-100 transition duration-300" href="{{ route('dashboard.index') }}">
+                    <i class="ti ti-layout-dashboard ps-2  text-2xl"></i> <span>Dashboard</span>
+                </a>
+            </li>
+
+            <li class="text-xs font-bold mb-4 mt-6">
+                <i class="ti ti-dots nav-small-cap-icon text-lg hidden text-center"></i>
+                <span class="text-xs text-gray-400 font-semibold">Pelanggan</span>
+            </li>
+
+            <li class="sidebar-item">
+                <a class="sidebar-link gap-3 py-2.5 my-1 text-base flex items-center relative rounded-md text-gray-500 w-full hover:bg-blue-100 transition duration-300" href="{{ route('admin.pelanggan.konfirmasi') }}">
+                    <i class="ti ti-article ps-2 text-2xl"></i> <span>Konfirmasi Pelanggan</span>
+                </a>
+            </li>
+
+            <li class="sidebar-item">
+                <a class="sidebar-link gap-3 py-2.5 my-1 text-base flex items-center relative rounded-md text-gray-500 w-full hover:bg-blue-100 transition duration-300" href="{{ route('admin.pelanggan.index') }}">
+                    <i class="ti ti-cards ps-2 text-2xl"></i> <span>Pelanggan Aktif</span>
+                </a>
+            </li>
+
+            <li class="sidebar-item">
+                <a class="sidebar-link gap-3 py-2.5 my-1 text-base flex items-center relative rounded-md text-gray-500 w-full hover:bg-blue-100 transition duration-300" href="{{ route('admin.tarif.index') }}">
+                    <i class="ti ti-alert-circle ps-2 text-2xl"></i> <span>Tarif Layanan</span>
+                </a>
+            </li>
+
+            <li class="sidebar-item">
+                <a class="sidebar-link gap-3 py-2.5 my-1 text-base flex items-center relative rounded-md text-gray-500 w-full hover:bg-blue-100 transition duration-300" href="./components/forms.html">
+                    <i class="ti ti-file-description ps-2 text-2xl"></i> <span>Forms</span>
+                </a>
+            </li>
+
+            <li class="sidebar-item">
+                <a class="sidebar-link gap-3 py-2.5 my-1 text-base flex items-center relative rounded-md text-gray-500 w-full hover:bg-blue-100 transition duration-300" href="./components/typography.html">
+                    <i class="ti ti-typography ps-2 text-2xl"></i> <span>Typography</span>
+                </a>
+            </li>
+
+            <li class="text-xs font-bold mb-4 mt-6">
+                <i class="ti ti-dots nav-small-cap-icon text-lg hidden text-center"></i>
+                <span class="text-xs text-gray-400 font-semibold">APPS</span>
+            </li>
+            <div class="hs-accordion-group">
+                <div class="hs-accordion sidebar-item" id="hs-basic-with-title-and-arrow-stretched-heading-ecommerce">
+                    <button class="sidebar-link gap-3 py-2.5 my-1 text-base flex items-center relative  rounded-md text-gray-500  w-full hs-accordion-toggle hs-accordion-active:text-blue-600 justify-between" aria-expanded="false" aria-controls="hs-basic-with-title-and-arrow-stretched-collapse-ecommerce">
+                        <div class="flex items-center gap-3">
+                            <i class="ti ti-basket ps-2 text-2xl"></i>
+                            <span>Ecommerce</span>
+                        </div>
+                        <div class="mr-5">
+                            <svg class="hs-accordion-active:hidden block size-4" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="m6 9 6 6 6-6"></path>
+                            </svg>
+                            <svg class="hs-accordion-active:block hidden size-4" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="m18 15-6-6-6 6"></path>
+                            </svg>
+                        </div>
+                    </button>
+                    <div id="hs-basic-with-title-and-arrow-stretched-collapse-ecommerce" class="hs-accordion-content hidden w-full overflow-hidden transition-[height] duration-300" role="region" aria-labelledby="hs-basic-with-title-and-arrow-stretched-heading-ecommerce">
+                        <a class="gap-4 py-2.5 my-1 px-[14px] text-sm flex items-center justify-between relative rounded-md text-gray-500 w-full hover:bg-blue-100 transition duration-300" href="#">
+                            <div class="flex items-center gap-4">
+                                <i class="ti ti-circle text-xs"></i> <span>Shop One</span>
+                            </div>
+                            <span class="text-white bg-blue-700 rounded-3xl px-2 text-xs py-0.5">Pro</span>
+                        </a>
+                        <a class="gap-4 py-2.5 my-1 px-[14px] text-sm flex items-center justify-between relative rounded-md text-gray-500 w-full hover:bg-blue-100 transition duration-300" href="#">
+                            <div class="flex items-center gap-4">
+                                <i class="ti ti-circle text-xs"></i> <span>Shop Two</span>
+                            </div>
+                            <span class="text-white bg-blue-700 rounded-3xl px-2 text-xs py-0.5">Pro</span>
+                        </a>
+                        <a class="gap-4 py-2.5 my-1 px-[14px] text-sm flex items-center justify-between relative rounded-md text-gray-500 w-full hover:bg-blue-100 transition duration-300" href="#">
+                            <div class="flex items-center gap-4">
+                                <i class="ti ti-circle text-xs"></i> <span>Details One</span>
+                            </div>
+                            <span class="text-white bg-blue-700 rounded-3xl px-2 text-xs py-0.5">Pro</span>
+                        </a>
+                        <a class="gap-4 py-2.5 my-1 px-[14px] text-sm flex items-center justify-between relative rounded-md text-gray-500 w-full hover:bg-blue-100 transition duration-300" href="#">
+                            <div class="flex items-center gap-4">
+                                <i class="ti ti-circle text-xs"></i> <span>Details Two</span>
+                            </div>
+                            <span class="text-white bg-blue-700 rounded-3xl px-2 text-xs py-0.5">Pro</span>
+                        </a>
+                        <a class="gap-4 py-2.5 my-1 px-[14px] text-sm flex items-center justify-between relative rounded-md text-gray-500 w-full hover:bg-blue-100 transition duration-300" href="#">
+                            <div class="flex items-center gap-4">
+                                <i class="ti ti-circle text-xs"></i> <span>List</span>
+                            </div>
+                            <span class="text-white bg-blue-700 rounded-3xl px-2 text-xs py-0.5">Pro</span>
+                        </a>
+                        <a class="gap-4 py-2.5 my-1 px-[14px] text-sm flex items-center justify-between relative rounded-md text-gray-500 w-full hover:bg-blue-100 transition duration-300" href="#">
+                            <div class="flex items-center gap-4">
+                                <i class="ti ti-circle text-xs"></i> <span>Checkout</span>
+                            </div>
+                            <span class="text-white bg-blue-700 rounded-3xl px-2 text-xs py-0.5">Pro</span>
+                        </a>
+                    </div>
+                </div>
             </div>
-        </div>
-    </li>
 
-    <!-- Nav Item - Utilities Collapse Menu -->
-    <li class="nav-item">
-        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseUtilities"
-            aria-expanded="true" aria-controls="collapseUtilities">
-            <i class="fas fa-fw fa-wrench"></i>
-            <span>Utilities</span>
-        </a>
-        <div id="collapseUtilities" class="collapse" aria-labelledby="headingUtilities"
-            data-parent="#accordionSidebar">
-            <div class="bg-white py-2 collapse-inner rounded">
-                <h6 class="collapse-header">Custom Utilities:</h6>
-                <a class="collapse-item" href="utilities-color.html">Colors</a>
-                <a class="collapse-item" href="utilities-border.html">Borders</a>
-                <a class="collapse-item" href="utilities-animation.html">Animations</a>
-                <a class="collapse-item" href="utilities-other.html">Other</a>
+            <div class="hs-accordion-group">
+                <div class="hs-accordion sidebar-item" id="hs-basic-with-title-and-arrow-stretched-heading-userprofile">
+                    <button class="sidebar-link gap-3 py-2.5 my-1 text-base flex items-center relative  rounded-md text-gray-500  w-full hs-accordion-toggle hs-accordion-active:text-blue-600 justify-between" aria-expanded="false" aria-controls="hs-basic-with-title-and-arrow-stretched-collapse-userprofile">
+                        <div class="flex items-center gap-3">
+                            <i class="ti ti-user-circle ps-2 text-2xl"></i>
+                            <span>User Profile</span>
+                        </div>
+                        <div class="mr-5">
+                            <svg class="hs-accordion-active:hidden block size-4" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="m6 9 6 6 6-6"></path>
+                            </svg>
+                            <svg class="hs-accordion-active:block hidden size-4" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="m18 15-6-6-6 6"></path>
+                            </svg>
+                        </div>
+                    </button>
+                    <div id="hs-basic-with-title-and-arrow-stretched-collapse-userprofile" class="hs-accordion-content hidden w-full overflow-hidden transition-[height] duration-300" role="region" aria-labelledby="hs-basic-with-title-and-arrow-stretched-heading-userprofile">
+                        <a class="gap-4 py-2.5 my-1 px-[14px] text-sm flex items-center justify-between relative rounded-md text-gray-500 w-full hover:bg-blue-100 transition duration-300" href="#">
+                            <div class="flex items-center gap-4">
+                                <i class="ti ti-circle text-xs"></i> <span>Profile One</span>
+                            </div>
+                            <span class="text-white bg-blue-700 rounded-3xl px-2 text-xs py-0.5">Pro</span>
+                        </a>
+                        <a class="gap-4 py-2.5 my-1 px-[14px] text-sm flex items-center justify-between relative rounded-md text-gray-500 w-full hover:bg-blue-100 transition duration-300" href="#">
+                            <div class="flex items-center gap-4">
+                                <i class="ti ti-circle text-xs"></i> <span>Profile Two</span>
+                            </div>
+                            <span class="text-white bg-blue-700 rounded-3xl px-2 text-xs py-0.5">Pro</span>
+                        </a>
+                    </div>
+                </div>
             </div>
-        </div>
-    </li>
 
-    <!-- Divider -->
-    <hr class="sidebar-divider">
-
-    <!-- Heading -->
-    <div class="sidebar-heading">
-        Addons
-    </div>
-
-    <!-- Nav Item - Pages Collapse Menu -->
-    <li class="nav-item">
-        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsePages"
-            aria-expanded="true" aria-controls="collapsePages">
-            <i class="fas fa-fw fa-folder"></i>
-            <span>Pages</span>
-        </a>
-        <div id="collapsePages" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
-            <div class="bg-white py-2 collapse-inner rounded">
-                <h6 class="collapse-header">Login Screens:</h6>
-                <a class="collapse-item" href="login.html">Login</a>
-                <a class="collapse-item" href="register.html">Register</a>
-                <a class="collapse-item" href="forgot-password.html">Forgot Password</a>
-                <div class="collapse-divider"></div>
-                <h6 class="collapse-header">Other Pages:</h6>
-                <a class="collapse-item" href="404.html">404 Page</a>
-                <a class="collapse-item" href="blank.html">Blank Page</a>
+            <div class="hs-accordion-group">
+                <div class="hs-accordion sidebar-item" id="hs-basic-with-title-and-arrow-stretched-heading-blog">
+                    <button class="sidebar-link gap-3 py-2.5 my-1 text-base flex items-center relative  rounded-md text-gray-500  w-full hs-accordion-toggle hs-accordion-active:text-blue-600 justify-between" aria-expanded="false" aria-controls="hs-basic-with-title-and-arrow-stretched-collapse-blog">
+                        <div class="flex items-center gap-3">
+                            <i class="ti ti-chart-donut-3 ps-2 text-2xl"></i>
+                            <span>Blog</span>
+                        </div>
+                        <div class="mr-5">
+                            <svg class="hs-accordion-active:hidden block size-4" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="m6 9 6 6 6-6"></path>
+                            </svg>
+                            <svg class="hs-accordion-active:block hidden size-4" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="m18 15-6-6-6 6"></path>
+                            </svg>
+                        </div>
+                    </button>
+                    <div id="hs-basic-with-title-and-arrow-stretched-collapse-blog" class="hs-accordion-content hidden w-full overflow-hidden transition-[height] duration-300" role="region" aria-labelledby="hs-basic-with-title-and-arrow-stretched-heading-blog">
+                        <a class="gap-4 py-2.5 my-1 px-[14px] text-sm flex items-center justify-between relative rounded-md text-gray-500 w-full hover:bg-blue-100 transition duration-300" href="#">
+                            <div class="flex items-center gap-4">
+                                <i class="ti ti-circle text-xs"></i> <span>Posts</span>
+                            </div>
+                            <span class="text-white bg-blue-700 rounded-3xl px-2 text-xs py-0.5">Pro</span>
+                        </a>
+                        <a class="gap-4 py-2.5 my-1 px-[14px] text-sm flex items-center justify-between relative rounded-md text-gray-500 w-full hover:bg-blue-100 transition duration-300" href="#">
+                            <div class="flex items-center gap-4">
+                                <i class="ti ti-circle text-xs"></i> <span>Details</span>
+                            </div>
+                            <span class="text-white bg-blue-700 rounded-3xl px-2 text-xs py-0.5">Pro</span>
+                        </a>
+                    </div>
+                </div>
             </div>
-        </div>
-    </li>
+            <li class="sidebar-item">
+                <a class="sidebar-link gap-3 py-2.5 my-1 text-base flex items-center justify-between relative rounded-md text-gray-500 w-full hover:bg-blue-100 transition duration-300" href="#">
+                    <div class="flex items-center gap-2">
+                        <i class="ti ti-mail ps-2 text-2xl"></i> <span>Email</span>
+                    </div>
 
-    <!-- Nav Item - Charts -->
-    <li class="nav-item">
-        <a class="nav-link" href="charts.html">
-            <i class="fas fa-fw fa-chart-area"></i>
-            <span>Charts</span></a>
-    </li>
+                </a>
+            </li>
+            <li class="sidebar-item">
+                <a class="sidebar-link gap-3 py-2.5 my-1 text-base flex items-center justify-between relative rounded-md text-gray-500 w-full hover:bg-blue-100 transition duration-300" href="#">
+                    <div class="flex items-center gap-2">
+                        <i class="ti ti-calendar ps-2 text-2xl"></i> <span>Calendar</span>
+                    </div>
 
-    <!-- Nav Item - Tables -->
-    <li class="nav-item">
-        <a class="nav-link" href="tables.html">
-            <i class="fas fa-fw fa-table"></i>
-            <span>Tables</span></a>
-    </li>
+                </a>
+            </li>
+            <li class="sidebar-item">
+                <a class="sidebar-link gap-3 py-2.5 my-1 text-base flex items-center justify-between relative rounded-md text-gray-500 w-full hover:bg-blue-100 transition duration-300" href="#">
+                    <div class="flex items-center gap-2">
+                        <i class="ti ti-layout-kanban ps-2 text-2xl"></i> <span>Kanban</span>
+                    </div>
 
-    <!-- Divider -->
-    <hr class="sidebar-divider d-none d-md-block">
+                </a>
+            </li>
+            <li class="sidebar-item">
+                <a class="sidebar-link gap-3 py-2.5 my-1 text-base flex items-center justify-between relative rounded-md text-gray-500 w-full hover:bg-blue-100 transition duration-300" href="#">
+                    <div class="flex items-center gap-2">
+                        <i class="ti ti-message-dots ps-2 text-2xl"></i> <span>Chat</span>
+                    </div>
 
-    <!-- Sidebar Toggler (Sidebar) -->
-    <div class="text-center d-none d-md-inline">
-        <button class="rounded-circle border-0" id="sidebarToggle"></button>
-    </div>
+                </a>
+            </li>
+            <li class="sidebar-item">
+                <a class="sidebar-link gap-3 py-2.5 my-1 text-base flex items-center justify-between relative rounded-md text-gray-500 w-full hover:bg-blue-100 transition duration-300" href="#">
+                    <div class="flex items-center gap-2">
+                        <i class="ti ti-notes ps-2 text-2xl"></i> <span>Notes</span>
+                    </div>
 
+                </a>
+            </li>
+            <li class="sidebar-item">
+                <a class="sidebar-link gap-3 py-2.5 my-1 text-base flex items-center justify-between relative rounded-md text-gray-500 w-full hover:bg-blue-100 transition duration-300" href="#">
+                    <div class="flex items-center gap-2">
+                        <i class="ti ti-phone ps-2 text-2xl"></i> <span>Contact</span>
+                    </div>
 
-</ul>
-<!-- End of Sidebar -->
+                </a>
+            </li>
+            <li class="sidebar-item">
+                <a class="sidebar-link gap-3 py-2.5 my-1 text-base flex items-center justify-between relative rounded-md text-gray-500 w-full hover:bg-blue-100 transition duration-300" href="#">
+                    <div class="flex items-center gap-2">
+                        <i class="ti ti-list-details ps-2 text-2xl"></i> <span>Contact List</span>
+                    </div>
+
+                </a>
+            </li>
+            <li class="sidebar-item">
+                <a class="sidebar-link gap-3 py-2.5 my-1 text-base flex items-center justify-between relative rounded-md text-gray-500 w-full hover:bg-blue-100 transition duration-300" href="#">
+                    <div class="flex items-center gap-2">
+                        <i class="ti ti-file-text ps-2 text-2xl"></i> <span>Invoice</span>
+                    </div>
+
+                </a>
+            </li>
+        </ul>
+    </nav>
+</aside>

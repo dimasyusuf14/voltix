@@ -12,14 +12,14 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('users', function (Blueprint $table) {
-            $table->id();
-            $table->string('name');
+            $table->id('id');
             $table->string('email')->unique();
-            $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
-            $table->rememberToken();
+            $table->string('nama_admin');
+            $table->unsignedBigInteger('id_level');
             $table->timestamps();
-            $table->enum('role', ['admin', 'pelanggan'])->default('pelanggan'); // Default role is 'pelanggan'
+
+            $table->foreign('id_level')->references('id_level')->on('levels')->onDelete('cascade');
         });
     }
 

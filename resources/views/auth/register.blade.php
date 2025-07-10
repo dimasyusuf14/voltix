@@ -10,13 +10,13 @@
             <p class="text-center text-sm text-gray-500 mb-6">Buat akun baru untuk mulai mengelola tagihan listrik Anda</p>
 
             @if ($errors->any())
-                <div class="bg-red-100 border border-red-400 text-red-700 px-4 py-2 rounded mb-4 text-sm">
-                    <ul class="list-disc list-inside">
-                        @foreach ($errors->all() as $error)
-                            <li>{{ $error }}</li>
-                        @endforeach
-                    </ul>
-                </div>
+            <div class="bg-red-100 border border-red-400 text-red-700 px-4 py-2 rounded mb-4 text-sm">
+                <ul class="list-disc list-inside">
+                    @foreach ($errors->all() as $error)
+                    <li>{{ $error }}</li>
+                    @endforeach
+                </ul>
+            </div>
             @endif
 
             <form method="POST" action="{{ route('register.post') }}">
@@ -48,7 +48,7 @@
                     <!-- Kolom kanan -->
                     <div>
                         <div class="mb-4">
-                            <select name="tarif"
+                            <!-- <select name="tarif"
                                 class="w-full rounded-full px-4 py-2.5 bg-blue-50 text-sm border border-gray-300 focus:outline-none focus:ring-2 focus:ring-[#ff654d]">
                                 <option value="">-- Pilih Tarif Listrik --</option>
                                 <option value="R1">R1 - Rumah Tangga</option>
@@ -57,7 +57,15 @@
                                 <option value="B1">B1 - Bisnis Kecil</option>
                                 <option value="B2">B2 - Bisnis Sedang</option>
                                 <option value="B3">B3 - Bisnis Besar</option>
+                            </select> -->
+
+                            <select name="tarif" class="...">
+                                <option value="">-- Pilih Tarif --</option>
+                                @foreach ($tarifs as $tarif)
+                                <option value="{{ $tarif->kode_tarif }}">{{ $tarif->kode_tarif }} - {{ $tarif->daya }} Watt</option>
+                                @endforeach
                             </select>
+
                         </div>
 
                         <div class="mb-4">

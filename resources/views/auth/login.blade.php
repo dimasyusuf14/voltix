@@ -15,7 +15,7 @@
             </div>
             @endif
 
-            <form method="POST" action="{{ route('login.post') }}">
+            <form>
                 @csrf
 
                 <div class="mb-4">
@@ -30,16 +30,45 @@
                         required>
                 </div>
 
-                <button type="submit"
-                    class="w-full bg-[#ff654d] text-white py-2.5 mt-2 rounded-full font-semibold hover:bg-[#e14b3b] transition">
+                <a type="submit" href="{{ route('dashboard.index') }}"
+                    class="text-center w-full bg-[#ff654d] text-white py-2.5 mt-2 rounded-full font-semibold hover:bg-[#e14b3b] transition">
                     Masuk
-                </button>
+                </a>
 
                 <div class="mt-4 flex justify-between text-sm">
                     <a href="{{ url('/') }}" class="text-gray-600 hover:text-[#ff654d]">&larr; Beranda</a>
                     <a href="{{ route('register') }}" class="text-[#ff654d] hover:underline">Belum punya akun? Daftar</a>
                 </div>
             </form>
+
+
+            <!-- <form method="POST" action="{{ route('login.post') }}">
+                @csrf
+
+                <div class="mb-4">
+                    <input type="email" name="email" placeholder="Email"
+                        class="w-full rounded-full px-4 py-2.5 bg-blue-50 text-sm border border-gray-300 focus:outline-none focus:ring-2 focus:ring-[#ff654d]"
+                        required autofocus>
+                </div>
+
+                <div class="mb-4">
+                    <input type="password" name="password" placeholder="Kata Sandi"
+                        class="w-full rounded-full px-4 py-2.5 bg-blue-50 text-sm border border-gray-300 focus:outline-none focus:ring-2 focus:ring-[#ff654d]"
+                        required>
+                </div>
+
+                <a type="submit" href="{{ route('dashboard.index') }}"
+                    class="text-center w-full bg-[#ff654d] text-white py-2.5 mt-2 rounded-full font-semibold hover:bg-[#e14b3b] transition">
+                    Masuk
+                </a>
+
+                <div class="mt-4 flex justify-between text-sm">
+                    <a href="{{ url('/') }}" class="text-gray-600 hover:text-[#ff654d]">&larr; Beranda</a>
+                    <a href="{{ route('register') }}" class="text-[#ff654d] hover:underline">Belum punya akun? Daftar</a>
+                </div>
+            </form> -->
+
+
         </div>
 
         <!-- Kanan: Branding -->

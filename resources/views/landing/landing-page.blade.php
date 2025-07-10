@@ -6,7 +6,7 @@
     <div class="container mx-auto flex flex-col-reverse md:flex-row items-center px-4 gap-12">
         <div class="md:w-1/2 text-center md:text-left">
             <h1 class="text-4xl md:text-5xl font-bold leading-tight mb-4 text-gray-800">
-                Web Pembayaran <span class="text-blue-600 text-orange-600">Listrik</span> Pascabayar
+                Web Pembayaran <span class="text-orange-600">Listrik</span> Pascabayar
             </h1>
             <p class="text-gray-600 mb-8 text-lg">
                 Cek riwayat penggunaan, pantau tagihan terbaru, dan lakukan pembayaran secara online dengan aman.

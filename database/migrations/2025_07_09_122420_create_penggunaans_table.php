@@ -17,7 +17,7 @@ return new class extends Migration
             $table->integer('bulan');
             $table->integer('tahun');
             $table->integer('meter_awal');
-            $table->integer('meter_ahir');
+            $table->integer('meter_akhir');
             $table->timestamps();
 
             $table->foreign('id_pelanggan')->references('id_pelanggan')->on('pelanggans')->onDelete('cascade');

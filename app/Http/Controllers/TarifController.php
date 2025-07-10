@@ -15,7 +15,7 @@ class TarifController extends Controller
 
     public function create()
     {
-        return view('admin.tarif.create');
+        return view('admin.tarif.create-modal');
     }
 
     public function store(Request $request)
@@ -33,7 +33,7 @@ class TarifController extends Controller
             'tarifperkwh' => $request->tarifperkwh,
             'deskripsi' => $request->deskripsi,
         ]);
-        return redirect()->route('admin.tarif.index')->with('success', 'Tarif berhasil ditambahkan.');
+        return redirect()->route('tarif.index')->with('success', 'Tarif berhasil ditambahkan.');
     }
 
     public function edit($id)
@@ -59,12 +59,12 @@ class TarifController extends Controller
             'tarifperkwh' => $request->tarifperkwh,
             'deskripsi' => $request->deskripsi,
         ]);
-        return redirect()->route('admin.tarif.index')->with('success', 'Tarif berhasil diperbarui.');
+        return redirect()->route('tarif.index')->with('success', 'Tarif berhasil diperbarui.');
     }
 
     public function destroy($id)
     {
         Tarif::destroy($id);
-        return redirect()->route('admin.tarif.index')->with('success', 'Tarif berhasil dihapus.');
+        return redirect()->route('tarif.index')->with('success', 'Tarif berhasil dihapus.');
     }
 }

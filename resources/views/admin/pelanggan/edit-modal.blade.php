@@ -16,6 +16,15 @@
                 </div>
 
                 <div>
+                    <label class="block text-sm font-medium mb-1">Tarif Listrik</label>
+                    <select name="id_tarif" id="edit_id_tarif" class="w-full border rounded px-4 py-2">
+                        @foreach($tarifs as $tarif)
+                        <option value="{{ $tarif->id_tarif }}">{{ $tarif->kode_tarif }} - {{ $tarif->daya }} VA</option>
+                        @endforeach
+                    </select>
+                </div>
+
+                <div>
                     <label class="block text-sm font-medium mb-1">Email</label>
                     <input type="email" name="email" id="edit_email" class="w-full border rounded px-4 py-2">
                 </div>
@@ -31,28 +40,19 @@
                 </div>
 
                 <div>
-                    <label class="block text-sm font-medium mb-1">Tarif Listrik</label>
-                    <select name="id_tarif" id="edit_id_tarif" class="w-full border rounded px-4 py-2">
-                        @foreach($tarifs as $tarif)
-                        <option value="{{ $tarif->id_tarif }}">{{ $tarif->kode_tarif }} - {{ $tarif->daya }} VA</option>
-                        @endforeach
-                    </select>
+                    <label class="block text-sm font-medium mb-1">Status</label>
+                    <input type="text" name="status" id="edit_status" class="w-full border rounded px-4 py-2 bg-gray-100 text-gray-600" readonly>
                 </div>
 
                 <div class="md:col-span-2">
                     <label class="block text-sm font-medium mb-1">Alamat</label>
                     <textarea name="alamat" id="edit_alamat" class="w-full border rounded px-4 py-2" rows="3"></textarea>
                 </div>
-
-                <div class="md:col-span-2">
-                    <label class="block text-sm font-medium mb-1">Status</label>
-                    <input type="text" name="status" id="edit_status" class="w-full border rounded px-4 py-2 bg-gray-100 text-gray-600" readonly>
-                </div>
             </div>
 
             <div class="flex justify-between items-center mt-6">
                 <button type="button" onclick="closeEditModal()" class="text-sm text-gray-600 hover:underline">Batal</button>
-                <button type="submit" class="bg-green-600 text-white px-4 py-2 rounded hover:bg-green-700">💾 Simpan</button>
+                <button type="submit" class="bg-green-600 text-white px-4 py-2 rounded hover:bg-green-700">Simpan</button>
             </div>
         </form>
     </div>

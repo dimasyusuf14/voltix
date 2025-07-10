@@ -23,6 +23,17 @@
 
             <li class="text-xs font-bold mb-4 mt-6">
                 <i class="ti ti-dots nav-small-cap-icon text-lg hidden text-center"></i>
+                <span class="text-xs text-gray-400 font-semibold">Harga Listrik</span>
+            </li>
+
+            <li class="sidebar-item">
+                <a class="sidebar-link gap-3 py-2.5 my-1 text-base flex items-center relative rounded-md text-gray-500 w-full hover:bg-blue-100 transition duration-300 {{ request()->routeIs('tarif.index') ? 'bg-blue-100 font-semibold' : '' }}" href="{{ route('tarif.index') }}">
+                    <i class="ti ti-alert-circle ps-2 text-2xl"></i> <span>Tarif Layanan</span>
+                </a>
+            </li>
+
+            <li class="text-xs font-bold mb-4 mt-6">
+                <i class="ti ti-dots nav-small-cap-icon text-lg hidden text-center"></i>
                 <span class="text-xs text-gray-400 font-semibold">Pelanggan</span>
             </li>
 
@@ -38,9 +49,14 @@
                 </a>
             </li>
 
+            <li class="text-xs font-bold mb-4 mt-6">
+                <i class="ti ti-dots nav-small-cap-icon text-lg hidden text-center"></i>
+                <span class="text-xs text-gray-400 font-semibold">Tagihan & Pembayaran</span>
+            </li>
+
             <li class="sidebar-item">
-                <a class="sidebar-link gap-3 py-2.5 my-1 text-base flex items-center relative rounded-md text-gray-500 w-full hover:bg-blue-100 transition duration-300 {{ request()->routeIs('admin.tarif.index') ? 'bg-blue-100 font-semibold' : '' }}" href="{{ route('admin.tarif.index') }}">
-                    <i class="ti ti-alert-circle ps-2 text-2xl"></i> <span>Tarif Layanan</span>
+                <a class="sidebar-link gap-3 py-2.5 my-1 text-base flex items-center relative rounded-md text-gray-500 w-full hover:bg-blue-100 transition duration-300 {{ request()->routeIs('admin.penggunaan.index') ? 'bg-blue-100 font-semibold' : '' }}" href="{{ route('admin.penggunaan.index') }}">
+                    <i class="ti ti-file-description ps-2 text-2xl"></i> <span>Input Penggunaan</span>
                 </a>
             </li>
 
@@ -56,11 +72,13 @@
                 </a>
             </li>
 
-            <li class="sidebar-item">
+
+
+            <!-- <li class="sidebar-item">
                 <a class="sidebar-link gap-3 py-2.5 my-1 text-base flex items-center relative rounded-md text-gray-500 w-full hover:bg-blue-100 transition duration-300" href="./components/typography.html">
-                    <i class="ti ti-typography ps-2 text-2xl"></i> <span>Input Tagihan</span>
+                    <i class="ti ti-typography ps-2 text-2xl"></i> <span>Tagihan Pelanggan</span>
                 </a>
-            </li>
+            </li> -->
         </ul>
     </nav>
 </aside>

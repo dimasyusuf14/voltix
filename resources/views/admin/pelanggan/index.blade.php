@@ -10,11 +10,6 @@
     </div>
     @endif
 
-    <div class="mb-4">
-        <a href="{{ route('admin.pelanggan.create') }}" class="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded text-sm">
-            + Tambah Pelanggan
-        </a>
-    </div>
 
     <div class="overflow-x-auto">
         <table class="min-w-full text-sm border">
@@ -38,7 +33,7 @@
                     <td class="py-2 px-4 border">{{ $pelanggan->email }}</td>
                     <td class="py-2 px-4 border">{{ $pelanggan->nomor_kwh }}</td>
                     <td class="py-2 px-4 border">{{ $pelanggan->alamat }}</td>
-                    <td class="py-2 px-4 border">{{ $pelanggan->tarif->kode_tarif ?? '-' }} ({{ $pelanggan->tarif->daya ?? '-' }} VA)</td>
+                    <td class="py-2 px-4 border"> {{ $pelanggan->tarif->daya ?? '-' }} VA</td>
                     <td class="py-2 px-4 border">
                         <span class="text-green-600 font-semibold capitalize">{{ $pelanggan->status }}</span>
                     </td>

@@ -1,16 +1,16 @@
-<aside class="w-64 bg-white shadow-md rounded-3xl ml-10 mt-10">
-    <div class="p-6 text-xl font-bold text-indigo-700 flex items-center gap-2">
+<aside class="w-80 bg-white shadow-md rounded-3xl ml-10 mt-10 overflow-hidden">
+    <div class="sticky top-0 bg-white p-6 text-xl font-bold text-indigo-700 flex items-center gap-2 z-10">
         Voltix Admin
     </div>
     <nav class=" w-full flex flex-col sidebar-nav px-4 mt-5">
-        <ul id="sidebarnav" class="text-gray-600 text-sm in ">
+        <ul id="sidebarnav" class="text-gray-600 text-sm in overflow-y-auto max-h-[calc(100vh-100px)] pr-2">
             <li class="text-xs font-bold pb-[5px]">
                 <i class="ti ti-dots nav-small-cap-icon text-lg hidden text-center"></i>
                 <span class="text-xs text-gray-400 font-semibold">HOME</span>
             </li>
 
             <li class="sidebar-item selected">
-                <a class="sidebar-link gap-3 py-2.5 my-1 text-base flex items-center relative rounded-md text-gray-500 w-full  hover:bg-blue-100 transition duration-300" href="{{ route('dashboard.index') }}">
+                <a class="sidebar-link gap-3 py-2.5 my-1 text-base flex items-center relative rounded-md text-gray-500 w-full  hover:bg-blue-100 transition duration-300 {{ request()->routeIs('dashboard.index') ? 'bg-blue-100 font-semibold' : '' }}" href="{{ route('dashboard.index') }}">
                     <i class="ti ti-layout-dashboard ps-2  text-2xl"></i> <span>Dashboard</span>
                 </a>
             </li>
@@ -21,32 +21,32 @@
             </li>
 
             <li class="sidebar-item">
-                <a class="sidebar-link gap-3 py-2.5 my-1 text-base flex items-center relative rounded-md text-gray-500 w-full hover:bg-blue-100 transition duration-300" href="{{ route('admin.pelanggan.konfirmasi') }}">
+                <a class="sidebar-link gap-3 py-2.5 my-1 text-base flex items-center relative rounded-md text-gray-500 w-full hover:bg-blue-100 transition duration-300 {{ request()->routeIs('admin.pelanggan.konfirmasi') ? 'bg-blue-100 font-semibold' : '' }}" href="{{ route('admin.pelanggan.konfirmasi') }}">
                     <i class="ti ti-article ps-2 text-2xl"></i> <span>Konfirmasi Pelanggan</span>
                 </a>
             </li>
 
             <li class="sidebar-item">
-                <a class="sidebar-link gap-3 py-2.5 my-1 text-base flex items-center relative rounded-md text-gray-500 w-full hover:bg-blue-100 transition duration-300" href="{{ route('admin.pelanggan.index') }}">
+                <a class="sidebar-link gap-3 py-2.5 my-1 text-base flex items-center relative rounded-md text-gray-500 w-full hover:bg-blue-100 transition duration-300 {{ request()->routeIs('admin.pelanggan.index') ? 'bg-blue-100 font-semibold' : '' }}" href="{{ route('admin.pelanggan.index') }}">
                     <i class="ti ti-cards ps-2 text-2xl"></i> <span>Pelanggan Aktif</span>
                 </a>
             </li>
 
             <li class="sidebar-item">
-                <a class="sidebar-link gap-3 py-2.5 my-1 text-base flex items-center relative rounded-md text-gray-500 w-full hover:bg-blue-100 transition duration-300" href="{{ route('admin.tarif.index') }}">
+                <a class="sidebar-link gap-3 py-2.5 my-1 text-base flex items-center relative rounded-md text-gray-500 w-full hover:bg-blue-100 transition duration-300 {{ request()->routeIs('admin.tarif.index') ? 'bg-blue-100 font-semibold' : '' }}" href="{{ route('admin.tarif.index') }}">
                     <i class="ti ti-alert-circle ps-2 text-2xl"></i> <span>Tarif Layanan</span>
                 </a>
             </li>
 
             <li class="sidebar-item">
                 <a class="sidebar-link gap-3 py-2.5 my-1 text-base flex items-center relative rounded-md text-gray-500 w-full hover:bg-blue-100 transition duration-300" href="./components/forms.html">
-                    <i class="ti ti-file-description ps-2 text-2xl"></i> <span>Forms</span>
+                    <i class="ti ti-file-description ps-2 text-2xl"></i> <span>Tagihan Pelanggan</span>
                 </a>
             </li>
 
             <li class="sidebar-item">
                 <a class="sidebar-link gap-3 py-2.5 my-1 text-base flex items-center relative rounded-md text-gray-500 w-full hover:bg-blue-100 transition duration-300" href="./components/typography.html">
-                    <i class="ti ti-typography ps-2 text-2xl"></i> <span>Typography</span>
+                    <i class="ti ti-typography ps-2 text-2xl"></i> <span>Riwayat Pembayaran</span>
                 </a>
             </li>
 

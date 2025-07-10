@@ -37,6 +37,17 @@ class PelangganSeeder extends Seeder
                 'created_at' => now(),
                 'updated_at' => now(),
             ],
+            [
+                'email' => 'amat@example.com',
+                'password' => Hash::make('password123'),
+                'nomor_kwh' => '0987654739',
+                'nama_pelanggan' => 'amat tongtong',
+                'alamat' => 'Jl. Sudirman No.7 depok',
+                'id_tarif' => 2,
+                'status' => 'waiting',
+                'created_at' => now(),
+                'updated_at' => now(),
+            ],
         ]);
     }
 }

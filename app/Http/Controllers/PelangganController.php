@@ -12,7 +12,10 @@ class PelangganController extends Controller
 {
     public function index()
     {
-        $pelanggans = Pelanggan::with('tarif')->get();
+        $pelanggans = Pelanggan::with('tarif')
+            ->where('status', 'aktif')
+            ->get();
+
         return view('admin.pelanggan.index', compact('pelanggans'));
     }
 
@@ -77,7 +80,6 @@ class PelangganController extends Controller
         $pelanggan->update($data);
 
         return redirect()->route('admin.pelanggan.index')->with('success', 'Pelanggan berhasil diperbarui.');
-
     }
 
     // Tambah fungsi reset password

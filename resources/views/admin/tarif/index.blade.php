@@ -1,7 +1,7 @@
 @extends('admin.index')
 
 @section('content')
-<div class="p-4">
+<div class="p-4 bg-white rounded-2xl shadow-md">
     <h2 class="text-2xl font-bold mb-4">Daftar Tarif Listrik</h2>
     <a href="{{ route('admin.tarif.create') }}" class="bg-blue-600 text-white px-4 py-2 rounded">+ Tambah Tarif</a>
 

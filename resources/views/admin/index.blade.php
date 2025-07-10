@@ -18,6 +18,7 @@
 <body class="bg-blue-50 font-sans">
     <div class="flex min-h-screen">
         <!-- Sidebar -->
+         
         @include('admin.layouts.sidebar')
 
 

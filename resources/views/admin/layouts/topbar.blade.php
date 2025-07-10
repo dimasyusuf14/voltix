@@ -1,5 +1,5 @@
 <!-- Topbar -->
-<div class="flex justify-between items-center bg-white rounded-2xl mx-3 p-3 mb-10 shadow-md">
+<div class="flex justify-between items-center mt-5 bg-white rounded-2xl mx-3 p-3 mb-10 shadow-md">
     <h1 class="text-2xl font-bold">Dashboard</h1>
     <div class="flex items-center gap-4">
         <button class="relative">

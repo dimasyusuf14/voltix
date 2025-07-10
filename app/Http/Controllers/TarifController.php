@@ -39,7 +39,7 @@ class TarifController extends Controller
     public function edit($id)
     {
         $tarif = Tarif::findOrFail($id);
-        return view('admin.tarif.edit', compact('tarif'));
+        return view('admin.tarif.edit-modal', compact('tarif'));
     }
 
     public function update(Request $request, $id)

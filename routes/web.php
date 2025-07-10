@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\PelangganController;
 use App\Http\Controllers\TarifController;
 use Illuminate\Support\Facades\Route;
@@ -47,9 +48,8 @@ Route::middleware(['auth', 'admin'])->group(function () {});
 
 
 // Dashboard Admin
-Route::get('/admin', function () {
-    return view('admin.dashboard.index');
-})->name('dashboard.index');
+Route::get('/admin/dashboard', [DashboardController::class, 'index'])->name('admin.dashboard.index');
+
 
 // Aksi tombol konfirmasi pelanggan
 Route::post('/admin/konfirmasi-pelanggan/{id}', [PelangganController::class, 'konfirmasi'])->name('admin.konfirmasi.submit');

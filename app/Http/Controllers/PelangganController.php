@@ -16,13 +16,13 @@ class PelangganController extends Controller
             ->where('status', 'aktif')
             ->get();
 
-        return view('admin.pelanggan.index', compact('pelanggans'));
+        $tarifs = Tarif::all();
+        return view('admin.pelanggan.index', compact('pelanggans', 'tarifs'));
     }
 
     public function create()
     {
         $tarifs = Tarif::all();
-        // Generate nomor_kwh 10 karakter
         $nomor_kwh = strtoupper(Str::random(10));
         return view('admin.pelanggan.create', compact('tarifs', 'nomor_kwh'));
     }
@@ -33,16 +33,24 @@ class PelangganController extends Controller
             'nama_pelanggan' => 'required|string|max:100',
             'email' => 'required|email|unique:pelanggans,email',
             'alamat' => 'required|string',
+            'no_telp' => 'required|string|max:20',
             'id_tarif' => 'required|exists:tarifs,id_tarif',
             'password' => 'required|confirmed|min:6',
             'nomor_kwh' => 'required|string|size:10|unique:pelanggans,nomor_kwh',
         ]);
+
+        // Konversi no_telp 08xx ke +628xx
+        $no_telp = $request->no_telp;
+        if (Str::startsWith($no_telp, '0')) {
+            $no_telp = '+62' . substr($no_telp, 1);
+        }
 
         Pelanggan::create([
             'nama_pelanggan' => $request->nama_pelanggan,
             'email' => $request->email,
             'nomor_kwh' => $request->nomor_kwh,
             'alamat' => $request->alamat,
+            'no_telp' => $no_telp,
             'id_tarif' => $request->id_tarif,
             'password' => Hash::make($request->password),
             'status' => 'aktif',
@@ -55,7 +63,7 @@ class PelangganController extends Controller
     {
         $pelanggan = Pelanggan::findOrFail($id);
         $tarifs = Tarif::all();
-        return view('admin.pelanggan.edit', compact('pelanggan', 'tarifs'));
+        return view('admin.pelanggan.edit-modal', compact('pelanggan', 'tarifs'));
     }
 
     public function update(Request $request, $id)
@@ -66,13 +74,19 @@ class PelangganController extends Controller
             'nama_pelanggan' => 'required|string|max:100',
             'email' => 'required|email|unique:pelanggans,email,' . $id . ',id_pelanggan',
             'alamat' => 'required|string',
+            'no_telp' => 'required|string|max:20',
             'id_tarif' => 'required|exists:tarifs,id_tarif',
             'status' => 'required|in:aktif,nonaktif',
         ]);
 
-        $data = $request->only(['nama_pelanggan', 'email', 'alamat', 'id_tarif', 'status']);
+        $no_telp = $request->no_telp;
+        if (Str::startsWith($no_telp, '0')) {
+            $no_telp = '+62' . substr($no_telp, 1);
+        }
 
-        // Optional: update password jika diisi
+        $data = $request->only(['nama_pelanggan', 'email', 'alamat', 'id_tarif', 'status']);
+        $data['no_telp'] = $no_telp;
+
         if ($request->filled('password')) {
             $data['password'] = Hash::make($request->password);
         }
@@ -82,15 +96,16 @@ class PelangganController extends Controller
         return redirect()->route('admin.pelanggan.index')->with('success', 'Pelanggan berhasil diperbarui.');
     }
 
-    // Tambah fungsi reset password
     public function resetPassword(Request $request, $id)
     {
         $request->validate([
             'password' => 'required|confirmed|min:6',
         ]);
+
         $pelanggan = Pelanggan::findOrFail($id);
         $pelanggan->password = Hash::make($request->password);
         $pelanggan->save();
+
         return redirect()->route('admin.pelanggan.edit', $id)->with('success', 'Password berhasil direset.');
     }
 

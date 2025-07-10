@@ -30,7 +30,7 @@
                         required>
                 </div>
 
-                <a type="submit" href="{{ route('dashboard.index') }}"
+                <a type="submit" href="{{ route('admin.dashboard.index') }}"
                     class="text-center w-full bg-[#ff654d] text-white py-2.5 mt-2 rounded-full font-semibold hover:bg-[#e14b3b] transition">
                     Masuk
                 </a>
@@ -57,7 +57,7 @@
                         required>
                 </div>
 
-                <a type="submit" href="{{ route('dashboard.index') }}"
+                <a type="submit" href="{{ route('admin.dashboard.index') }}"
                     class="text-center w-full bg-[#ff654d] text-white py-2.5 mt-2 rounded-full font-semibold hover:bg-[#e14b3b] transition">
                     Masuk
                 </a>

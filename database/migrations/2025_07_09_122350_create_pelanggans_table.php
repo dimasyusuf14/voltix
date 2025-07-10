@@ -17,6 +17,7 @@ return new class extends Migration
             $table->string('password');
             $table->string('nomor_kwh')->unique();
             $table->string('nama_pelanggan');
+            $table->string('no_telp')->nullable(); // ✅ Tambahan: Nomor Telepon
             $table->text('alamat');
             $table->unsignedBigInteger('id_tarif');
             $table->enum('status', ['waiting', 'aktif'])->default('waiting'); // 👈 STATUS

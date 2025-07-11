@@ -41,13 +41,14 @@ class PenggunaanController extends Controller
     {
         $request->validate([
             'id_pelanggan' => 'required|exists:pelanggans,id_pelanggan',
-            'bulan' => 'required|integer|min:1|max:12',
+            'bulan' => 'required|numeric|min:1|max:12',
             'tahun' => 'required|digits:4',
-            'meter_awal' => 'required|numeric|min:0',
-            'meter_akhir' => 'required|numeric|min:0|gte:meter_awal',
+            'meter_awal' => 'required|integer|min:0',
+            'meter_akhir' => 'required|integer|gte:meter_awal',
         ]);
 
-        Penggunaan::create([
+        // 1. Simpan ke tabel penggunaans
+        $penggunaan = Penggunaan::create([
             'id_pelanggan' => $request->id_pelanggan,
             'bulan' => $request->bulan,
             'tahun' => $request->tahun,
@@ -55,8 +56,22 @@ class PenggunaanController extends Controller
             'meter_akhir' => $request->meter_akhir,
         ]);
 
-        return redirect()->route('admin.penggunaan.index')->with('success', 'Penggunaan berhasil ditambahkan.');
+        // 2. Hitung jumlah meter dari selisih akhir-awal
+        $jumlah_meter = $request->meter_akhir - $request->meter_awal;
+
+        // 3. Simpan otomatis ke tabel tagihan
+        Tagihan::create([
+            'id_penggunaan' => $penggunaan->id_penggunaan,
+            'id_pelanggan' => $request->id_pelanggan,
+            'bulan' => $request->bulan,
+            'tahun' => $request->tahun,
+            'jumlah_meter' => $jumlah_meter,
+            'status' => 'Belum Lunas', // default
+        ]);
+
+        return redirect()->route('admin.penggunaan.index')->with('success', 'Penggunaan & Tagihan berhasil ditambahkan.');
     }
+
 
     public function edit($id)
     {

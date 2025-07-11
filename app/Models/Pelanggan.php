@@ -28,7 +28,10 @@ class Pelanggan extends Model
         return $this->belongsTo(Tarif::class, 'id_tarif', 'id_tarif');
     }
 
-    // App\Models\Pelanggan.php
+    public function tagihans()
+    {
+        return $this->hasMany(Tagihan::class, 'id_pelanggan');
+    }
 
     public function getNoTelpFormattedAttribute()
     {

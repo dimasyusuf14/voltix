@@ -69,3 +69,14 @@ Route::prefix('admin/penggunaan')->name('admin.penggunaan.')->group(function () 
     Route::put('/{id}', [PenggunaanController::class, 'update'])->name('update');
     Route::delete('/{id}', [PenggunaanController::class, 'destroy'])->name('destroy');
 });
+
+Route::prefix('admin/tagihan')->name('admin.tagihan.')->group(function () {
+    Route::get('/', [TagihanController::class, 'index'])->name('index');
+    Route::post('/{id}/konfirmasi', [TagihanController::class, 'konfirmasi'])->name('konfirmasi');
+    Route::get('/tagihan/export/pdf', [TagihanController::class, 'exportPdf'])->name('exportPdf');
+    Route::get('/{id}/bayar', [TagihanController::class, 'bayar'])->name('bayar');
+    Route::delete('/{id}', [TagihanController::class, 'destroy'])->name('destroy');
+    // Route untuk preview/print struk tagihan
+    Route::get('/{id}/preview', [TagihanController::class, 'preview'])->name('preview');
+    Route::get('/{id}/print', [TagihanController::class, 'print'])->name('print');
+});

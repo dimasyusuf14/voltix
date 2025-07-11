@@ -25,4 +25,9 @@ class Penggunaan extends Model
     {
         return $this->belongsTo(Pelanggan::class, 'id_pelanggan', 'id_pelanggan');
     }
+
+    public function tagihan()
+{
+    return $this->hasOne(Tagihan::class, 'id_penggunaan', 'id_penggunaan');
+}
 }

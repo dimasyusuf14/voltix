@@ -8,10 +8,20 @@
     @vite(['resources/css/app.css', 'resources/js/app.js'])
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/daisyui@5" rel="stylesheet" type="text/css" />
-<script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
     <style>
         body {
             font-family: 'Inter', sans-serif;
+        }
+
+        .shadow-sides-bottom {
+            box-shadow:
+                0 4px 8px rgba(0, 0, 0, 0.1),
+                /* bawah */
+                -4px 0 8px rgba(0, 0, 0, 0.05),
+                /* kiri */
+                4px 0 8px rgba(0, 0, 0, 0.05);
+            /* kanan */
         }
     </style>
 </head>

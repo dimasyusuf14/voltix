@@ -6,7 +6,7 @@
         <ul class="flex space-x-6 text-sm text-gray-700">
             <li><a href="{{ route('landing-page') }}" class="hover:text-white font-medium hover:bg-orange-500 transition duration-200 p-2 rounded-md">Beranda</a></li>
             <li><a href="{{ route('cek-tagihan') }}" class="hover:text-white font-medium hover:bg-orange-500 transition duration-200 p-2 rounded-md">Cek Tagihan</a></li>
-            <li><a href="{{ route('tarif-listrik') }}" class="hover:text-white font-medium hover:bg-orange-500 transition duration-200 p-2 rounded-md">Tarif Listrik</a></li>
+            <li><a href="{{ route('tarif.listrik.pelanggan') }}" class="hover:text-white font-medium hover:bg-orange-500 transition duration-200 p-2 rounded-md">Tarif Listrik</a></li>
         </ul>
         <div class="space-x-2">
             <a href="{{ route('register') }}" class="border border-blue-600 text-blue-600 px-4 py-2 rounded-md hover:bg-blue-100 text-sm font-semibold transition duration-200">Daftar</a>

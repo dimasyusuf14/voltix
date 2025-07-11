@@ -6,7 +6,8 @@
     <div class="container mx-auto flex flex-col-reverse md:flex-row items-center px-4 gap-12">
         <div class="md:w-1/2 text-center md:text-left">
             <h1 class="text-4xl md:text-5xl font-bold leading-tight mb-4 text-blue-600">
-                Selamat datang, <span class="text-orange-600">Amat</span> Tongtong
+                Selamat datang, <br>
+                <span class="text-orange-600">Amat</span> Tongtong
             </h1>
             <p class="text-gray-600 mb-8 text-lg">
                 Kelola tagihan listrik anda dengan mudah. Periksa riwayat penggunaan, cek tagihan terbaru, dan lakukan pembayaran dengan cepat dan aman. </p>

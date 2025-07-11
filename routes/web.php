@@ -22,11 +22,30 @@ use Illuminate\Support\Facades\Route;
 // 💡 Halaman landing dan info umum
 Route::view('/', 'landing.landing-page')->name('landing-page');
 Route::view('/cek-tagihan', 'landing.cek-tagihan')->name('cek-tagihan');
-Route::view('/tarif-listrik', 'landing.tarif-listrik')->name('tarif-listrik');
 
 
 Route::view('/pelanggan', 'pelanggan.index')->name('pelanggan.index');
-Route::view('/pelanggan/riwayat', 'pelanggan.riwayat.index')->name('riwayat');
+Route::view('/pelanggan/riwayat-penggunaan', 'pelanggan.riwayat.riwayat-penggunaan')->name('riwayat-penggunaan');
+Route::view('/pelanggan/riwayat-pembayaran', 'pelanggan.riwayat.riwayat-pembayaran')->name('riwayat-pembayaran');
+Route::view('/pelanggan/tagihan', 'pelanggan.tagihan.index')->name('tagihan');
+
+Route::view('/pelanggan/pembayaran', 'pelanggan.pembayaran.index')->name('pembayaran');
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 // ✅ Pelanggan: Formulir dan penyimpanan pendaftaran
@@ -85,3 +104,6 @@ Route::prefix('admin/tagihan')->name('admin.tagihan.')->group(function () {
     Route::get('/{id}/preview', [TagihanController::class, 'preview'])->name('preview');
     Route::get('/{id}/print', [TagihanController::class, 'print'])->name('print');
 });
+
+// Untuk pelanggan
+Route::get('/pelanggan/tarif-listrik', [TarifController::class, 'showToPelanggan'])->name('tarif.listrik.pelanggan');

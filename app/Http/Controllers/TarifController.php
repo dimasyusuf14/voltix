@@ -13,6 +13,13 @@ class TarifController extends Controller
         return view('admin.tarif.index', compact('tarifs'));
     }
 
+    public function showToPelanggan()
+    {
+        $tarifs = Tarif::all();
+        return view('landing.tarif-listrik', compact('tarifs'));
+    }
+
+
     public function create()
     {
         return view('admin.tarif.create-modal');

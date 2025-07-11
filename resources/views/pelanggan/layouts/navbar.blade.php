@@ -10,17 +10,21 @@
                 </a>
             </li>
             <li>
-                <a href="{{ route('cek-tagihan') }}" class="hover:text-white font-medium hover:bg-orange-500 transition duration-200 p-2 rounded-md">
+                <a href="{{ route('tagihan') }}" class="hover:text-white font-medium hover:bg-orange-500 transition duration-200 p-2 rounded-md">
                     Tagihan
                 </a>
             </li>
-            <li>
-                <a href="#" class="hover:text-white font-medium hover:bg-orange-500 transition duration-200 p-2 rounded-md">
+            <li class="relative group">
+                <a class="hover:text-white font-medium hover:bg-orange-500 transition duration-200 p-2 rounded-md cursor-pointer">
                     Riwayat
                 </a>
+                <ul class="absolute hidden group-hover:block z-10 bg-white rounded shadow mt-2 w-48 p-2 space-y-1 border text-sm">
+                    <li><a href="{{ route('riwayat-penggunaan')}}" class="block px-4 py-2 hover:bg-gray-100 rounded">Riwayat Penggunaan</a></li>
+                    <li><a href="{{ route('riwayat-pembayaran')}}" class="block px-4 py-2 hover:bg-gray-100 rounded">Riwayat Pembayaran</a></li>
+                </ul>
             </li>
             <li>
-                <a href="{{ route('tarif-listrik') }}" class="hover:text-white font-medium hover:bg-orange-500 transition duration-200 p-2 rounded-md">
+                <a href="{{ route('tarif.listrik.pelanggan') }}" class="hover:text-white font-medium hover:bg-orange-500 transition duration-200 p-2 rounded-md">
                     Tarif Listrik
                 </a>
             </li>
@@ -55,5 +59,3 @@
         </div>
     </div>
 </nav>
-
-

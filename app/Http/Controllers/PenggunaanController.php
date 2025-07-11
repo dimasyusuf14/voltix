@@ -41,13 +41,23 @@ class PenggunaanController extends Controller
     {
         $request->validate([
             'id_pelanggan' => 'required|exists:pelanggans,id_pelanggan',
-            'bulan' => 'required|numeric|min:1|max:12',
-            'tahun' => 'required|digits:4',
+            'bulan' => 'required|integer|min:1|max:12',
+            'tahun' => 'required|integer|min:2020',
             'meter_awal' => 'required|integer|min:0',
             'meter_akhir' => 'required|integer|gte:meter_awal',
         ]);
 
-        // 1. Simpan ke tabel penggunaans
+        // Cek duplikasi penggunaan
+        $exists = Penggunaan::where('id_pelanggan', $request->id_pelanggan)
+            ->where('bulan', $request->bulan)
+            ->where('tahun', $request->tahun)
+            ->exists();
+
+        if ($exists) {
+            return back()->with('error', 'Data penggunaan sudah ada untuk pelanggan dan periode ini.')->withInput();
+        }
+
+        // Simpan penggunaan
         $penggunaan = Penggunaan::create([
             'id_pelanggan' => $request->id_pelanggan,
             'bulan' => $request->bulan,
@@ -56,20 +66,22 @@ class PenggunaanController extends Controller
             'meter_akhir' => $request->meter_akhir,
         ]);
 
-        // 2. Hitung jumlah meter dari selisih akhir-awal
+        // Buat tagihan
         $jumlah_meter = $request->meter_akhir - $request->meter_awal;
+        $pelanggan = Pelanggan::with('tarif')->find($request->id_pelanggan);
+        $tarif_per_kwh = $pelanggan->tarif->tarif_perkwh;
 
-        // 3. Simpan otomatis ke tabel tagihan
-        Tagihan::create([
-            'id_penggunaan' => $penggunaan->id_penggunaan,
+        $tagihan = Tagihan::create([
             'id_pelanggan' => $request->id_pelanggan,
+            'id_penggunaan' => $penggunaan->id_penggunaan,
             'bulan' => $request->bulan,
             'tahun' => $request->tahun,
             'jumlah_meter' => $jumlah_meter,
-            'status' => 'Belum Lunas', // default
+            'total_tagihan' => $jumlah_meter * $tarif_per_kwh,
+            'status' => 'Belum Lunas',
         ]);
 
-        return redirect()->route('admin.penggunaan.index')->with('success', 'Penggunaan & Tagihan berhasil ditambahkan.');
+        return redirect()->route('admin.penggunaan.index')->with('success', 'Data penggunaan dan tagihan berhasil ditambahkan.');
     }
 
 

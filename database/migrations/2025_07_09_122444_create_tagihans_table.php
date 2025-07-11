@@ -18,7 +18,7 @@ return new class extends Migration
             $table->integer('bulan');
             $table->integer('tahun');
             $table->integer('jumlah_meter');
-            $table->enum('status', ['Belum Lunas', 'Sudah Lunas'])->default('Belum Lunas');
+            $table->enum('status', ['Belum Lunas', 'Menunggu Verifikasi', 'Sudah Lunas'])->default('Belum Lunas');
             $table->timestamps();
 
             $table->foreign('id_penggunaan')->references('id_penggunaan')->on('penggunaans');

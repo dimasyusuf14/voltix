@@ -21,6 +21,8 @@ return new class extends Migration
             $table->timestamps();
 
             $table->foreign('id_pelanggan')->references('id_pelanggan')->on('pelanggans')->onDelete('cascade');
+
+            $table->unique(['id_pelanggan', 'bulan', 'tahun'], 'unique_penggunaan_per_pelanggan_periode');
         });
     }
 

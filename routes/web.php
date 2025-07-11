@@ -24,6 +24,11 @@ Route::view('/', 'landing.landing-page')->name('landing-page');
 Route::view('/cek-tagihan', 'landing.cek-tagihan')->name('cek-tagihan');
 Route::view('/tarif-listrik', 'landing.tarif-listrik')->name('tarif-listrik');
 
+
+Route::view('/pelanggan', 'pelanggan.index')->name('pelanggan.index');
+Route::view('/pelanggan/riwayat', 'pelanggan.riwayat.index')->name('riwayat');
+
+
 // ✅ Pelanggan: Formulir dan penyimpanan pendaftaran
 Route::controller(PelangganController::class)->group(function () {
     Route::get('/register-pelanggan', 'showRegisterForm')->name('pelanggan.form');

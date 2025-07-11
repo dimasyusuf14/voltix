@@ -28,7 +28,7 @@
 
             <li class="sidebar-item">
                 <a class="sidebar-link gap-3 py-2.5 my-1 text-base flex items-center relative rounded-md text-gray-500 w-full hover:bg-blue-100 transition duration-300 {{ request()->routeIs('tarif.index') ? 'bg-blue-100 font-semibold' : '' }}" href="{{ route('tarif.index') }}">
-                    <i class="ti ti-alert-circle ps-2 text-2xl"></i> <span>Tarif Layanan</span>
+                    <i class="ti ti-receipt-dollar ps-2 text-2xl"></i> <span>Tarif Layanan</span>
                 </a>
             </li>
 
@@ -39,13 +39,13 @@
 
             <li class="sidebar-item">
                 <a class="sidebar-link gap-3 py-2.5 my-1 text-base flex items-center relative rounded-md text-gray-500 w-full hover:bg-blue-100 transition duration-300 {{ request()->routeIs('admin.pelanggan.konfirmasi') ? 'bg-blue-100 font-semibold' : '' }}" href="{{ route('admin.pelanggan.konfirmasi') }}">
-                    <i class="ti ti-article ps-2 text-2xl"></i> <span>Konfirmasi Pelanggan</span>
+                    <i class="ti ti-users-plus ps-2 text-2xl"></i> <span>Konfirmasi Pelanggan</span>
                 </a>
             </li>
 
             <li class="sidebar-item">
                 <a class="sidebar-link gap-3 py-2.5 my-1 text-base flex items-center relative rounded-md text-gray-500 w-full hover:bg-blue-100 transition duration-300 {{ request()->routeIs('admin.pelanggan.index') ? 'bg-blue-100 font-semibold' : '' }}" href="{{ route('admin.pelanggan.index') }}">
-                    <i class="ti ti-cards ps-2 text-2xl"></i> <span>Pelanggan Aktif</span>
+                    <i class="ti ti-users ps-2 text-2xl"></i> <span>Pelanggan Aktif</span>
                 </a>
             </li>
 
@@ -56,19 +56,19 @@
 
             <li class="sidebar-item">
                 <a class="sidebar-link gap-3 py-2.5 my-1 text-base flex items-center relative rounded-md text-gray-500 w-full hover:bg-blue-100 transition duration-300 {{ request()->routeIs('admin.penggunaan.index') ? 'bg-blue-100 font-semibold' : '' }}" href="{{ route('admin.penggunaan.index') }}">
-                    <i class="ti ti-file-description ps-2 text-2xl"></i> <span>Input Penggunaan</span>
+                    <i class="ti ti-chart-bar ps-2 text-2xl"></i> <span>Input Penggunaan</span>
                 </a>
             </li>
 
             <li class="sidebar-item">
                 <a class="sidebar-link gap-3 py-2.5 my-1 text-base flex items-center relative rounded-md text-gray-500 w-full hover:bg-blue-100 transition duration-300 {{ request()->routeIs('admin.tagihan.index') ? 'bg-blue-100 font-semibold' : '' }}" href="{{ route('admin.tagihan.index') }}">
-                    <i class="ti ti-file-description ps-2 text-2xl"></i> <span>Tagihan Pelanggan</span>
+                    <i class="ti ti-coin ps-2 text-2xl"></i> <span>Tagihan Pelanggan</span>
                 </a>
             </li>
 
             <li class="sidebar-item">
                 <a class="sidebar-link gap-3 py-2.5 my-1 text-base flex items-center relative rounded-md text-gray-500 w-full hover:bg-blue-100 transition duration-300" href="./components/typography.html">
-                    <i class="ti ti-typography ps-2 text-2xl"></i> <span>Riwayat Pembayaran</span>
+                    <i class="ti ti-cash ps-2 text-2xl"></i> <span>Riwayat Pembayaran</span>
                 </a>
             </li>
 

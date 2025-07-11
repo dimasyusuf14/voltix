@@ -16,7 +16,7 @@ class TarifController extends Controller
     public function showToPelanggan()
     {
         $tarifs = Tarif::all();
-        return view('landing.tarif-listrik', compact('tarifs'));
+        return view('pelanggan.tarif.index', compact('tarifs'));
     }
 
 

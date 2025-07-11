@@ -5,9 +5,12 @@
 <section class="py-20 md:py-24 px-20 md:px-24">
     <div class="container mx-auto flex flex-col-reverse md:flex-row items-center px-4 gap-12">
         <div class="md:w-1/2 text-center md:text-left">
+            @php
+                $pelanggan = \App\Models\Pelanggan::find(session('logged_id'));
+            @endphp
             <h1 class="text-4xl md:text-5xl font-bold leading-tight mb-4 text-blue-600">
                 Selamat datang, <br>
-                <span class="text-orange-600">Amat</span> Tongtong
+                <span class="text-orange-600">{{ $pelanggan->nama_pelanggan ?? 'Pelanggan' }}</span>
             </h1>
             <p class="text-gray-600 mb-8 text-lg">
                 Kelola tagihan listrik anda dengan mudah. Periksa riwayat penggunaan, cek tagihan terbaru, dan lakukan pembayaran dengan cepat dan aman. </p>

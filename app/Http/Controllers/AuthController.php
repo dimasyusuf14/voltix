@@ -2,63 +2,54 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Pelanggan;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Session;
 
 class AuthController extends Controller
 {
-    // Tampilkan form login
-    public function showLoginForm()
+    public function showLogin()
     {
-        return view('auth.login');
+        return view('auth.login');          // ← view milikmu
     }
 
-    // Proses login
     public function login(Request $request)
     {
-        $credentials = $request->only('email', 'password');
+        $request->validate([
+            'email'    => 'required|email',
+            'password' => 'required',
+        ]);
 
-        if (Auth::attempt($credentials)) {
-            $request->session()->regenerate();
-            return redirect()->intended('/admin')->with('success', 'Anda berhasil login.');
+        // 1) cek di tabel users (admin)
+        $user = User::where('email', $request->email)->first();
+        if ($user && Hash::check($request->password, $user->password)) {
+            Session::put('logged_id',  $user->id);
+            Session::put('logged_in', true);
+            Session::put('level',      1);          // admin
+            return redirect()->route('admin.dashboard.index');
         }
 
-        return back()->with('error', 'Email atau password salah.');
+        // 2) cek di tabel pelanggans
+        $pelanggan = Pelanggan::where('email', $request->email)->first();
+        if ($pelanggan && Hash::check($request->password, $pelanggan->password)) {
+            Session::put('logged_id',  $pelanggan->id_pelanggan);
+            Session::put('logged_in',  true);
+            Session::put('level',      2);          // pelanggan
+            return redirect()->route('pelanggan.index');
+        }
+
+        // kalau keduanya gagal
+        return back()
+            ->withInput($request->only('email'))
+            ->with('error', 'Email / Password salah.');
     }
 
-    // Logout
-    public function logout(Request $request)
+    public function logout()
     {
-        Auth::logout();
-
-        $request->session()->invalidate();
-        $request->session()->regenerateToken();
-
-        return redirect('/login')->with('success', 'Anda telah logout.');
-    }
-
-    public function showRegisterForm()
-    {
-        return view('auth.register');
-    }
-
-    public function register(Request $request)
-    {
-        $request->validate([
-            'name' => 'required|string|max:100',
-            'email' => 'required|email|unique:users',
-            'password' => 'required|confirmed|min:6',
-        ]);
-
-        User::create([
-            'name' => $request->name,
-            'email' => $request->email,
-            'password' => Hash::make($request->password),
-            'role' => 'pelanggan', // default role
-        ]);
-
-        return redirect()->route('login')->with('success', 'Registrasi berhasil. Silakan login.');
+        Session::flush();        // hapus seluruh session
+        return redirect()->route('login');
     }
 }

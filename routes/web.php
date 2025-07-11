@@ -21,7 +21,6 @@ use Illuminate\Support\Facades\Route;
 
 // 💡 Halaman landing dan info umum
 Route::view('/', 'landing.landing-page')->name('landing-page');
-Route::view('/cek-tagihan', 'landing.cek-tagihan')->name('cek-tagihan');
 
 
 Route::view('/pelanggan', 'pelanggan.index')->name('pelanggan.index');
@@ -35,10 +34,22 @@ Route::view('/pelanggan/pembayaran', 'pelanggan.pembayaran.index')->name('pembay
 
 
 
+Route::middleware('level:1')->prefix('admin')->group(function () {
+    Route::view('/dashboard', 'admin.dashboard.index')->name('admin.dashboard.index');
+    // … route admin lain
+});
 
+Route::middleware('level:2')->prefix('pelanggan')->group(function () {
+    Route::view('/', 'pelanggan.index')->name('pelanggan.index');
+    // … route pelanggan lain
+});
 
+Route::middleware('guest')->group(function () {
+    Route::get('/login', [AuthController::class, 'showLogin'])->name('login');
+    Route::post('/login', [AuthController::class, 'login'])->name('login.attempt');
+});
 
-
+Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 
 
 
@@ -58,9 +69,6 @@ Route::controller(PelangganController::class)->group(function () {
 Route::controller(AuthController::class)->group(function () {
     Route::get('/register', 'showRegisterForm')->name('register');
     Route::post('/register', 'register')->name('register.post');
-    Route::get('/login', 'showLoginForm')->name('login');
-    Route::post('/login', 'login')->name('login.post');
-    Route::post('/logout', 'logout')->name('logout');
 });
 
 // Dashboard Admin
@@ -69,9 +77,6 @@ Route::get('/admin/dashboard', [DashboardController::class, 'index'])->name('adm
 // Konfirmasi pelanggan
 Route::post('/admin/konfirmasi-pelanggan/{id}', [PelangganController::class, 'konfirmasi'])->name('admin.konfirmasi.submit');
 Route::get('/admin/konfirmasi-pelanggan', [PelangganController::class, 'konfirmasiList'])->name('admin.pelanggan.konfirmasi');
-
-// Tarif
-Route::resource('admin/tarif', TarifController::class)->except(['show']);
 
 // Pelanggan
 Route::prefix('admin/pelanggan')->name('admin.pelanggan.')->group(function () {
@@ -107,3 +112,6 @@ Route::prefix('admin/tagihan')->name('admin.tagihan.')->group(function () {
 
 // Untuk pelanggan
 Route::get('/pelanggan/tarif-listrik', [TarifController::class, 'showToPelanggan'])->name('tarif.listrik.pelanggan');
+
+// Tarif
+Route::resource('admin/tarif', TarifController::class)->except(['show']);

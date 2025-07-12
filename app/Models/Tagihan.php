@@ -29,4 +29,17 @@ class Tagihan extends Model
     {
         return $this->belongsTo(Penggunaan::class, 'id_penggunaan', 'id_penggunaan');
     }
+
+    public function pembayaran()
+    {
+        return $this->hasOne(Pembayaran::class, 'id_tagihan', 'id_tagihan');
+    }
+
+    public function getNoInvoiceAttribute(): string
+    {
+        $hash   = md5($this->attributes['id_tagihan']);
+        $digits = preg_replace('/\D/', '', $hash);
+        $kode   = substr(str_pad($digits, 10, '0'), 0, 10);
+        return '#' . $kode;
+    }
 }

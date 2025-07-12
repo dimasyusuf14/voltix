@@ -58,13 +58,11 @@
                     <td class="px-4 py-2 border text-center">
                         <div class="flex justify-center gap-2">
                             @if ($tagihan->status === 'Menunggu Verifikasi')
-                            {{-- Tombol Konfirmasi --}}
-                            <form action="{{ route('admin.tagihan.konfirmasi', $tagihan->id_tagihan) }}" method="POST" class="inline">
-                                @csrf
-                                <button type="submit" class="bg-yellow-400 text-white px-3 py-1 rounded hover:bg-yellow-500" title="Konfirmasi">
-                                    <i class="fa fa-check"></i>
-                                </button>
-                            </form>
+                            {{-- Tombol Konfirmasi (buka modal) --}}
+                            <button type="button" class="bg-yellow-400 text-white px-3 py-1 rounded hover:bg-yellow-500" title="Konfirmasi" onclick="openModal('{{ $tagihan->id_tagihan }}')">
+                                <i class="fa fa-check"></i>
+                            </button>
+                            @include('admin.tagihan.konfirmasi-modal', ['tagihan' => $tagihan])
                             @endif
                             @if ($tagihan->status === 'Sudah Lunas')
                             {{-- Tombol Cetak (stream PDF) --}}

@@ -13,7 +13,7 @@ class TagihanController extends Controller
 {
     public function index(Request $request)
     {
-        $query = Tagihan::with(['pelanggan']);
+        $query = Tagihan::with(['pelanggan', 'pembayaran']);
 
         if ($request->filled('nomor_kwh')) {
             $query->whereHas('pelanggan', function ($q) use ($request) {

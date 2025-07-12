@@ -61,7 +61,7 @@
         {{-- tombol close X --}}
         <button type="button"
             onclick="closeModal('{{ $tagihan->id_tagihan }}')"
-            class="absolute -top-2 -right-2 bg-white text-gray-600 rounded-full w-8 h-8 shadow">
+            class="absolute -top-2 -right-2 bg-grey text-gray-600 rounded-full w-8 h-8 shadow">
             &times;
         </button>
     </div>

@@ -41,7 +41,8 @@ Route::middleware('level:1')->prefix('admin')->group(function () {
 
 Route::middleware('level:2')->prefix('pelanggan')->group(function () {
     Route::view('/', 'pelanggan.index')->name('pelanggan.index');
-    // … route pelanggan lain
+    Route::get('/pelanggan/tagihan', [TagihanController::class, 'pelangganIndex'])
+        ->name('tagihan');
 });
 
 Route::middleware('guest')->group(function () {

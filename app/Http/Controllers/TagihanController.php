@@ -30,6 +30,23 @@ class TagihanController extends Controller
         return view('admin.tagihan.index', compact('tagihans'));
     }
 
+    public function pelangganIndex(Request $request)
+    {
+        $pelangganId = session('logged_id');           // id pelanggan yg login
+        $query = Tagihan::with('pelanggan')            // relasi → models/Tagihan.php
+            ->where('id_pelanggan', $pelangganId)
+            ->orderByDesc('tahun')
+            ->orderByDesc('bulan');
+
+        // filter (opsional)
+        if ($request->filled('status')) {
+            $query->where('status', $request->status);
+        }
+
+        $tagihans = $query->get();
+        return view('pelanggan.tagihan.index', compact('tagihans'));
+    }
+
     public function konfirmasi($id)
     {
         $tagihan = Tagihan::findOrFail($id);

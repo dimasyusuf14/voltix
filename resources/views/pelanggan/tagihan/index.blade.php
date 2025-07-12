@@ -22,58 +22,45 @@
 
     <!-- Kartu Tagihan -->
     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-        <!-- Kartu 1 -->
+
+        @forelse ($tagihans as $t)
+        @php
+        // warna status & tombol
+        $warna = $t->status == 'Sudah Lunas' ? 'text-green-600' : 'text-red-600';
+        $btnShow = $t->status == 'Belum Lunas';
+        @endphp
+
         <div class="bg-white shadow-sides-bottom rounded-xl p-6">
-            <h2 class="text-lg font-bold mb-2">Februari 2025</h2>
-            <p class="text-sm text-gray-500 font-medium">#0426528898</p>
-            <p class="text-sm text-gray-800 font-semibold">Jonathan Muller</p>
-            <p class="text-sm text-red-600 font-medium">Belum Lunas</p>
+            <h2 class="text-lg font-bold mb-2">
+                {{ \Illuminate\Support\Str::headline(\Carbon\Carbon::create($t->tahun, $t->bulan)->isoFormat('MMMM YYYY')) }}
+            </h2>
+
+            <p class="text-sm text-gray-500 font-medium">#{{ $t->id_tagihan }}</p>
+            <p class="text-sm text-gray-800 font-semibold">{{ $t->pelanggan->nama_pelanggan }}</p>
+            <p class="text-sm {{ $warna }} font-medium">{{ $t->status }}</p>
             <p class="text-xs text-gray-500 mb-4">Status Pembayaran</p>
+
             <div class="border-t pt-3">
                 <p class="text-sm text-gray-600">Total Tagihan</p>
-                <p class="text-blue-600 text-lg font-bold">Rp 257.430</p>
+                <p class="text-blue-600 text-lg font-bold">
+                    Rp {{ number_format($t->jumlah_meter * $t->pelanggan->tarif->tarifperkwh, 0, ',', '.') }}
+                </p>
                 <p class="text-xs text-gray-500 mb-3">Sudah Termasuk Biaya Admin</p>
-                <a class="block w-full bg-blue-600 hover:bg-blue-700 text-white text-sm font-medium py-2 rounded-md text-center"
-                    href="{{ ('pembayaran') }}">
+
+                @if ($btnShow)
+                <a class="block w-full bg-blue-600 hover:bg-blue-700 text-white text-sm font-medium py-2
+                           rounded-md text-center">
                     Bayar Sekarang
                 </a>
-
+                @endif
             </div>
         </div>
-
-        <!-- Kartu 2 -->
-        <div class="bg-white shadow-sides-bottom rounded-xl p-6">
-            <h2 class="text-lg font-bold mb-2">Maret 2025</h2>
-            <p class="text-sm text-gray-500 font-medium">#2076039945</p>
-            <p class="text-sm text-gray-800 font-semibold">Jonathan Muller</p>
-            <p class="text-sm text-red-600 font-medium">Belum Lunas</p>
-            <p class="text-xs text-gray-500 mb-4">Status Pembayaran</p>
-            <div class="border-t pt-3">
-                <p class="text-sm text-gray-600">Total Tagihan</p>
-                <p class="text-blue-600 text-lg font-bold">Rp 257.430</p>
-                <p class="text-xs text-gray-500 mb-3">Sudah Termasuk Biaya Admin</p>
-                <a class="block w-full bg-blue-600 hover:bg-blue-700 text-white text-sm font-medium py-2 rounded-md text-center"
-                    href="{{ ('pembayaran') }}">
-                    Bayar Sekarang
-                </a>    
-            </div>
-        </div>
-
-        <!-- Kartu 3 -->
-        <div class="bg-white shadow-sides-bottom rounded-xl p-6">
-            <h2 class="text-lg font-bold mb-2">Januari 2025</h2>
-            <p class="text-sm text-gray-500 font-medium">#1520034839</p>
-            <p class="text-sm text-gray-800 font-semibold">Jonathan Muller</p>
-            <p class="text-sm text-green-600 font-medium">Lunas</p>
-            <p class="text-xs text-gray-500 mb-4">Status Pembayaran</p>
-            <div class="border-t pt-3">
-                <p class="text-sm text-gray-600">Total Tagihan</p>
-                <p class="text-blue-600 text-lg font-bold">Rp 427.383</p>
-                <p class="text-xs text-gray-500 mb-3">Sudah Termasuk Biaya Admin</p>
-                <!-- Tidak ada tombol bayar -->
-            </div>
-        </div>
+        @empty
+        <p class="col-span-3 text-center text-gray-500">Belum ada tagihan.</p>
+        @endforelse
     </div>
+
 </div>
 
 @endsection
+

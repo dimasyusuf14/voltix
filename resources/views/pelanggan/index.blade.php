@@ -6,7 +6,7 @@
     <div class="container mx-auto flex flex-col-reverse md:flex-row items-center px-4 gap-12">
         <div class="md:w-1/2 text-center md:text-left">
             @php
-                $pelanggan = \App\Models\Pelanggan::find(session('logged_id'));
+            $pelanggan = \App\Models\Pelanggan::find(session('logged_id'));
             @endphp
             <h1 class="text-4xl md:text-5xl font-bold leading-tight mb-4 text-blue-600">
                 Selamat datang, <br>
@@ -18,7 +18,7 @@
 
                 <a href="#" class="bg-orange-600 text-white px-7 py-3 rounded-md font-medium hover:bg-orange-500 transition duration-200 shadow-md">Bayar Tagihan</a>
 
-                <a href="{{ route('register') }}" class="bg-white border border-blue-600 text-blue-600 px-7 py-3 rounded-md font-medium hover:bg-blue-100 transition duration-200 shadow-md">Riwayat Penggunaan</a>
+                <a href="{{ route('riwayat-pembayaran') }}" class="bg-white border border-blue-600 text-blue-600 px-7 py-3 rounded-md font-medium hover:bg-blue-100 transition duration-200 shadow-md">Riwayat Penggunaan</a>
             </div>
         </div>
         <div class="md:w-1/2 flex justify-end">

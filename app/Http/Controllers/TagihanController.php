@@ -32,19 +32,24 @@ class TagihanController extends Controller
 
     public function pelangganIndex(Request $request)
     {
-        $pelangganId = session('logged_id');           // id pelanggan yg login
-        $query = Tagihan::with('pelanggan')            // relasi → models/Tagihan.php
+        $pelangganId = session('logged_id');
+
+        $query = Tagihan::with(['pelanggan.tarif'])
             ->where('id_pelanggan', $pelangganId)
             ->orderByDesc('tahun')
             ->orderByDesc('bulan');
 
-        // filter (opsional)
-        if ($request->filled('status')) {
+        if ($request->filled('status') && $request->status !== 'Semua') {
             $query->where('status', $request->status);
         }
 
-        $tagihans = $query->get();
-        return view('pelanggan.tagihan.index', compact('tagihans'));
+        $tagihans        = $query->get();
+        $selectedStatus  = $request->status ?? 'Semua';
+
+        return view(
+            'pelanggan.tagihan.index',
+            compact('tagihans', 'selectedStatus')
+        );
     }
 
     public function konfirmasi($id)
@@ -56,14 +61,12 @@ class TagihanController extends Controller
         return redirect()->route('admin.tagihan.index')->with('success', 'Tagihan berhasil dikonfirmasi.');
     }
 
-    // Preview struk di browser (HTML)
     public function preview($id)
     {
         $tagihan = Tagihan::with('pelanggan.tarif')->findOrFail($id);
         return view('admin.tagihan.struk', compact('tagihan'));
     }
 
-    // Print/download PDF struk
     public function print($id)
     {
         $tagihan = Tagihan::with('pelanggan.tarif')->findOrFail($id);

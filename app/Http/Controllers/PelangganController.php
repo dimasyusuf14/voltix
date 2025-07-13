@@ -39,7 +39,6 @@ class PelangganController extends Controller
             'nomor_kwh' => 'required|string|size:10|unique:pelanggans,nomor_kwh',
         ]);
 
-        // Konversi no_telp 08xx ke +628xx
         $no_telp = $request->no_telp;
         if (Str::startsWith($no_telp, '0')) {
             $no_telp = '+62' . substr($no_telp, 1);

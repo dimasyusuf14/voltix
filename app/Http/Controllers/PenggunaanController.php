@@ -47,7 +47,6 @@ class PenggunaanController extends Controller
             'meter_akhir' => 'required|integer|gte:meter_awal',
         ]);
 
-        // Cek duplikasi penggunaan
         $exists = Penggunaan::where('id_pelanggan', $request->id_pelanggan)
             ->where('bulan', $request->bulan)
             ->where('tahun', $request->tahun)
@@ -57,7 +56,6 @@ class PenggunaanController extends Controller
             return back()->with('error', 'Data penggunaan sudah ada untuk pelanggan dan periode ini.')->withInput();
         }
 
-        // Simpan penggunaan
         $penggunaan = Penggunaan::create([
             'id_pelanggan' => $request->id_pelanggan,
             'bulan' => $request->bulan,
@@ -66,7 +64,6 @@ class PenggunaanController extends Controller
             'meter_akhir' => $request->meter_akhir,
         ]);
 
-        // Buat tagihan
         $jumlah_meter = $request->meter_akhir - $request->meter_awal;
         $pelanggan = Pelanggan::with('tarif')->find($request->id_pelanggan);
         $tarif_per_kwh = $pelanggan->tarif->tarif_perkwh;

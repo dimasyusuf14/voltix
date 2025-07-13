@@ -19,7 +19,6 @@ class TarifController extends Controller
         return view('pelanggan.tarif.index', compact('tarifs'));
     }
 
-
     public function create()
     {
         return view('admin.tarif.create-modal');

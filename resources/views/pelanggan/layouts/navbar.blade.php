@@ -1,8 +1,9 @@
 @php
-function activeNav($routeName) {
-return request()->routeIs($routeName) ? 'bg-orange-500 text-white' : '';
-}
-$pelanggan = \App\Models\Pelanggan::find(session('logged_id'));
+    function activeNav($routeName)
+    {
+        return request()->routeIs($routeName) ? 'bg-orange-500 text-white' : '';
+    }
+    $pelanggan = \App\Models\Pelanggan::find(session('logged_id'));
 @endphp
 
 <nav class="bg-white shadow-sm py-4 px-20 sticky top-0 z-50">
@@ -26,10 +27,12 @@ $pelanggan = \App\Models\Pelanggan::find(session('logged_id'));
                 </a>
             </li>
             <li class="relative group">
-                <a class="p-2 rounded-md font-medium hover:bg-orange-500 hover:text-white transition duration-200 {{ request()->routeIs('riwayat-penggunaan') || request()->routeIs('riwayat-pembayaran') ? 'bg-orange-500 text-white' : '' }}">
+                <a
+                    class="p-2 rounded-md font-medium hover:bg-orange-500 hover:text-white transition duration-200 {{ request()->routeIs('riwayat-penggunaan') || request()->routeIs('riwayat-pembayaran') ? 'bg-orange-500 text-white' : '' }}">
                     Riwayat
                 </a>
-                <ul class="absolute hidden group-hover:block z-10 bg-white rounded shadow mt-2 w-48 p-2 space-y-1 border text-sm">
+                <ul
+                    class="absolute hidden group-hover:block z-10 bg-white rounded shadow mt-2 w-48 p-2 space-y-1 border text-sm">
                     <li>
                         <a href="{{ route('riwayat-penggunaan') }}"
                             class="block px-4 py-2 rounded hover:bg-gray-100 {{ activeNav('riwayat-penggunaan') }}">
@@ -67,7 +70,8 @@ $pelanggan = \App\Models\Pelanggan::find(session('logged_id'));
                 </summary>
 
                 <!-- Menu -->
-                <ul class="absolute right-0 mt-2 w-48 bg-white border shadow-md rounded-md
+                <ul
+                    class="absolute right-0 mt-2 w-48 bg-white border shadow-md rounded-md
                    py-2 z-50 text-sm">
                     <li>
                         <a href="#" class="block px-4 py-2 hover:bg-gray-100">Lihat Profil</a>

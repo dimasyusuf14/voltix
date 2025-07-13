@@ -13,7 +13,7 @@ class AuthController extends Controller
 {
     public function showLogin()
     {
-        return view('auth.login');          // ← view milikmu
+        return view('auth.login');
     }
 
     public function login(Request $request)
@@ -23,25 +23,22 @@ class AuthController extends Controller
             'password' => 'required',
         ]);
 
-        // 1) cek di tabel users (admin)
         $user = User::where('email', $request->email)->first();
         if ($user && Hash::check($request->password, $user->password)) {
             Session::put('logged_id',  $user->id);
             Session::put('logged_in', true);
-            Session::put('level',      1);          // admin
+            Session::put('level',      1);
             return redirect()->route('admin.dashboard.index');
         }
 
-        // 2) cek di tabel pelanggans
         $pelanggan = Pelanggan::where('email', $request->email)->first();
         if ($pelanggan && Hash::check($request->password, $pelanggan->password)) {
             Session::put('logged_id',  $pelanggan->id_pelanggan);
             Session::put('logged_in',  true);
-            Session::put('level',      2);          // pelanggan
+            Session::put('level',      2);
             return redirect()->route('pelanggan.index');
         }
 
-        // kalau keduanya gagal
         return back()
             ->withInput($request->only('email'))
             ->with('error', 'Email / Password salah.');
@@ -49,7 +46,7 @@ class AuthController extends Controller
 
     public function logout()
     {
-        Session::flush();        // hapus seluruh session
+        Session::flush();
         return redirect()->route('login');
     }
 }

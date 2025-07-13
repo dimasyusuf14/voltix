@@ -26,12 +26,10 @@ class PembayaranController extends Controller
         return view('admin.pembayaran.index', compact('pembayarans'));
     }
 
-    /* ========== FORM UNGGAH BUKTI PEMBAYARAN ========== */
     public function create($tagihanId)
     {
         $tagihan = Tagihan::with('pelanggan')->findOrFail($tagihanId);
 
-        // Pastikan tagihan masih “Belum Lunas”
         if ($tagihan->status === 'Sudah Lunas') {
             return redirect()->route('tagihan')->with('error', 'Tagihan sudah lunas.');
         }
@@ -39,7 +37,6 @@ class PembayaranController extends Controller
         return view('pelanggan.pembayaran.upload', compact('tagihan'));
     }
 
-    /* ========== SIMPAN DATA PEMBAYARAN ========== */
     public function store(Request $r, $tagihanId)
     {
         $tagihan = Tagihan::with('pelanggan')->findOrFail($tagihanId);
@@ -48,7 +45,6 @@ class PembayaranController extends Controller
             'bukti_pembayaran' => 'required|image|max:2048',
         ]);
 
-        // simpan file
         $path = $r->file('bukti_pembayaran')->store('bukti_pembayaran', 'public');
 
         $biayaAdmin = 2500;
@@ -61,7 +57,7 @@ class PembayaranController extends Controller
             'bulan_bayar'       => $tagihan->bulan,
             'biaya_admin'       => $biayaAdmin,
             'total_bayar'       => $total,
-            'id_admin'          => null,              // ⬅️ admin akan diisi saat verifikasi
+            'id'          => null,
             'bukti_pembayaran'  => $path,
         ]);
 
@@ -76,7 +72,7 @@ class PembayaranController extends Controller
         $pembayaran = Pembayaran::with('tagihan')->findOrFail($pembayaranId);
 
         $pembayaran->update([
-            'id_admin'           => Auth::id(),
+            'id'           => Auth::id(),
             'tanggal_pembayaran' => now()->toDateString(),
         ]);
 
@@ -85,7 +81,6 @@ class PembayaranController extends Controller
         return back()->with('success', 'Pembayaran telah diverifikasi.');
     }
 
-    /* ========== UNDUH BUKTI (opsional) ========== */
     public function downloadBukti($pembayaranId)
     {
         $pembayaran = Pembayaran::findOrFail($pembayaranId);

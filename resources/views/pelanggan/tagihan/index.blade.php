@@ -60,7 +60,7 @@
 
                     <div class="border-b">
                         <h2 class="text-xl font-bold p-6 pb-4">
-                            {{ \Carbon\Carbon::create($tagihan->tahun, $tagihan->bulan)->translatedFormat('F Y') }}
+                            {{ bulanIndo($tagihan->bulan) }} {{ $tagihan->tahun }}
                         </h2>
                     </div>
 

@@ -8,6 +8,7 @@ use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\Log;
 
 class PembayaranController extends Controller
 {
@@ -85,5 +86,71 @@ class PembayaranController extends Controller
     {
         $pembayaran = Pembayaran::findOrFail($pembayaranId);
         return response()->download(storage_path('app/public/' . $pembayaran->bukti_pembayaran));
+    }
+
+    public function riwayatPembayaran(Request $request)
+    {
+        $pelangganId = session('logged_id'); // Using session instead of Auth guard
+
+        if (!$pelangganId) {
+            return redirect()->route('login')->with('error', 'Silakan login terlebih dahulu.');
+        }
+
+        $query = Pembayaran::with(['tagihan.pelanggan.tarif', 'admin'])
+            ->where('id_pelanggan', $pelangganId)
+            ->whereHas('tagihan', function ($q) {
+                $q->where('status', 'Sudah Lunas');
+            })
+            ->latest('tanggal_pembayaran');
+
+        // Filter berdasarkan bulan
+        if ($request->filled('bulan') && $request->bulan !== 'all') {
+            $query->where('bulan_bayar', $request->bulan);
+        }
+
+        // Filter berdasarkan tahun
+        if ($request->filled('tahun') && $request->tahun !== 'all') {
+            $query->whereYear('tanggal_pembayaran', $request->tahun);
+        }
+
+        $pembayarans = $query->paginate(5);
+
+        // Data untuk filter dropdown - only from paid bills
+        $availableMonths = Pembayaran::where('id_pelanggan', $pelangganId)
+            ->whereHas('tagihan', function ($q) {
+                $q->where('status', 'Sudah Lunas');
+            })
+            ->selectRaw('DISTINCT bulan_bayar')
+            ->orderBy('bulan_bayar')
+            ->pluck('bulan_bayar');
+
+        $availableYears = Pembayaran::where('id_pelanggan', $pelangganId)
+            ->whereHas('tagihan', function ($q) {
+                $q->where('status', 'Sudah Lunas');
+            })
+            ->selectRaw('DISTINCT YEAR(tanggal_pembayaran) as year')
+            ->orderByDesc('year')
+            ->pluck('year');
+
+        return view('pelanggan.riwayat.riwayat-pembayaran', compact('pembayarans', 'availableMonths', 'availableYears'));
+    }
+
+    public function printStruk($pembayaranId)
+    {
+        $pembayaran = Pembayaran::with(['tagihan.pelanggan.tarif', 'admin'])->findOrFail($pembayaranId);
+        
+        // Pastikan pembayaran ini milik pelanggan yang sedang login
+        $pelangganId = session('logged_id');
+        if ($pembayaran->id_pelanggan != $pelangganId) {
+            abort(403, 'Unauthorized access');
+        }
+
+        // Gunakan data tagihan dari pembayaran untuk kompatibilitas dengan view yang ada
+        $tagihan = $pembayaran->tagihan;
+
+        $pdf = app('dompdf.wrapper');
+        $pdf->loadView('admin.tagihan.struk', compact('tagihan', 'pembayaran'));
+        $pdf->setPaper('A5', 'portrait');
+        return $pdf->stream('struk-pembayaran-' . $pembayaran->id_pembayaran . '.pdf');
     }
 }

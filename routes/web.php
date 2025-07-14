@@ -26,7 +26,7 @@ Route::view('/', 'landing.landing-page')->name('landing-page');
 
 Route::view('/pelanggan', 'pelanggan.index')->name('pelanggan.index');
 Route::view('/pelanggan/riwayat-penggunaan', 'pelanggan.riwayat.riwayat-penggunaan')->name('riwayat-penggunaan');
-Route::view('/pelanggan/riwayat-pembayaran', 'pelanggan.riwayat.riwayat-pembayaran')->name('riwayat-pembayaran');
+// Route::view('/pelanggan/riwayat-pembayaran', 'pelanggan.riwayat.riwayat-pembayaran')->name('riwayat-pembayaran');
 Route::view('/pelanggan/tagihan', 'pelanggan.tagihan.index')->name('tagihan');
 Route::view('/pelanggan/pembayaran', 'pelanggan.pembayaran.index')->name('pembayaran');
 
@@ -36,17 +36,21 @@ Route::view('/pelanggan/pembayaran', 'pelanggan.pembayaran.index')->name('pembay
 
 Route::middleware('level:1')->prefix('admin')->group(function () {
     Route::view('/dashboard', 'admin.dashboard.index')->name('admin.dashboard.index');
-    Route::get ('/pembayaran',                [PembayaranController::class,'index'     ])->name('admin.pembayaran.index');
-    Route::post('/pembayaran/{id}/verifikasi',[PembayaranController::class,'verifikasi'])->name('admin.pembayaran.verif');
-    Route::get ('/pembayaran/{id}/download',  [PembayaranController::class,'downloadBukti'])->name('admin.pembayaran.download');
+    Route::get('/pembayaran',                [PembayaranController::class, 'index'])->name('admin.pembayaran.index');
+    Route::post('/pembayaran/{id}/verifikasi', [PembayaranController::class, 'verifikasi'])->name('admin.pembayaran.verif');
+    Route::get('/pembayaran/{id}/download',  [PembayaranController::class, 'downloadBukti'])->name('admin.pembayaran.download');
 });
 
 Route::middleware('level:2')->prefix('pelanggan')->group(function () {
     Route::view('/', 'pelanggan.index')->name('pelanggan.index');
     Route::get('/pelanggan/tagihan', [TagihanController::class, 'pelangganIndex'])
         ->name('tagihan');
-    Route::get('/tagihan/{id}/bayar',[PembayaranController::class, 'create'])->name('bayar.create');
-    Route::post('/tagihan/{id}/bayar',[PembayaranController::class, 'store'])->name('bayar.store');
+    Route::get('/tagihan/{id}/bayar', [PembayaranController::class, 'create'])->name('bayar.create');
+    Route::post('/tagihan/{id}/bayar', [PembayaranController::class, 'store'])->name('bayar.store');
+    Route::get('/riwayat-pembayaran', [PembayaranController::class, 'riwayatPembayaran'])->name('riwayat-pembayaran');
+    Route::get('/pembayaran/{id}/download-bukti', [PembayaranController::class, 'downloadBukti'])->name('pembayaran.download-bukti');
+    Route::get('/pembayaran/{id}/print-struk', [PembayaranController::class, 'printStruk'])->name('pembayaran.print-struk');
+    Route::get('/tagihan/{id}/struk', [TagihanController::class, 'strukPelanggan'])->name('tagihan.struk');
 });
 
 Route::middleware('guest')->group(function () {

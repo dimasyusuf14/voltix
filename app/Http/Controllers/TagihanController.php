@@ -112,4 +112,17 @@ class TagihanController extends Controller
         Tagihan::destroy($id);
         return redirect()->route('admin.tagihan.index')->with('success', 'Tagihan berhasil dihapus.');
     }
+
+    public function strukPelanggan($id)
+    {
+        $tagihan = Tagihan::with(['pelanggan.tarif', 'pembayaran'])->findOrFail($id);
+
+        // Pastikan tagihan ini milik pelanggan yang sedang login
+        $pelangganId = session('logged_id');
+        if ($tagihan->id_pelanggan != $pelangganId) {
+            abort(403, 'Unauthorized access');
+        }
+
+        return view('admin.tagihan.struk', compact('tagihan'));
+    }
 }

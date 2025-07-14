@@ -15,11 +15,19 @@ class PembayaranController extends Controller
     public function index(Request $request)
     {
         $query = Pembayaran::with(['tagihan', 'pelanggan', 'admin'])
+            ->whereHas('tagihan', function ($q) {
+                $q->where('status', 'Sudah Lunas');
+            })
             ->latest('tanggal_pembayaran');
 
-        // optional: filter berdasarkan tanggal atau status
+        // Filter berdasarkan bulan
         if ($request->filled('bulan')) {
             $query->where('bulan_bayar', $request->bulan);
+        }
+
+        // Filter berdasarkan tahun
+        if ($request->filled('tahun')) {
+            $query->whereYear('tanggal_pembayaran', $request->tahun);
         }
 
         $pembayarans = $query->paginate(10);
@@ -138,7 +146,7 @@ class PembayaranController extends Controller
     public function printStruk($pembayaranId)
     {
         $pembayaran = Pembayaran::with(['tagihan.pelanggan.tarif', 'admin'])->findOrFail($pembayaranId);
-        
+
         // Pastikan pembayaran ini milik pelanggan yang sedang login
         $pelangganId = session('logged_id');
         if ($pembayaran->id_pelanggan != $pelangganId) {

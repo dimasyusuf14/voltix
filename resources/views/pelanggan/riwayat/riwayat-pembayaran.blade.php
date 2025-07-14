@@ -84,17 +84,19 @@
                                             @endphp
 
                                             <span
-                                                class="inline-flex items-center px-2 py-1 rounded-full text-xs font-medium {{ $statusClass }}">
+                                                class="inline-flex items-center px-2 py-1 rounded-md text-xs font-bold {{ $statusClass }}">
                                                 @if ($statusText === 'Lunas')
                                                     ✓
                                                 @endif{{ $statusText }}
                                             </span>
                                             <span class="text-gray-600 text-xs">- {{ $verifikasiText }}</span>
-                                            <span class="text-blue-500 text-xs">ℹ️</span>
+                                            <span class="text-blue-500 text-xs"><i
+                                                    class="fa-solid fa-circle-check"></i></span>
                                         </div>
                                         <div class="flex flex-col gap-2 pt-6">
                                             @if ($pembayaran->bukti_pembayaran)
-                                                <button onclick="showBuktiModal('{{ asset('storage/' . $pembayaran->bukti_pembayaran) }}', '{{ $pembayaran->id_pembayaran }}')"
+                                                <button
+                                                    onclick="showBuktiModal('{{ asset('storage/' . $pembayaran->bukti_pembayaran) }}', '{{ $pembayaran->id_pembayaran }}')"
                                                     class="border border-blue-600 text-blue-600 px-4 py-2 rounded-md text-sm hover:bg-blue-50 transition-colors min-w-32 text-center">
                                                     📄 Lihat Bukti
                                                 </button>
@@ -106,7 +108,8 @@
                                             @endif
 
                                             @if ($pembayaran->tagihan->status === 'Sudah Lunas')
-                                                <a href="{{ route('pembayaran.print-struk', $pembayaran->id_pembayaran) }}" target="_blank"
+                                                <a href="{{ route('pembayaran.print-struk', $pembayaran->id_pembayaran) }}"
+                                                    target="_blank"
                                                     class="bg-blue-600 text-white px-4 py-2 rounded-md text-sm hover:bg-blue-700 transition-colors text-center min-w-32">
                                                     �️ Cetak Struk
                                                 </a>
@@ -246,16 +249,18 @@
     </div>
 
     {{-- Modal untuk Bukti Pembayaran --}}
-    <div id="buktiModal" class="fixed inset-0 bg-black bg-opacity-50 z-50 items-center justify-center" style="display: none;">
+    <div id="buktiModal" class="fixed inset-0 bg-black bg-opacity-50 z-50 items-center justify-center"
+        style="display: none;">
         <div class="bg-white rounded-lg p-6 max-w-2xl w-full mx-4 max-h-[90vh] overflow-auto">
             <div class="flex justify-between items-center mb-4">
                 <h3 class="text-xl font-bold text-gray-800">Bukti Pembayaran</h3>
                 <button onclick="closeBuktiModal()" class="text-gray-500 hover:text-gray-700 text-2xl">&times;</button>
             </div>
             <div class="text-center">
-                <img id="buktiImage" src="" alt="Bukti Pembayaran" class="max-w-full h-auto rounded-lg shadow-md mb-4">
+                <img id="buktiImage" src="" alt="Bukti Pembayaran"
+                    class="max-w-full h-auto rounded-lg shadow-md mb-4">
                 <div class="flex gap-3 justify-center">
-                    <button onclick="closeBuktiModal()" 
+                    <button onclick="closeBuktiModal()"
                         class="bg-gray-500 text-white px-6 py-2 rounded-lg hover:bg-gray-600 transition-colors">
                         Tutup
                     </button>

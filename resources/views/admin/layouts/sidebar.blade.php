@@ -10,13 +10,15 @@
             </li>
 
             <li class="sidebar-item selected">
-                <a class="sidebar-link gap-3 py-2.5 my-1 text-base flex items-center relative rounded-md text-gray-500 w-full  hover:bg-blue-100 transition duration-300 {{ request()->routeIs('dashboard.index') ? 'bg-blue-100 font-semibold' : '' }}" href="{{ route('admin.dashboard.index') }}">
+                <a class="sidebar-link gap-3 py-2.5 my-1 text-base flex items-center relative rounded-md text-gray-500 w-full  hover:bg-blue-100 transition duration-300 {{ request()->routeIs('dashboard.index') ? 'bg-blue-100 font-semibold' : '' }}"
+                    href="{{ route('admin.dashboard.index') }}">
                     <i class="ti ti-layout-dashboard ps-2  text-2xl"></i> <span>Dashboard</span>
                 </a>
             </li>
 
             <li class="sidebar-item selected">
-                <a class="sidebar-link gap-3 py-2.5 my-1 text-base flex items-center relative rounded-md text-gray-500 w-full  hover:bg-blue-100 transition duration-300 {{ request()->routeIs('dashboard.index') ? 'bg-blue-100 font-semibold' : '' }}" href="{{ route('landing-page') }}">
+                <a class="sidebar-link gap-3 py-2.5 my-1 text-base flex items-center relative rounded-md text-gray-500 w-full  hover:bg-blue-100 transition duration-300 {{ request()->routeIs('dashboard.index') ? 'bg-blue-100 font-semibold' : '' }}"
+                    href="{{ route('landing-page') }}">
                     <i class="ti ti-layout-dashboard ps-2  text-2xl"></i> <span>Website Utama</span>
                 </a>
             </li>
@@ -27,7 +29,8 @@
             </li>
 
             <li class="sidebar-item">
-                <a class="sidebar-link gap-3 py-2.5 my-1 text-base flex items-center relative rounded-md text-gray-500 w-full hover:bg-blue-100 transition duration-300 {{ request()->routeIs('tarif.index') ? 'bg-blue-100 font-semibold' : '' }}" href="{{ route('tarif.index') }}">
+                <a class="sidebar-link gap-3 py-2.5 my-1 text-base flex items-center relative rounded-md text-gray-500 w-full hover:bg-blue-100 transition duration-300 {{ request()->routeIs('tarif.index') ? 'bg-blue-100 font-semibold' : '' }}"
+                    href="{{ route('tarif.index') }}">
                     <i class="ti ti-receipt-dollar ps-2 text-2xl"></i> <span>Tarif Layanan</span>
                 </a>
             </li>
@@ -38,13 +41,15 @@
             </li>
 
             <li class="sidebar-item">
-                <a class="sidebar-link gap-3 py-2.5 my-1 text-base flex items-center relative rounded-md text-gray-500 w-full hover:bg-blue-100 transition duration-300 {{ request()->routeIs('admin.pelanggan.konfirmasi') ? 'bg-blue-100 font-semibold' : '' }}" href="{{ route('admin.pelanggan.konfirmasi') }}">
+                <a class="sidebar-link gap-3 py-2.5 my-1 text-base flex items-center relative rounded-md text-gray-500 w-full hover:bg-blue-100 transition duration-300 {{ request()->routeIs('admin.pelanggan.konfirmasi') ? 'bg-blue-100 font-semibold' : '' }}"
+                    href="{{ route('admin.pelanggan.konfirmasi') }}">
                     <i class="ti ti-users-plus ps-2 text-2xl"></i> <span>Konfirmasi Pelanggan</span>
                 </a>
             </li>
 
             <li class="sidebar-item">
-                <a class="sidebar-link gap-3 py-2.5 my-1 text-base flex items-center relative rounded-md text-gray-500 w-full hover:bg-blue-100 transition duration-300 {{ request()->routeIs('admin.pelanggan.index') ? 'bg-blue-100 font-semibold' : '' }}" href="{{ route('admin.pelanggan.index') }}">
+                <a class="sidebar-link gap-3 py-2.5 my-1 text-base flex items-center relative rounded-md text-gray-500 w-full hover:bg-blue-100 transition duration-300 {{ request()->routeIs('admin.pelanggan.index') ? 'bg-blue-100 font-semibold' : '' }}"
+                    href="{{ route('admin.pelanggan.index') }}">
                     <i class="ti ti-users ps-2 text-2xl"></i> <span>Pelanggan Aktif</span>
                 </a>
             </li>
@@ -55,19 +60,22 @@
             </li>
 
             <li class="sidebar-item">
-                <a class="sidebar-link gap-3 py-2.5 my-1 text-base flex items-center relative rounded-md text-gray-500 w-full hover:bg-blue-100 transition duration-300 {{ request()->routeIs('admin.penggunaan.index') ? 'bg-blue-100 font-semibold' : '' }}" href="{{ route('admin.penggunaan.index') }}">
+                <a class="sidebar-link gap-3 py-2.5 my-1 text-base flex items-center relative rounded-md text-gray-500 w-full hover:bg-blue-100 transition duration-300 {{ request()->routeIs('admin.penggunaan.index') ? 'bg-blue-100 font-semibold' : '' }}"
+                    href="{{ route('admin.penggunaan.index') }}">
                     <i class="ti ti-chart-bar ps-2 text-2xl"></i> <span>Input Penggunaan</span>
                 </a>
             </li>
 
             <li class="sidebar-item">
-                <a class="sidebar-link gap-3 py-2.5 my-1 text-base flex items-center relative rounded-md text-gray-500 w-full hover:bg-blue-100 transition duration-300 {{ request()->routeIs('admin.tagihan.index') ? 'bg-blue-100 font-semibold' : '' }}" href="{{ route('admin.tagihan.index') }}">
+                <a class="sidebar-link gap-3 py-2.5 my-1 text-base flex items-center relative rounded-md text-gray-500 w-full hover:bg-blue-100 transition duration-300 {{ request()->routeIs('admin.tagihan.index') ? 'bg-blue-100 font-semibold' : '' }}"
+                    href="{{ route('admin.tagihan.index') }}">
                     <i class="ti ti-coin ps-2 text-2xl"></i> <span>Tagihan Pelanggan</span>
                 </a>
             </li>
 
             <li class="sidebar-item">
-                <a class="sidebar-link gap-3 py-2.5 my-1 text-base flex items-center relative rounded-md text-gray-500 w-full hover:bg-blue-100 transition duration-300" href="./components/typography.html">
+                <a class="sidebar-link gap-3 py-2.5 my-1 text-base flex items-center relative rounded-md text-gray-500 w-full hover:bg-blue-100 transition duration-300 {{ request()->routeIs('admin.pembayaran.index') ? 'bg-blue-100 font-semibold' : '' }}"
+                    href="{{ route('admin.pembayaran.index') }}">
                     <i class="ti ti-cash ps-2 text-2xl"></i> <span>Riwayat Pembayaran</span>
                 </a>
             </li>

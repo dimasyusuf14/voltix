@@ -12,7 +12,7 @@ class User extends Authenticatable
 {
     use HasFactory, Notifiable;
 
-    protected $primaryKey = 'id_user'; // Karena kamu pakai id_user, bukan id
+    protected $primaryKey = 'id'; // Menggunakan 'id' sesuai dengan migrasi database
     public $incrementing = true;       // Tetap auto increment
     protected $keyType = 'int';        // Bertipe integer
 

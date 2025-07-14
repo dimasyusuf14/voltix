@@ -27,7 +27,6 @@ Route::view('/', 'landing.landing-page')->name('landing-page');
 
 Route::view('/pelanggan', 'pelanggan.index')->name('pelanggan.index');
 Route::get('/pelanggan/riwayat-penggunaan', [PelangganDashboardController::class, 'riwayatPenggunaan'])->name('riwayat-penggunaan');
-// Route::view('/pelanggan/riwayat-pembayaran', 'pelanggan.riwayat.riwayat-pembayaran')->name('riwayat-pembayaran');
 Route::view('/pelanggan/pembayaran', 'pelanggan.pembayaran.index')->name('pembayaran');
 
 

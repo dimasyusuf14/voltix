@@ -36,6 +36,7 @@ class TagihanController extends Controller
 
         $query = Tagihan::with(['pelanggan.tarif'])
             ->where('id_pelanggan', $pelangganId)
+            ->whereIn('status', ['Belum Lunas', 'Menunggu Verifikasi'])
             ->orderByDesc('tahun')
             ->orderByDesc('bulan');
 

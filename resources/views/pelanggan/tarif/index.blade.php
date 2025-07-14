@@ -48,7 +48,7 @@
                         <div class="mb-4">
                             <label for="kwh" class="block text-sm text-gray-600 mb-1">Pemakaian (kWh)</label>
                             <input type="number" id="kwh" name="kwh" min="0" step="0.01"
-                                class="w-full border-gray-300 rounded-md shadow-sm focus:border-blue-500 focus:ring-blue-500"
+                                class="w-full h-10 p-2 border border-gray-300 rounded-md shadow-sm focus:border-blue-500 focus:ring-blue-500"
                                 placeholder="Masukkan jumlah kWh">
                             <div class="text-xs text-gray-500 mt-1">Contoh: 150 kWh per bulan</div>
                         </div>

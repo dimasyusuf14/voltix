@@ -48,7 +48,6 @@
                     $isLunas = $tagihan->status === 'Sudah Lunas';
                     $statusClr = $isLunas ? 'text-green-600' : 'text-red-600';
                     $showBayar = $tagihan->status === 'Belum Lunas';
-                    // Hitung total tagihan: (jumlah_meter * tarif) + biaya admin
                     $biayaAdmin = 2500;
                     $subtotal = $tagihan->jumlah_meter * ($tagihan->pelanggan->tarif->tarifperkwh ?? 0);
                     $totalTagihan = $subtotal + $biayaAdmin;

@@ -258,7 +258,7 @@
             </div>
             <div class="text-center">
                 <img id="buktiImage" src="" alt="Bukti Pembayaran"
-                    class="max-w-full h-auto rounded-lg shadow-md mb-4">
+                    class="max-h-96 max-w-full mx-auto rounded-lg shadow-md mb-4">
                 <div class="flex gap-3 justify-center">
                     <button onclick="closeBuktiModal()"
                         class="bg-gray-500 text-white px-6 py-2 rounded-lg hover:bg-gray-600 transition-colors">

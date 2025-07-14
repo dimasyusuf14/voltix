@@ -35,13 +35,13 @@
                     class="absolute hidden group-hover:block z-10 bg-white rounded shadow mt-2 w-48 p-2 space-y-1 border text-sm">
                     <li>
                         <a href="{{ route('riwayat-penggunaan') }}"
-                            class="block px-4 py-2 rounded hover:bg-gray-100 {{ activeNav('riwayat-penggunaan') }}">
+                            class="block px-4 py-2 rounded hover:bg-orange-300 {{ activeNav('riwayat-penggunaan') }}">
                             Riwayat Penggunaan
                         </a>
                     </li>
                     <li>
                         <a href="{{ route('riwayat-pembayaran') }}"
-                            class="block px-4 py-2 rounded hover:bg-gray-100 {{ activeNav('riwayat-pembayaran') }}">
+                            class="block px-4 py-2 rounded hover:bg-orange-300 {{ activeNav('riwayat-pembayaran') }}">
                             Riwayat Pembayaran
                         </a>
                     </li>

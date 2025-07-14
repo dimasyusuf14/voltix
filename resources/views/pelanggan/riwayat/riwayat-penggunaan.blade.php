@@ -3,51 +3,64 @@
 @section('content')
     <div class="bg-gray-100 min-h-screen px-4 py-8">
         <div class="max-w-7xl mx-auto">
-            <h1 class="text-3xl font-bold text-blue-800 mb-1">Riwayat Penggunaan Listrik</h1>
-            <p class="text-gray-600 mb-6">Berikut adalah daftar riwayat penggunaan listrik Anda sebagai pelanggan.</p>
+            <h1 class="text-3xl font-bold text-blue-800 mb-1 text-center">Riwayat Penggunaan Listrik</h1>
+            <p class="text-gray-600 mb-6 text-center">Berikut adalah daftar riwayat penggunaan listrik Anda sebagai
+                pelanggan.</p>
 
             <div class="flex flex-col lg:flex-row gap-6">
                 {{-- Bagian Kiri: Riwayat Penggunaan --}}
                 <div class="flex-1 space-y-4">
                     @forelse($penggunaans as $penggunaan)
                         {{-- Kartu Riwayat --}}
-                        <div
-                            class="bg-white rounded-xl shadow p-6 flex flex-col md:flex-row justify-between items-start md:items-center">
-                            <div class="space-y-1">
-                                <h3 class="text-lg font-semibold">{{ bulanIndo($penggunaan->bulan) }}
+                        <div class="bg-white rounded-xl shadow p-6">
+                            {{-- Header dengan bulan/tahun --}}
+                            <div class="mb-4">
+                                <h3 class="text-xl font-semibold text-gray-800">{{ bulanIndo($penggunaan->bulan) }}
                                     {{ $penggunaan->tahun }}</h3>
-                                <p class="text-sm text-gray-600">Meter Awal - Akhir<br>
-                                    <strong>{{ number_format($penggunaan->meter_awal, 0, ',', '.') }} -
-                                        {{ number_format($penggunaan->meter_akhir, 0, ',', '.') }}</strong>
-                                </p>
-                                <p class="text-sm text-gray-600">Tarif per kWh<br>
-                                    <strong>Rp
-                                        {{ number_format($penggunaan->pelanggan->tarif->tarif_perkwh ?? 0, 0, ',', '.') }}</strong>
-                                </p>
                             </div>
-                            <div class="text-right space-y-1 mt-4 md:mt-0">
-                                <p class="text-sm text-gray-600">Jumlah Meter<br>
-                                    <strong>{{ number_format($penggunaan->meter_akhir - $penggunaan->meter_awal, 0, ',', '.') }}
-                                        kWh</strong>
-                                </p>
-                                <p class="text-sm text-gray-600">Daya Listrik<br>
-                                    <span
-                                        class="text-blue-600 font-semibold">{{ $penggunaan->pelanggan->tarif->daya ?? 'Tidak diketahui' }}
-                                        VA</span>
-                                </p>
-                            </div>
-                            <div class="mt-4 md:mt-0 md:ml-4">
-                                @if ($penggunaan->tagihan)
-                                    <a href="{{ route('pelanggan.tagihan') }}"
-                                        class="bg-blue-100 p-2 rounded-lg hover:bg-blue-200 transition-colors"
-                                        title="Lihat Tagihan">
-                                        <i class="ti ti-file-text text-blue-600 text-xl"></i>
-                                    </a>
-                                @else
-                                    <div class="bg-gray-100 p-2 rounded-lg" title="Tagihan belum tersedia">
-                                        <i class="ti ti-file-text text-gray-400 text-xl"></i>
+
+                            {{-- Content dalam 3 kolom --}}
+                            <div class="grid grid-cols-1 md:grid-cols-3 gap-4 items-center">
+                                {{-- Kolom 1: Meter Awal-Akhir & Tarif --}}
+                                <div class="space-y-3">
+                                    <div>
+                                        <p class="text-base text-gray-600">Meter Awal - Akhir</p>
+                                        <p class="text-lg font-semibold text-gray-800">
+                                            {{ number_format($penggunaan->meter_awal, 0, ',', '.') }} -
+                                            {{ number_format($penggunaan->meter_akhir, 0, ',', '.') }}
+                                        </p>
                                     </div>
-                                @endif
+                                    <div>
+                                        <p class="text-base text-gray-600">Tarif per kWh</p>
+                                        <p class="text-lg font-semibold text-gray-800">
+                                            Rp
+                                            {{ number_format($penggunaan->pelanggan->tarif->tarifperkwh ?? 0, 0, ',', '.') }}
+                                        </p>
+                                    </div>
+                                </div>
+
+                                {{-- Kolom 2: Jumlah Meter & Daya Listrik --}}
+                                <div class="space-y-3">
+                                    <div>
+                                        <p class="text-base text-gray-600">Jumlah Meter</p>
+                                        <p class="text-lg font-semibold text-blue-600">
+                                            {{ number_format($penggunaan->meter_akhir - $penggunaan->meter_awal, 0, ',', '.') }}
+                                            kWh
+                                        </p>
+                                    </div>
+                                    <div>
+                                        <p class="text-base text-gray-600">Daya Listrik</p>
+                                        <p class="text-lg font-semibold text-gray-800">
+                                            {{ $penggunaan->pelanggan->tarif->daya ?? 'Tidak diketahui' }} VA
+                                        </p>
+                                    </div>
+                                </div>
+
+                                {{-- Kolom 3: Logo Petir & Tagihan --}}
+                                <div
+                                    class="flex items-center justify-center w-16 h-16 rounded-lg bg-blue-100 text-blue-600 space-y-3">
+                                    <i class="fa-solid fa-bolt-lightning text-3xl"></i>
+                                </div>
                             </div>
                         </div>
                     @empty

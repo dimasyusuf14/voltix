@@ -17,6 +17,7 @@ class DatabaseSeeder extends Seeder
             UserSeeder::class,
             TarifSeeder::class,
             PelangganSeeder::class,
+            MetodePembayaranSeeder::class,
         ]);
     }
 }

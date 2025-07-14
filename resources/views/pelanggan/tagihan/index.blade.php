@@ -24,7 +24,6 @@
                     </option>
                     <option value="Belum Lunas" {{ ($selectedStatus ?? '') == 'Belum Lunas' ? 'selected' : '' }}>Belum Lunas
                     </option>
-                    <option value="Sudah Lunas" {{ ($selectedStatus ?? '') == 'Sudah Lunas' ? 'selected' : '' }}>Lunas
                     </option>
                     <option value="Menunggu Verifikasi"
                         {{ ($selectedStatus ?? '') == 'Menunggu Verifikasi' ? 'selected' : '' }}>

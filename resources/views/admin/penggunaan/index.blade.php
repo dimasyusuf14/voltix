@@ -11,6 +11,16 @@
         </div>
     @endif
 
+    @if (session('success'))
+        <div class="flex items-center bg-green-100 text-green-700 px-4 py-3 rounded mb-4">
+            <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                    d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+            </svg>
+            <span>{{ session('success') }}</span>
+        </div>
+    @endif
+
     <div class="p-6 bg-white rounded-xl shadow-md">
 
         {{-- 🔍 Filter Penggunaan Listrik --}}
@@ -74,10 +84,10 @@
                             <td class="py-2 px-4 border">{{ $penggunaan->meter_akhir - $penggunaan->meter_awal }} kWh</td>
                             <td class="py-2 px-4 border">
                                 <div class="flex gap-2 justify-center">
-                                    <a href="{{ route('admin.penggunaan.edit', $penggunaan->id_penggunaan) }}"
+                                    <button onclick="openEditTagihanModal({{ $penggunaan->id_penggunaan }}, '{{ $penggunaan->id_pelanggan }}', {{ $penggunaan->bulan }}, {{ $penggunaan->tahun }}, {{ $penggunaan->meter_awal }}, {{ $penggunaan->meter_akhir }})"
                                         class="bg-blue-500 text-white px-3 py-1 rounded hover:bg-blue-600">
                                         <i class="fa fa-pen"></i>
-                                    </a>
+                                    </button>
                                     <form action="{{ route('admin.penggunaan.destroy', $penggunaan->id_penggunaan) }}"
                                         method="POST" onsubmit="return confirm('Yakin ingin menghapus data ini?')">
                                         @csrf
@@ -98,6 +108,9 @@
 
     {{-- Modal Create Penggunaan --}}
     @include('admin.penggunaan.create-modal')
+
+    {{-- Modal Edit Penggunaan --}}
+    @include('admin.penggunaan.edit-modal')
 @endsection
 
 @push('scripts')
@@ -108,6 +121,7 @@
             });
         });
 
+        // Functions for Create Modal
         function openCreateTagihanModal() {
             document.getElementById('createTagihanModal').classList.remove('hidden');
             document.getElementById('createTagihanModal').classList.add('flex');
@@ -116,6 +130,43 @@
         function closeCreateTagihanModal() {
             document.getElementById('createTagihanModal').classList.remove('flex');
             document.getElementById('createTagihanModal').classList.add('hidden');
+        }
+
+        // Functions for Edit Modal
+        function openEditTagihanModal(id, idPelanggan, bulan, tahun, meterAwal, meterAkhir) {
+            // Set form action URL
+            const editForm = document.getElementById('editTagihanForm');
+            editForm.action = `/admin/penggunaan/${id}`;
+            
+            // Fill form data
+            document.getElementById('edit_id_penggunaan').value = id;
+            document.getElementById('edit_id_pelanggan').value = idPelanggan;
+            document.getElementById('edit_bulan').value = bulan;
+            document.getElementById('edit_tahun').value = tahun;
+            document.getElementById('edit_meter_awal').value = meterAwal;
+            document.getElementById('edit_meter_akhir').value = meterAkhir;
+            
+            // Show modal
+            document.getElementById('editTagihanModal').classList.remove('hidden');
+            document.getElementById('editTagihanModal').classList.add('flex');
+        }
+
+        function closeEditTagihanModal() {
+            document.getElementById('editTagihanModal').classList.remove('flex');
+            document.getElementById('editTagihanModal').classList.add('hidden');
+        }
+
+        // Close modals when clicking outside
+        window.onclick = function(event) {
+            const createModal = document.getElementById('createTagihanModal');
+            const editModal = document.getElementById('editTagihanModal');
+            
+            if (event.target === createModal) {
+                closeCreateTagihanModal();
+            }
+            if (event.target === editModal) {
+                closeEditTagihanModal();
+            }
         }
     </script>
 @endpush

@@ -9,71 +9,150 @@
             <div class="flex flex-col lg:flex-row gap-6">
                 {{-- Bagian Kiri: Riwayat Penggunaan --}}
                 <div class="flex-1 space-y-4">
-                    {{-- Kartu Riwayat 1 --}}
-                    <div
-                        class="bg-white rounded-xl shadow p-6 flex flex-col md:flex-row justify-between items-start md:items-center">
-                        <div class="space-y-1">
-                            <h3 class="text-lg font-semibold">Maret 2025</h3>
-                            <p class="text-sm text-gray-600">Meter Awal - Akhir<br><strong>400 - 550</strong></p>
-                            <p class="text-sm text-gray-600">Tarif per kWh<br><strong>Rp 1.700</strong></p>
+                    @forelse($penggunaans as $penggunaan)
+                        {{-- Kartu Riwayat --}}
+                        <div
+                            class="bg-white rounded-xl shadow p-6 flex flex-col md:flex-row justify-between items-start md:items-center">
+                            <div class="space-y-1">
+                                <h3 class="text-lg font-semibold">{{ bulanIndo($penggunaan->bulan) }}
+                                    {{ $penggunaan->tahun }}</h3>
+                                <p class="text-sm text-gray-600">Meter Awal - Akhir<br>
+                                    <strong>{{ number_format($penggunaan->meter_awal, 0, ',', '.') }} -
+                                        {{ number_format($penggunaan->meter_akhir, 0, ',', '.') }}</strong>
+                                </p>
+                                <p class="text-sm text-gray-600">Tarif per kWh<br>
+                                    <strong>Rp
+                                        {{ number_format($penggunaan->pelanggan->tarif->tarif_perkwh ?? 0, 0, ',', '.') }}</strong>
+                                </p>
+                            </div>
+                            <div class="text-right space-y-1 mt-4 md:mt-0">
+                                <p class="text-sm text-gray-600">Jumlah Meter<br>
+                                    <strong>{{ number_format($penggunaan->meter_akhir - $penggunaan->meter_awal, 0, ',', '.') }}
+                                        kWh</strong>
+                                </p>
+                                <p class="text-sm text-gray-600">Daya Listrik<br>
+                                    <span
+                                        class="text-blue-600 font-semibold">{{ $penggunaan->pelanggan->tarif->daya ?? 'Tidak diketahui' }}
+                                        VA</span>
+                                </p>
+                            </div>
+                            <div class="mt-4 md:mt-0 md:ml-4">
+                                @if ($penggunaan->tagihan)
+                                    <a href="{{ route('pelanggan.tagihan') }}"
+                                        class="bg-blue-100 p-2 rounded-lg hover:bg-blue-200 transition-colors"
+                                        title="Lihat Tagihan">
+                                        <i class="ti ti-file-text text-blue-600 text-xl"></i>
+                                    </a>
+                                @else
+                                    <div class="bg-gray-100 p-2 rounded-lg" title="Tagihan belum tersedia">
+                                        <i class="ti ti-file-text text-gray-400 text-xl"></i>
+                                    </div>
+                                @endif
+                            </div>
                         </div>
-                        <div class="text-right space-y-1 mt-4 md:mt-0">
-                            <p class="text-sm text-gray-600">Jumlah Meter<br><strong>150 kWh</strong></p>
-                            <p class="text-sm text-gray-600">Daya Listrik<br><span class="text-blue-600 font-semibold">6600
-                                    VA ke atas</span></p>
+                    @empty
+                        {{-- Empty State --}}
+                        <div class="bg-white rounded-xl shadow p-12 text-center">
+                            <div class="w-16 h-16 mx-auto mb-4 bg-gray-100 rounded-full flex items-center justify-center">
+                                <i class="ti ti-bolt text-gray-400 text-2xl"></i>
+                            </div>
+                            <h3 class="text-lg font-semibold text-gray-900 mb-2">Belum Ada Data Penggunaan</h3>
+                            <p class="text-gray-600">Belum ada riwayat penggunaan listrik yang tercatat untuk akun Anda.</p>
                         </div>
-                        <div class="mt-4 md:mt-0 md:ml-4">
-                            <button class="bg-blue-100 p-2 rounded-lg">
-                                <i class="ti ti-file-text text-blue-600 text-xl"></i>
-                            </button>
-                        </div>
-                    </div>
-
-                    {{-- Kartu Riwayat 2 --}}
-                    <div
-                        class="bg-white rounded-xl shadow p-6 flex flex-col md:flex-row justify-between items-start md:items-center">
-                        <div class="space-y-1">
-                            <h3 class="text-lg font-semibold">Februari 2025</h3>
-                            <p class="text-sm text-gray-600">Meter Awal - Akhir<br><strong>250 - 400</strong></p>
-                            <p class="text-sm text-gray-600">Tarif per kWh<br><strong>Rp 1.700</strong></p>
-                        </div>
-                        <div class="text-right space-y-1 mt-4 md:mt-0">
-                            <p class="text-sm text-gray-600">Jumlah Meter<br><strong>150 kWh</strong></p>
-                            <p class="text-sm text-gray-600">Daya Listrik<br><span class="text-blue-600 font-semibold">6600
-                                    VA ke atas</span></p>
-                        </div>
-                        <div class="mt-4 md:mt-0 md:ml-4">
-                            <button class="bg-blue-100 p-2 rounded-lg">
-                                <i class="ti ti-file-text text-blue-600 text-xl"></i>
-                            </button>
-                        </div>
-                    </div>
+                    @endforelse
                 </div>
 
-                {{-- Bagian Kanan: Filter + Chart Placeholder --}}
+                {{-- Bagian Kanan: Filter + Statistik --}}
                 <div class="w-full lg:w-1/3 space-y-4">
                     {{-- Filter --}}
                     <div class="bg-white p-5 rounded-xl shadow">
                         <h4 class="font-semibold text-gray-800 mb-3">Filter Riwayat Penggunaan</h4>
-                        <select class="w-full mb-2 border-gray-300 rounded p-2">
-                            <option>Semua Bulan</option>
-                            <option>Januari</option>
-                            <option>Februari</option>
-                            <option>Maret</option>
-                        </select>
-                        <select class="w-full border-gray-300 rounded p-2">
-                            <option>Semua Tahun</option>
-                            <option>2024</option>
-                            <option>2025</option>
-                        </select>
+                        <form method="GET" action="{{ route('riwayat-penggunaan') }}" class="space-y-3">
+                            <select name="bulan"
+                                class="w-full border-gray-300 rounded-lg p-2 focus:ring-2 focus:ring-blue-500 focus:border-blue-500">
+                                <option value="">Semua Bulan</option>
+                                @for ($i = 1; $i <= 12; $i++)
+                                    <option value="{{ $i }}" {{ request('bulan') == $i ? 'selected' : '' }}>
+                                        {{ bulanIndo($i) }}
+                                    </option>
+                                @endfor
+                            </select>
+                            <select name="tahun"
+                                class="w-full border-gray-300 rounded-lg p-2 focus:ring-2 focus:ring-blue-500 focus:border-blue-500">
+                                <option value="">Semua Tahun</option>
+                                @for ($year = date('Y'); $year >= 2020; $year--)
+                                    <option value="{{ $year }}" {{ request('tahun') == $year ? 'selected' : '' }}>
+                                        {{ $year }}
+                                    </option>
+                                @endfor
+                            </select>
+                            <div class="flex gap-2">
+                                <button type="submit"
+                                    class="flex-1 bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition-colors">
+                                    Filter
+                                </button>
+                                <a href="{{ route('riwayat-penggunaan') }}"
+                                    class="px-4 py-2 bg-gray-100 text-gray-700 rounded-lg hover:bg-gray-200 transition-colors">
+                                    Reset
+                                </a>
+                            </div>
+                        </form>
                     </div>
 
-                    {{-- Placeholder Grafik --}}
+                    {{-- Statistik --}}
+                    <div class="bg-white p-5 rounded-xl shadow">
+                        <h4 class="font-semibold text-gray-800 mb-3">Statistik Penggunaan</h4>
+                        <div class="space-y-3">
+                            <div class="flex justify-between items-center p-3 bg-blue-50 rounded-lg">
+                                <span class="text-sm text-gray-600">Total Bulan</span>
+                                <span class="font-semibold text-blue-600">{{ $penggunaans->count() }}</span>
+                            </div>
+                            @if ($penggunaans->count() > 0)
+                                <div class="flex justify-between items-center p-3 bg-green-50 rounded-lg">
+                                    <span class="text-sm text-gray-600">Total kWh</span>
+                                    <span class="font-semibold text-green-600">
+                                        {{ number_format($penggunaans->sum(function ($p) {return $p->meter_akhir - $p->meter_awal;}),0,',','.') }}
+                                    </span>
+                                </div>
+                                <div class="flex justify-between items-center p-3 bg-orange-50 rounded-lg">
+                                    <span class="text-sm text-gray-600">Rata-rata kWh</span>
+                                    <span class="font-semibold text-orange-600">
+                                        {{ number_format($penggunaans->avg(function ($p) {return $p->meter_akhir - $p->meter_awal;}),0,',','.') }}
+                                    </span>
+                                </div>
+                            @endif
+                        </div>
+                    </div>
+
+                    {{-- Chart Placeholder --}}
                     <div class="bg-white p-5 rounded-xl shadow">
                         <h4 class="font-semibold text-gray-800 mb-3">Grafik Penggunaan</h4>
-                        <div class="w-full h-48 bg-gray-100 rounded flex items-center justify-center text-gray-400">
-                            (Chart Placeholder)
-                        </div>
+                        @if ($penggunaans->count() > 0)
+                            <div class="space-y-2">
+                                @foreach ($penggunaans->take(6) as $penggunaan)
+                                    @php
+                                        $usage = $penggunaan->meter_akhir - $penggunaan->meter_awal;
+                                        $maxUsage = $penggunaans->max(function ($p) {
+                                            return $p->meter_akhir - $p->meter_awal;
+                                        });
+                                        $percentage = $maxUsage > 0 ? ($usage / $maxUsage) * 100 : 0;
+                                    @endphp
+                                    <div class="flex items-center text-xs">
+                                        <span class="w-12 text-gray-600">{{ bulanIndo($penggunaan->bulan) }}</span>
+                                        <div class="flex-1 mx-2 bg-gray-200 rounded-full h-2">
+                                            <div class="bg-blue-500 h-2 rounded-full" style="width: {{ $percentage }}%">
+                                            </div>
+                                        </div>
+                                        <span
+                                            class="w-12 text-right text-gray-600">{{ number_format($usage, 0, ',', '.') }}</span>
+                                    </div>
+                                @endforeach
+                            </div>
+                        @else
+                            <div class="w-full h-32 bg-gray-100 rounded flex items-center justify-center text-gray-400">
+                                Tidak ada data untuk ditampilkan
+                            </div>
+                        @endif
                     </div>
                 </div>
             </div>

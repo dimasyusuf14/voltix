@@ -21,8 +21,8 @@
                 </a>
             </li>
             <li>
-                <a href="{{ route('tagihan') }}"
-                    class="p-2 rounded-md font-medium hover:bg-orange-500 hover:text-white transition duration-200 {{ activeNav('tagihan') }}">
+                <a href="{{ route('pelanggan.tagihan') }}"
+                    class="p-2 rounded-md font-medium hover:bg-orange-500 hover:text-white transition duration-200 {{ activeNav('pelanggan.tagihan') }}">
                     Tagihan
                 </a>
             </li>

@@ -8,7 +8,7 @@
             <p class="text-gray-600 mt-2">Berikut adalah daftar tagihan listrik Anda.</p>
         </div>
 
-        <form method="GET" action="{{ route('tagihan') }}" class="w-full max-w-3xl mx-auto mb-8">
+        <form method="GET" action="{{ route('pelanggan.tagihan') }}" class="w-full max-w-3xl mx-auto mb-8">
             <div class="flex items-center gap-3">
 
                 <span
@@ -32,7 +32,7 @@
                     </option>
                 </select>
 
-                <a href="{{ route('tagihan') }}"
+                <a href="{{ route('pelanggan.tagihan') }}"
                     class="shrink-0 px-6 py-2.5 bg-white rounded-lg text-sm font-semibold text-blue-600
                       border border-gray-200 shadow-sm hover:bg-blue-50 transition">
                     Reset
@@ -48,12 +48,11 @@
                     $isLunas = $tagihan->status === 'Sudah Lunas';
                     $statusClr = $isLunas ? 'text-green-600' : 'text-red-600';
                     $showBayar = $tagihan->status === 'Belum Lunas';
-                    $total = number_format(
-                        $tagihan->jumlah_meter * $tagihan->pelanggan->tarif->tarifperkwh,
-                        0,
-                        ',',
-                        '.',
-                    );
+                    // Hitung total tagihan: (jumlah_meter * tarif) + biaya admin
+                    $biayaAdmin = 2500;
+                    $subtotal = $tagihan->jumlah_meter * ($tagihan->pelanggan->tarif->tarifperkwh ?? 0);
+                    $totalTagihan = $subtotal + $biayaAdmin;
+                    $total = number_format($totalTagihan, 0, ',', '.');
                 @endphp
 
                 <div class="relative overflow-hidden rounded-xl shadow-lg">
@@ -105,7 +104,7 @@
                         <p class="px-6 text-[11px] text-gray-500 mb-4">Sudah Termasuk Biaya Admin</p>
 
                         @if ($showBayar)
-                            <a href="{{ route('bayar.store', $tagihan->id_tagihan) }}"
+                            <a href="{{ route('bayar.create', $tagihan->id_tagihan) }}"
                                 class="block mx-6 mb-6 rounded-full bg-blue-600 hover:bg-blue-700
                       text-white text-sm font-bold text-center py-2">
                                 Bayar Sekarang

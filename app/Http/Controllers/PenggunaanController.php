@@ -86,7 +86,7 @@ class PenggunaanController extends Controller
     {
         $penggunaan = Penggunaan::findOrFail($id);
         $pelanggans = Pelanggan::where('status', 'aktif')->get();
-        return view('admin.penggunaan.edit', compact('penggunaan', 'pelanggans'));
+        return view('admin.penggunaan.index', compact('penggunaans', 'pelanggans'));
     }
 
     public function update(Request $request, $id)
@@ -101,20 +101,63 @@ class PenggunaanController extends Controller
             'meter_akhir' => 'required|numeric|min:0|gte:meter_awal',
         ]);
 
-        $penggunaan->update([
-            'id_pelanggan' => $request->id_pelanggan,
-            'bulan' => $request->bulan,
-            'tahun' => $request->tahun,
-            'meter_awal' => $request->meter_awal,
-            'meter_akhir' => $request->meter_akhir,
-        ]);
+        // Cek apakah ada perubahan pada periode yang sama untuk pelanggan lain
+        $exists = Penggunaan::where('id_pelanggan', $request->id_pelanggan)
+            ->where('bulan', $request->bulan)
+            ->where('tahun', $request->tahun)
+            ->where('id_penggunaan', '!=', $id)
+            ->exists();
 
-        return redirect()->route('admin.penggunaan.index')->with('success', 'Penggunaan berhasil diperbarui.');
+        if ($exists) {
+            return back()->with('error', 'Data penggunaan sudah ada untuk pelanggan dan periode ini.')->withInput();
+        }
+
+        try {
+            // Update penggunaan
+            $penggunaan->update([
+                'id_pelanggan' => $request->id_pelanggan,
+                'bulan' => $request->bulan,
+                'tahun' => $request->tahun,
+                'meter_awal' => $request->meter_awal,
+                'meter_akhir' => $request->meter_akhir,
+            ]);
+
+            // Hitung ulang tagihan jika ada
+            $tagihan = Tagihan::where('id_penggunaan', $id)->first();
+            if ($tagihan) {
+                $jumlah_meter = $request->meter_akhir - $request->meter_awal;
+                $pelanggan = Pelanggan::with('tarif')->find($request->id_pelanggan);
+                $tarif_per_kwh = $pelanggan->tarif->tarif_perkwh;
+
+                $tagihan->update([
+                    'id_pelanggan' => $request->id_pelanggan,
+                    'bulan' => $request->bulan,
+                    'tahun' => $request->tahun,
+                    'jumlah_meter' => $jumlah_meter,
+                    'total_tagihan' => $jumlah_meter * $tarif_per_kwh,
+                ]);
+            }
+
+            return redirect()->route('admin.penggunaan.index')->with('success', 'Penggunaan dan tagihan berhasil diperbarui.');
+        } catch (\Exception $e) {
+            return back()->with('error', 'Gagal memperbarui data: ' . $e->getMessage())->withInput();
+        }
     }
 
     public function destroy($id)
     {
-        Penggunaan::destroy($id);
-        return redirect()->route('admin.penggunaan.index')->with('success', 'Penggunaan berhasil dihapus.');
+        try {
+            $penggunaan = Penggunaan::findOrFail($id);
+
+            // Hapus tagihan terkait terlebih dahulu
+            Tagihan::where('id_penggunaan', $id)->delete();
+
+            // Kemudian hapus penggunaan
+            $penggunaan->delete();
+
+            return redirect()->route('admin.penggunaan.index')->with('success', 'Penggunaan dan tagihan terkait berhasil dihapus.');
+        } catch (\Exception $e) {
+            return redirect()->route('admin.penggunaan.index')->with('error', 'Gagal menghapus data: ' . $e->getMessage());
+        }
     }
 }

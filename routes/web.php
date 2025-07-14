@@ -3,6 +3,7 @@
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\PelangganController;
+use App\Http\Controllers\PelangganDashboardController;
 use App\Http\Controllers\PembayaranController;
 use App\Http\Controllers\PenggunaanController;
 use App\Http\Controllers\TagihanController;
@@ -25,9 +26,8 @@ Route::view('/', 'landing.landing-page')->name('landing-page');
 
 
 Route::view('/pelanggan', 'pelanggan.index')->name('pelanggan.index');
-Route::view('/pelanggan/riwayat-penggunaan', 'pelanggan.riwayat.riwayat-penggunaan')->name('riwayat-penggunaan');
+Route::get('/pelanggan/riwayat-penggunaan', [PelangganDashboardController::class, 'riwayatPenggunaan'])->name('riwayat-penggunaan');
 // Route::view('/pelanggan/riwayat-pembayaran', 'pelanggan.riwayat.riwayat-pembayaran')->name('riwayat-pembayaran');
-Route::view('/pelanggan/tagihan', 'pelanggan.tagihan.index')->name('tagihan');
 Route::view('/pelanggan/pembayaran', 'pelanggan.pembayaran.index')->name('pembayaran');
 
 
@@ -43,8 +43,7 @@ Route::middleware('level:1')->prefix('admin')->group(function () {
 
 Route::middleware('level:2')->prefix('pelanggan')->group(function () {
     Route::view('/', 'pelanggan.index')->name('pelanggan.index');
-    Route::get('/pelanggan/tagihan', [TagihanController::class, 'pelangganIndex'])
-        ->name('tagihan');
+    Route::get('/tagihan', [TagihanController::class, 'pelangganIndex'])->name('pelanggan.tagihan');
     Route::get('/tagihan/{id}/bayar', [PembayaranController::class, 'create'])->name('bayar.create');
     Route::post('/tagihan/{id}/bayar', [PembayaranController::class, 'store'])->name('bayar.store');
     Route::get('/riwayat-pembayaran', [PembayaranController::class, 'riwayatPembayaran'])->name('riwayat-pembayaran');

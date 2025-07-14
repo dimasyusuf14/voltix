@@ -84,7 +84,8 @@
                             <td class="py-2 px-4 border">{{ $penggunaan->meter_akhir - $penggunaan->meter_awal }} kWh</td>
                             <td class="py-2 px-4 border">
                                 <div class="flex gap-2 justify-center">
-                                    <button onclick="openEditTagihanModal({{ $penggunaan->id_penggunaan }}, '{{ $penggunaan->id_pelanggan }}', {{ $penggunaan->bulan }}, {{ $penggunaan->tahun }}, {{ $penggunaan->meter_awal }}, {{ $penggunaan->meter_akhir }})"
+                                    <button
+                                        onclick="openEditTagihanModal({{ $penggunaan->id_penggunaan }}, '{{ $penggunaan->id_pelanggan }}', {{ $penggunaan->bulan }}, {{ $penggunaan->tahun }}, {{ $penggunaan->meter_awal }}, {{ $penggunaan->meter_akhir }})"
                                         class="bg-blue-500 text-white px-3 py-1 rounded hover:bg-blue-600">
                                         <i class="fa fa-pen"></i>
                                     </button>
@@ -137,7 +138,7 @@
             // Set form action URL
             const editForm = document.getElementById('editTagihanForm');
             editForm.action = `/admin/penggunaan/${id}`;
-            
+
             // Fill form data
             document.getElementById('edit_id_penggunaan').value = id;
             document.getElementById('edit_id_pelanggan').value = idPelanggan;
@@ -145,7 +146,7 @@
             document.getElementById('edit_tahun').value = tahun;
             document.getElementById('edit_meter_awal').value = meterAwal;
             document.getElementById('edit_meter_akhir').value = meterAkhir;
-            
+
             // Show modal
             document.getElementById('editTagihanModal').classList.remove('hidden');
             document.getElementById('editTagihanModal').classList.add('flex');
@@ -160,7 +161,7 @@
         window.onclick = function(event) {
             const createModal = document.getElementById('createTagihanModal');
             const editModal = document.getElementById('editTagihanModal');
-            
+
             if (event.target === createModal) {
                 closeCreateTagihanModal();
             }

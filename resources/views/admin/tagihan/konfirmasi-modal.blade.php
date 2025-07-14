@@ -34,28 +34,44 @@
         </div>
 
         {{-- form konfirmasi --}}
-        <form action="{{ route('admin.pembayaran.verif', optional($tagihan->pembayaran)->id_pembayaran) }}"
-            method="POST" class="space-y-4">
-            @csrf
-            <div>
-                <label class="block font-medium mb-1">Metode Pembayaran</label>
-                <select name="metode" class="w-full border rounded px-3 py-2 bg-gray-50">
-                    @foreach (['Tunai', 'Transfer Bank', 'E‑Wallet', 'QRIS'] as $mtd)
-                        <option value="{{ $mtd }}" @selected(optional($tagihan->pembayaran)->metode == $mtd)>{{ $mtd }}</option>
-                    @endforeach
-                </select>
-            </div>
+        @if ($tagihan->pembayaran && $tagihan->pembayaran->id_pembayaran)
+            <form action="{{ route('admin.pembayaran.verif', $tagihan->pembayaran->id_pembayaran) }}" method="POST"
+                class="space-y-4">
+                @csrf
+                <div>
+                    <label class="block font-medium mb-1">Metode Pembayaran</label>
+                    <select name="metode" class="w-full border rounded px-3 py-2 bg-gray-50">
+                        @foreach (['Tunai', 'Transfer Bank', 'E‑Wallet', 'QRIS'] as $mtd)
+                            <option value="{{ $mtd }}" @selected(optional($tagihan->pembayaran)->metode == $mtd)>{{ $mtd }}
+                            </option>
+                        @endforeach
+                    </select>
+                </div>
 
-            <div class="flex justify-end gap-2 pt-2">
-                <button type="submit" class="bg-green-600 hover:bg-green-700 text-white px-4 py-2 rounded">
-                    Setujui
-                </button>
+                <div class="flex justify-end gap-2 pt-2">
+                    <button type="submit" class="bg-green-600 hover:bg-green-700 text-white px-4 py-2 rounded">
+                        Setujui
+                    </button>
+                    <button type="button" onclick="closeModal('{{ $tagihan->id_tagihan }}')"
+                        class="bg-red-500 hover:bg-red-600 text-white px-4 py-2 rounded">
+                        Tutup
+                    </button>
+                </div>
+            </form>
+        @else
+            <div class="bg-yellow-100 border border-yellow-400 text-yellow-700 px-4 py-3 rounded mb-4">
+                <p class="text-sm">
+                    <strong>Peringatan:</strong> Belum ada data pembayaran untuk tagihan ini.
+                    Pelanggan harus melakukan pembayaran terlebih dahulu sebelum verifikasi dapat dilakukan.
+                </p>
+            </div>
+            <div class="flex justify-end">
                 <button type="button" onclick="closeModal('{{ $tagihan->id_tagihan }}')"
-                    class="bg-red-500 hover:bg-red-600 text-white px-4 py-2 rounded">
+                    class="bg-gray-500 hover:bg-gray-600 text-white px-4 py-2 rounded">
                     Tutup
                 </button>
             </div>
-        </form>
+        @endif
 
         {{-- tombol close X --}}
         <button type="button" onclick="closeModal('{{ $tagihan->id_tagihan }}')"

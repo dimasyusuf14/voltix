@@ -40,7 +40,7 @@ class PembayaranController extends Controller
         $tagihan = Tagihan::with('pelanggan')->findOrFail($tagihanId);
 
         if ($tagihan->status === 'Sudah Lunas') {
-            return redirect()->route('tagihan')->with('error', 'Tagihan sudah lunas.');
+            return redirect()->route('pelanggan.tagihan')->with('error', 'Tagihan sudah lunas.');
         }
 
         return view('pelanggan.pembayaran.upload', compact('tagihan'));
@@ -72,7 +72,7 @@ class PembayaranController extends Controller
 
         $tagihan->update(['status' => 'Menunggu Verifikasi']);
 
-        return redirect()->route('tagihan')
+        return redirect()->route('pelanggan.tagihan')
             ->with('success', 'Bukti pembayaran diunggah, menunggu verifikasi.');
     }
 

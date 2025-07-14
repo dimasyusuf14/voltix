@@ -1,13 +1,10 @@
 @extends('admin.index')
 
 @section('content')
-    <div class="p-6">
+    <div class="p-6 bg-white rounded-xl shadow-md">
         <!-- Header -->
         <div class="mb-6">
             <h1 class="text-3xl font-bold text-gray-800 mb-2">Riwayat Pembayaran</h1>
-            <nav class="text-sm text-gray-500">
-                <span>Home</span> / <span>Pembayaran</span>
-            </nav>
         </div>
 
         <!-- Main Content Grid -->
@@ -15,7 +12,7 @@
             <!-- Left Section: Filter -->
             <div class="lg:col-span-2 space-y-6">
                 <!-- Filter Card -->
-                <div class="bg-white rounded-xl shadow-sm p-6">
+                <div class="bg-white rounded-xl shadow-sm p-6 border border-gray-200">
                     <h3 class="text-lg font-semibold text-gray-800 mb-4">Filter Riwayat Pembayaran</h3>
                     <p class="text-gray-600 text-sm mb-6">Gunakan filter ini untuk menampilkan riwayat pembayaran berdasarkan
                         bulan dan tahun tertentu.</p>
@@ -50,19 +47,16 @@
                                     class="w-full bg-blue-600 text-white px-6 py-2 rounded-lg font-medium hover:bg-blue-700 transition-colors">
                                     Filter
                                 </button>
+                                <div class="ml-2">
+                                    <a href="{{ route('admin.pembayaran.index') }}"
+                                        class="inline-flex items-center p-3 bg-gray-100 text-gray-700 rounded-lg font-medium hover:bg-gray-200 transition-colors">
+                                        <i class="fa-solid fa-rotate-left"></i>
+                                    </a>
+                                </div>
                             </div>
+
                         </div>
-                        <div class="mt-4">
-                            <a href="{{ route('admin.pembayaran.index') }}"
-                                class="inline-flex items-center px-4 py-2 bg-gray-100 text-gray-700 rounded-lg font-medium hover:bg-gray-200 transition-colors">
-                                <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                        d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15">
-                                    </path>
-                                </svg>
-                                Reset Filter
-                            </a>
-                        </div>
+
                     </form>
                 </div>
             </div>
@@ -70,7 +64,7 @@
             <!-- Right Section: Summary -->
             <div class="space-y-6">
                 <!-- Summary Card -->
-                <div class="bg-white rounded-xl shadow-sm p-6">
+                <div class="bg-white rounded-xl shadow-sm p-6 border border-gray-200">
                     <h3 class="text-lg font-semibold text-gray-800 mb-4">Pemasukan</h3>
                     <p class="text-gray-600 text-sm mb-6">Pemasukan akan ditampilkan berdasarkan filter bulan dan tahun
                         yang dipilih.</p>
@@ -94,12 +88,7 @@
 
         <!-- Data Table Card - Full Width -->
         <div class="mt-6">
-            <div class="bg-white rounded-xl shadow-sm">
-                <div class="p-6 border-b border-gray-200">
-                    <h3 class="text-lg font-semibold text-gray-800 mb-2">Daftar Riwayat Pembayaran</h3>
-                    <p class="text-gray-600 text-sm">Tabel ini menampilkan daftar riwayat pembayaran pelanggan yang sudah
-                        lunas.</p>
-                </div>
+            <div class="bg-white rounded-xl shadow-sm border border-gray-200">
 
                 <div class="p-6">
                     <!-- Table Controls -->
@@ -125,28 +114,28 @@
                     </div>
 
                     <!-- Table - Full Width -->
-                    <div class="overflow-x-auto border border-gray-200 rounded-lg">
-                        <table class="w-full text-sm">
+                    <div class="overflow-x-auto border-2 border-gray-300 rounded-lg shadow-sm">
+                        <table class="w-full text-sm border-collapse">
                             <thead class="bg-gray-50">
-                                <tr class="border-b border-gray-200">
+                                <tr class="border-b-2 border-gray-300">
                                     <th
-                                        class="text-left py-4 px-6 font-semibold text-gray-700 cursor-pointer hover:bg-gray-100 min-w-[80px]">
+                                        class="text-left py-4 px-6 font-semibold text-gray-700 cursor-pointer hover:bg-gray-100 min-w-[80px] border-r border-gray-300">
                                         # <span class="text-xs">▲</span>
                                     </th>
                                     <th
-                                        class="text-left py-4 px-6 font-semibold text-gray-700 cursor-pointer hover:bg-gray-100 min-w-[200px]">
+                                        class="text-left py-4 px-6 font-semibold text-gray-700 cursor-pointer hover:bg-gray-100 min-w-[200px] border-r border-gray-300">
                                         Nama Pelanggan <span class="text-xs">▼</span>
                                     </th>
                                     <th
-                                        class="text-left py-4 px-6 font-semibold text-gray-700 cursor-pointer hover:bg-gray-100 min-w-[150px]">
+                                        class="text-left py-4 px-6 font-semibold text-gray-700 cursor-pointer hover:bg-gray-100 min-w-[150px] border-r border-gray-300">
                                         Periode Tagihan
                                     </th>
                                     <th
-                                        class="text-left py-4 px-6 font-semibold text-gray-700 cursor-pointer hover:bg-gray-100 min-w-[180px]">
+                                        class="text-left py-4 px-6 font-semibold text-gray-700 cursor-pointer hover:bg-gray-100 min-w-[180px] border-r border-gray-300">
                                         Tanggal Pembayaran
                                     </th>
                                     <th
-                                        class="text-left py-4 px-6 font-semibold text-gray-700 cursor-pointer hover:bg-gray-100 min-w-[150px]">
+                                        class="text-left py-4 px-6 font-semibold text-gray-700 cursor-pointer hover:bg-gray-100 min-w-[150px] border-r border-gray-300">
                                         Total Bayar
                                     </th>
                                     <th
@@ -155,35 +144,35 @@
                                     </th>
                                 </tr>
                             </thead>
-                            <tbody class="divide-y divide-gray-100">
+                            <tbody class="divide-y divide-gray-200">
                                 @forelse($pembayarans as $index => $pembayaran)
-                                    <tr class="hover:bg-gray-50 transition-colors">
-                                        <td class="py-4 px-6 font-medium text-gray-900">
+                                    <tr class="hover:bg-gray-50 transition-colors border-b border-gray-200">
+                                        <td class="py-4 px-6 font-medium text-gray-900 border-r border-gray-300">
                                             {{ $pembayarans->firstItem() + $index }}</td>
-                                        <td class="py-4 px-6">
+                                        <td class="py-4 px-6 border-r border-gray-300">
                                             <div class="font-medium text-gray-900">
                                                 {{ $pembayaran->pelanggan->nama_pelanggan ?? '-' }}</div>
                                             <div class="text-sm text-gray-500">
                                                 {{ $pembayaran->pelanggan->nomor_kwh ?? '-' }}</div>
                                         </td>
-                                        <td class="py-4 px-6">
+                                        <td class="py-4 px-6 border-r border-gray-300">
                                             <span
-                                                class="bg-blue-100 text-blue-800 px-3 py-1 rounded-full text-sm font-medium">
+                                                class="bg-blue-100 text-blue-800 px-3 py-1 rounded-md text-sm font-medium">
                                                 {{ bulanIndo($pembayaran->bulan_bayar) }}
                                                 {{ date('Y', strtotime($pembayaran->tanggal_pembayaran)) }}
                                             </span>
                                         </td>
-                                        <td class="py-4 px-6 text-gray-900">
+                                        <td class="py-4 px-6 text-gray-900 border-r border-gray-300">
                                             {{ date('l, d F Y', strtotime($pembayaran->tanggal_pembayaran)) }}
                                         </td>
-                                        <td class="py-4 px-6">
+                                        <td class="py-4 px-6 border-r border-gray-300">
                                             <span class="font-bold text-green-600 text-lg">
                                                 Rp {{ number_format($pembayaran->total_bayar, 0, ',', '.') }}
                                             </span>
                                         </td>
                                         <td class="py-4 px-6">
                                             <span
-                                                class="bg-green-100 text-green-800 px-3 py-1 rounded-full text-sm font-medium">
+                                                class="bg-green-100 text-green-800 px-3 py-1 rounded-md text-sm font-medium">
                                                 Transfer Bank
                                             </span>
                                         </td>
@@ -212,7 +201,8 @@
 
                     <!-- Pagination -->
                     @if ($pembayarans->hasPages())
-                        <div class="mt-6 border-t border-gray-200 pt-6">
+                        <div class="mt-6
+                                                    border-t border-gray-200 pt-6">
                             {{ $pembayarans->appends(request()->query())->links() }}
                         </div>
                     @endif

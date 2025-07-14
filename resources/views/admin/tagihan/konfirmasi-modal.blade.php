@@ -21,9 +21,11 @@
 
             @if (optional($tagihan->pembayaran)->bukti_pembayaran &&
                     Storage::disk('public')->exists($tagihan->pembayaran->bukti_pembayaran))
-                <img class="w-full rounded object-contain"
-                    src="{{ Storage::disk('public')->url($tagihan->pembayaran->bukti_pembayaran) }}"
-                    alt="Bukti pembayaran">
+                <div class="flex justify-center">
+                    <img class="w-100 h-100 rounded object-contain"
+                        src="{{ Storage::disk('public')->url($tagihan->pembayaran->bukti_pembayaran) }}"
+                        alt="Bukti pembayaran">
+                </div>
             @else
                 <div class="bg-gray-100 text-gray-500 text-center py-8 rounded">
                     Belum ada bukti pembayaran

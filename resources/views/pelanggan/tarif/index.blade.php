@@ -34,7 +34,7 @@
                         <div class="mb-4">
                             <label for="tarif" class="block text-sm text-gray-600 mb-1">Pilih Tarif</label>
                             <select id="tarif" name="tarif"
-                                class="w-full border-gray-300 rounded-md shadow-sm focus:border-blue-500 focus:ring-blue-500">
+                                class="w-full h-10 border-gray-300 rounded-md shadow-sm focus:border-blue-500 focus:ring-blue-500">
                                 <option value="">-- Pilih Tarif --</option>
                                 @foreach ($tarifs as $tarif)
                                     <option value="{{ $tarif->tarifperkwh }}">

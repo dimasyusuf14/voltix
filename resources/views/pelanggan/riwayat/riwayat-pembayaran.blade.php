@@ -18,7 +18,6 @@
                                     <h3 class="text-xl font-bold text-gray-800">{{ bulanIndo($pembayaran->bulan_bayar) }}
                                         {{ $pembayaran->tagihan->tahun }}</h3>
                                 </div>
-
                             </div>
 
                             {{-- Payment Details Grid --}}

@@ -10,55 +10,6 @@
 
         <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
 
-            {{-- ▸ 1  Detail Tagihan  --}}
-            <div class="md:col-span-2 bg-white p-6 rounded-xl shadow">
-                <h2 class="text-lg font-semibold text-gray-700 mb-4 flex items-center gap-2">
-                    <i class="ti ti-file-description text-xl"></i> Detail Tagihan
-                </h2>
-
-                <div class="border rounded-xl p-4 divide-y text-sm">
-                    <div class="flex justify-between py-2">
-                        <span class="text-gray-500">Nama Pelanggan</span>
-                        <span class="font-semibold">{{ $tagihan->pelanggan->nama_pelanggan }}</span>
-                    </div>
-                    <div class="flex justify-between py-2">
-                        <span class="text-gray-500">No. Invoice</span>
-                        <span class="font-semibold">{{ $tagihan->no_invoice }}</span>
-                    </div>
-                    <div class="flex justify-between py-2">
-                        <span class="text-gray-500">Nomor KWH</span>
-                        <span class="font-semibold">{{ $tagihan->pelanggan->nomor_kwh }}</span>
-                    </div>
-                    <div class="flex justify-between py-2">
-                        <span class="text-gray-500">Periode</span>
-                        <span class="font-semibold">
-                            {{ bulanIndo($tagihan->bulan) }} {{ $tagihan->tahun }}
-                        </span>
-                    </div>
-                    <div class="flex justify-between py-2">
-                        <span class="text-gray-500">Jumlah Meter</span>
-                        <span class="font-semibold">{{ $tagihan->jumlah_meter }} kWh</span>
-                    </div>
-                    <div class="flex justify-between py-2">
-                        <span class="text-gray-500">Tarif / kWh</span>
-                        <span class="font-semibold">
-                            Rp {{ number_format($tagihan->pelanggan->tarif->tarifperkwh ?? 0, 0, ',', '.') }}
-                        </span>
-                    </div>
-                    <div class="flex justify-between py-2">
-                        <span class="text-gray-500">Biaya Admin</span>
-                        <span class="font-semibold">Rp 2.500</span>
-                    </div>
-                    <div class="flex justify-between pt-3 text-base font-semibold">
-                        <span>Total Bayar</span>
-                        <span class="text-blue-600">
-                            Rp
-                            {{ number_format($tagihan->jumlah_meter * ($tagihan->pelanggan->tarif->tarifperkwh ?? 0) + 2500, 0, ',', '.') }}
-                        </span>
-                    </div>
-                </div>
-            </div>
-
             {{-- ▸ 2  Form Upload Bukti --}}
             <div class="bg-white p-6 rounded-xl shadow h-fit">
                 <h2 class="text-lg font-semibold text-gray-700 mb-4 flex items-center gap-2">
@@ -76,8 +27,8 @@
                     </div>
                 @endif
 
-                <form action="{{ route('bayar.store', $tagihan->id_tagihan) }}" method="POST"
-                    enctype="multipart/form-data" class="space-y-4">
+                <form action="{{ route('bayar.store', $tagihan->id_tagihan) }}" method="POST" enctype="multipart/form-data"
+                    class="space-y-4">
                     @csrf
 
                     <div>

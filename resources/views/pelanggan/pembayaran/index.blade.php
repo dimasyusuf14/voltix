@@ -1,106 +1,102 @@
 @extends('pelanggan.layouts.index')
 
 @section('content')
-<div class="max-w-7xl mx-auto px-6 py-10">
+    <div class="bg-gray-100 min-h-screen px-4 py-8">
+        <div class="max-w-7xl mx-auto">
 
-    {{-- ‑‑ Judul Halaman ‑‑ --}}
-    <h1 class="text-3xl font-bold text-blue-700 mb-2">
-        Transaksi Pembayaran Listrik
-    </h1>
-    <p class="text-gray-600 mb-8">
-        Pilih rekening tujuan untuk mentransfer tagihan Anda.
-    </p>
+            {{-- ===== Heading ===== --}}
+            <div class="text-center mb-10">
+                <h1 class="text-3xl md:text-4xl font-extrabold text-blue-800">
+                    Transaksi Pembayaran Listrik
+                </h1>
+                <p class="mt-2 text-gray-500">
+                    Ikuti langkah‑langkah berikut untuk menyelesaikan pembayaran dengan mudah dan aman.
+                </p>
+            </div>
 
-    {{-- ‑‑ Wizard / Tab Navigasi ‑‑ --}}
-    <div class="bg-white p-4 rounded-xl shadow flex space-x-10 items-center mb-8">
-        <div class="flex items-center space-x-2 text-gray-400">
-            <i class="ti ti-file-description text-xl"></i>
-            <span>Detail Tagihan</span>
-        </div>
+            {{-- ===== Grid 2 kolom ===== --}}
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-3">
 
-        <div class="flex items-center space-x-2 text-blue-600 font-medium">
-            <i class="ti ti-building-bank text-xl"></i>
-            <span>Rekening Tujuan</span>
-        </div>
+                {{-- ────────────────  K O L O M   K I R I  ──────────────── --}}
+                <div class="space-y-3 col-span-2">
 
-        <div class="flex items-center space-x-2 text-gray-400">
-            <i class="ti ti-upload text-xl"></i>
-            <span>Unggah Bukti</span>
-        </div>
-    </div>
+                    {{-- ▸ Step Navigation --}}
+                    @php
+                        $step = 1; // step aktif (sesuaikan)
+                        $base = 'flex flex-col items-center gap-1 text-gray-400';
+                        $active = 'text-blue-600';
+                    @endphp
+                    <div class="bg-white rounded-2xl shadow flex justify-between px-6 py-4">
+                        @foreach ([['ic' => 'fa-solid fa-file-invoice', 'lbl' => 'Detail Tagihan'], ['ic' => 'fa-solid fa-building-columns', 'lbl' => 'Rekening Tujuan'], ['ic' => 'fa-solid fa-upload', 'lbl' => 'Unggah Bukti']] as $idx => $s)
+                            <div class="{{ $step === $idx + 1 ? $active : '' }} {{ $base }} w-1/3">
+                                <div
+                                    class="w-10 h-10 rounded-full bg-blue-100 flex items-center
+                                justify-center text-xl">
+                                    <i class="{{ $s['ic'] }}"></i>
+                                </div>
+                                <span class="text-xs font-medium">{{ $s['lbl'] }}</span>
+                            </div>
+                        @endforeach
+                    </div>
 
-    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-        {{-- Kolom kiri: Rekening yang bisa dipilih --}}
-        <div class="md:col-span-2 bg-white p-6 rounded-xl shadow">
-            <h2 class="text-lg font-semibold text-gray-700 mb-3">Pilih Rekening Tujuan</h2>
-            <p class="text-sm text-gray-500 mb-5">
-                Silakan pilih salah satu bank di bawah ini lalu klik <b>Konfirmasi</b>.
-            </p>
+                    {{-- ▸ Detail Tagihan --}}
+                    <div class="bg-white p-6 rounded-xl shadow">
 
-            {{-- Contoh data; ganti dengan loop rekening dari database jika tersedia --}}
-            <form method="POST" action="{{ route('bayar.konfirmasi') }}">
-                @csrf
-                <div class="space-y-4">
-                    <label class="flex items-center justify-between border rounded-lg p-4 cursor-pointer">
-                        <div class="flex items-center gap-3">
-                            <img src="{{ asset('assets/images/bca.png') }}" alt="BCA" class="w-10">
-                            <div>
-                                <p class="font-semibold">Bank BCA</p>
-                                <p class="text-xs text-gray-500">PT Voltix Indonesia</p>
+                        <h2 class="text-lg font-semibold text-gray-700 mb-4 flex items-center gap-2">
+                            <i class="ti ti-file-description text-xl"></i> Detail Tagihan
+                        </h2>
+
+                        {{-- tabel ringkas --}}
+                        <div class="border rounded-xl divide-y text-sm">
+                            @foreach (['Nama Pelanggan' => $tagihan->pelanggan->nama_pelanggan, 'No. Invoice' => $tagihan->no_invoice, 'Nomor KWH' => $tagihan->pelanggan->nomor_kwh, 'Periode' => bulanIndo($tagihan->bulan) . ' ' . $tagihan->tahun, 'Jumlah Meter' => number_format($tagihan->jumlah_meter) . ' kWh', 'Tarif / kWh' => 'Rp ' . number_format($tagihan->pelanggan->tarif->tarifperkwh ?? 0, 0, ',', '.')] as $label => $value)
+                                {{-- baris detail --}}
+                                <div class="flex justify-between px-4 py-3">
+                                    <span class="text-gray-500">{{ $label }}</span>
+                                    <span class="font-semibold">{{ $value }}</span>
+                                </div>
+                            @endforeach
+                            <div class="flex justify-between px-4 py-3 font-semibold text-base">
+                                <span>Total Bayar</span>
+                                <span class="text-blue-600">
+                                    Rp
+                                    {{ number_format($tagihan->jumlah_meter * ($tagihan->pelanggan->tarif->tarifperkwh ?? 0), 0, ',', '.') }}
+                                </span>
                             </div>
                         </div>
-                        <input type="radio" name="bank" value="BCA" class="radio">
-                    </label>
 
-                    <label class="flex items-center justify-between border rounded-lg p-4 cursor-pointer">
-                        <div class="flex items-center gap-3">
-                            <img src="{{ asset('assets/images/bri.png') }}" alt="BRI" class="w-10">
-                            <div>
-                                <p class="font-semibold">Bank BRI</p>
-                                <p class="text-xs text-gray-500">PT Voltix Indonesia</p>
-                            </div>
+                        <div class="text-right mt-6">
+                            <a href="{{ route('bayar.metode', $tagihan->id_tagihan) }}"
+                                class="inline-flex items-center gap-1 text-sm font-medium
+                              bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-md">
+                                Lanjut ke Rekening Tujuan
+                                <i class="fa-solid fa-arrow-right"></i>
+                            </a>
                         </div>
-                        <input type="radio" name="bank" value="BRI" class="radio">
-                    </label>
-
-                    <label class="flex items-center justify-between border rounded-lg p-4 cursor-pointer">
-                        <div class="flex items-center gap-3">
-                            <img src="{{ asset('assets/images/ovo.png') }}" alt="OVO" class="w-10">
-                            <div>
-                                <p class="font-semibold">OVO / QRIS</p>
-                                <p class="text-xs text-gray-500">Akun Bisnis Voltix</p>
-                            </div>
-                        </div>
-                        <input type="radio" name="bank" value="OVO" class="radio">
-                    </label>
+                    </div>
                 </div>
 
-                <div class="text-right mt-6">
-                    <button type="submit"
-                        class="inline-flex items-center px-4 py-2 bg-blue-600 hover:bg-blue-700
-                               text-white text-sm font-medium rounded-md">
-                        Konfirmasi &nbsp;<i class="ti ti-arrow-right"></i>
-                    </button>
-                </div>
-            </form>
-        </div>
+                {{-- ────────────────  K O L O M   K A N A N  ──────────────── --}}
+                <div class="bg-white p-6 rounded-xl shadow h-fit col-span-1">
+                    <h2 class="text-lg font-semibold mb-4">Cara Pembayaran</h2>
 
-        {{-- Kolom kanan: Petunjuk transfer --}}
-        <div class="bg-white p-6 rounded-xl shadow">
-            <h2 class="text-lg font-semibold mb-4">Cara Transfer</h2>
-            <ol class="list-decimal pl-5 text-sm text-gray-700 space-y-2">
-                <li>Salin nomor rekening di atas.</li>
-                <li>Lakukan transfer sesuai <b>total tagihan</b>.</li>
-                <li>Pastikan nama penerima <b>PT Voltix Indonesia</b>.</li>
-                <li>Simpan bukti transfer untuk diunggah.</li>
-            </ol>
-            <p class="mt-4 text-xs text-gray-500">
-                Butuh bantuan? Hubungi CS di
-                <a href="https://wa.me/628123456789" class="text-blue-600 underline">
-                    0812‑3456‑789
-                </a>
-            </p>
+                    @foreach (['Periksa Tagihan' => 'Pastikan semua data tagihan telah sesuai dan benar.', 'Pilih Metode Pembayaran' => 'Tentukan rekening bank atau e‑wallet yang ingin Anda gunakan.', 'Transfer Nominal Tepat' => 'Lakukan transfer sesuai dengan jumlah total yang tertera.', 'Unggah Bukti Pembayaran' => 'Upload bukti transfer sebagai konfirmasi pembayaran.'] as $i => $desc)
+                        <div class="flex items-start gap-3 mb-4">
+                            <span
+                                class="flex-shrink-0 w-6 h-6 rounded-full bg-blue-600 text-white text-xs
+                             flex items-center justify-center">
+                                {{ $loop->iteration }}
+                            </span>
+                            <p class="text-sm text-gray-700">{{ $desc }}</p>
+                        </div>
+                    @endforeach
+
+                    <p class="mt-4 text-xs text-gray-500">
+                        Butuh bantuan? Hubungi CS di
+                        <a href="tel:08123456789" class="text-blue-600">0812‑3456‑789</a>
+                    </p>
+                </div>
+
+            </div>
         </div>
     </div>
-</div>
 @endsection

@@ -47,9 +47,8 @@
                     $isLunas = $tagihan->status === 'Sudah Lunas';
                     $statusClr = $isLunas ? 'text-green-600' : 'text-red-600';
                     $showBayar = $tagihan->status === 'Belum Lunas';
-                    $biayaAdmin = 2500;
                     $subtotal = $tagihan->jumlah_meter * ($tagihan->pelanggan->tarif->tarifperkwh ?? 0);
-                    $totalTagihan = $subtotal + $biayaAdmin;
+                    $totalTagihan = $subtotal;
                     $total = number_format($totalTagihan, 0, ',', '.');
                 @endphp
 
@@ -99,7 +98,7 @@
                             <div class="text-md font-bold">Total Tagihan</div>
                             <div class="text-blue-700 text-lg font-bold">Rp {{ $total }}</div>
                         </div>
-                        <p class="px-6 text-[11px] text-gray-500 mb-4">Sudah Termasuk Biaya Admin</p>
+                        <p class="px-6 text-[11px] text-gray-500 mb-4">Belum Termasuk Biaya Admin</p>
 
                         @if ($showBayar)
                             <a href="{{ route('bayar.create', $tagihan->id_tagihan) }}"

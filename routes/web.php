@@ -103,6 +103,7 @@ Route::middleware('level:2')->prefix('pelanggan')->group(function () {
 
     // Pembayaran
     Route::get('/tagihan/{id}/bayar', [PembayaranController::class, 'create'])->name('bayar.create');
+    Route::get('/tagihan/{id}/metode-pembayaran', [PembayaranController::class, 'metodePembayaran'])->name('bayar.metode');
     Route::post('/tagihan/{id}/bayar', [PembayaranController::class, 'store'])->name('bayar.store');
     Route::get('/riwayat-pembayaran', [PembayaranController::class, 'riwayatPembayaran'])->name('riwayat-pembayaran');
     Route::get('/pembayaran/{id}/download-bukti', [PembayaranController::class, 'downloadBukti'])->name('pembayaran.download-bukti');

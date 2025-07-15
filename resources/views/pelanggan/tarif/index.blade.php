@@ -2,7 +2,7 @@
 
 @section('content')
     <div class="max-w-7xl mx-auto px-4 py-8">
-        <h2 class="text-2xl font-bold text-center text-gray-800 mb-2">Daftar Tarif Listrik</h2>
+        <h2 class="text-3xl font-bold text-blue-700 text-center">Daftar Tarif Listrik</h2>
         <p class="text-center text-gray-600 mb-8">Lihat tarif listrik yang tersedia untuk membantu Anda memilih paket yang
             tepat.</p>
 
@@ -163,8 +163,7 @@
 
                 // Hitung biaya
                 const biayaDasar = tarif * kwh;
-                const biayaAdmin = 2500;
-                const totalBiaya = biayaDasar + biayaAdmin;
+                const totalBiaya = biayaDasar;
 
                 // Format mata uang Indonesia
                 const formatRupiah = (amount) => {
@@ -191,17 +190,14 @@
                             <span class="text-gray-600">Biaya Pemakaian:</span>
                             <span class="font-medium text-gray-800">${formatRupiah(biayaDasar)}</span>
                         </div>
-                        <div class="flex justify-between text-sm py-1">
-                            <span class="text-gray-600">Biaya Admin:</span>
-                            <span class="font-medium text-gray-800">${formatRupiah(biayaAdmin)}</span>
-                        </div>
+
                         <hr class="my-2 border-gray-300">
                         <div class="flex justify-between text-lg font-bold py-1">
                             <span class="text-gray-700">Total Biaya:</span>
                             <span class="text-blue-600">${formatRupiah(totalBiaya)}</span>
                         </div>
                     </div>
-                    <span class="text-xs italic text-gray-400 mt-3 block">* Perhitungan ini adalah estimasi</span>
+                    <span class="text-xs italic text-gray-400 mt-3 block">* Belum termasuk biaya admin</span>
                 `);
             }
 

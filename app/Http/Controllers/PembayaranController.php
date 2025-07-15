@@ -37,13 +37,40 @@ class PembayaranController extends Controller
 
     public function create($tagihanId)
     {
-        $tagihan = Tagihan::with('pelanggan')->findOrFail($tagihanId);
+        $tagihan = Tagihan::with('pelanggan.tarif')->findOrFail($tagihanId);
 
         if ($tagihan->status === 'Sudah Lunas') {
             return redirect()->route('pelanggan.tagihan')->with('error', 'Tagihan sudah lunas.');
         }
 
-        return view('pelanggan.pembayaran.upload', compact('tagihan'));
+        // Hitung total bayar untuk konsistensi
+        $biayaAdmin = 2500;
+        $totalBayar = $tagihan->jumlah_meter * $tagihan->pelanggan->tarif->tarifperkwh + $biayaAdmin;
+        $tagihan->total_bayar = $totalBayar;
+
+        // Jika ada parameter step=upload, tampilkan halaman upload
+        if (request('step') === 'upload') {
+            return view('pelanggan.pembayaran.upload', compact('tagihan'));
+        }
+
+        // Default tampilkan halaman detail tagihan
+        return view('pelanggan.pembayaran.index', compact('tagihan'));
+    }
+
+    public function metodePembayaran($tagihanId)
+    {
+        $tagihan = Tagihan::with('pelanggan.tarif')->findOrFail($tagihanId);
+
+        if ($tagihan->status === 'Sudah Lunas') {
+            return redirect()->route('pelanggan.tagihan')->with('error', 'Tagihan sudah lunas.');
+        }
+
+        // Hitung total bayar (tarif + biaya admin)
+        $biayaAdmin = 2500;
+        $totalBayar = $tagihan->jumlah_meter * $tagihan->pelanggan->tarif->tarifperkwh + $biayaAdmin;
+        $tagihan->total_bayar = $totalBayar;
+
+        return view('pelanggan.pembayaran.metode-pembayaran', compact('tagihan'));
     }
 
     public function store(Request $r, $tagihanId)

@@ -116,3 +116,16 @@ Route::middleware('level:2')->prefix('pelanggan')->group(function () {
 // Legacy routes for backward compatibility (will be removed eventually)
 Route::view('/pelanggan', 'pelanggan.index')->name('pelanggan.index');
 Route::view('/pelanggan/pembayaran', 'pelanggan.pembayaran.index')->name('pembayaran');
+
+
+Route::view('/admin/metode', 'admin.metode.index')->name('metode');
+Route::resource('/admin/metode', \App\Http\Controllers\MetodeController::class)->names([
+    'index' => 'metode.index',
+    'create' => 'metode.create',
+    'store' => 'metode.store',
+    'show' => 'metode.show',
+    'edit' => 'metode.edit',
+    'update' => 'metode.update',
+    'destroy' => 'metode.destroy'
+]);
+Route::patch('/admin/metode/{metode}/toggle-status', [\App\Http\Controllers\MetodeController::class, 'toggleStatus'])->name('metode.toggle-status');

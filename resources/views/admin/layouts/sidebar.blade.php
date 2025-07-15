@@ -34,6 +34,12 @@
                     <i class="ti ti-receipt-dollar ps-2 text-2xl"></i> <span>Tarif Layanan</span>
                 </a>
             </li>
+            <li class="sidebar-item">
+                <a class="sidebar-link gap-3 py-2.5 my-1 text-base flex items-center relative rounded-md text-gray-500 w-full hover:bg-blue-100 transition duration-300 {{ request()->routeIs('metode.*') ? 'bg-blue-100 font-semibold' : '' }}"
+                    href="{{ route('metode.index') }}">
+                    <i class="fa-solid fa-money-check-dollar ps-2 text-xl"></i> <span>Metode Pembayaran</span>
+                </a>
+            </li>
 
             <li class="text-xs font-bold mb-4 mt-6">
                 <i class="ti ti-dots nav-small-cap-icon text-lg hidden text-center"></i>
@@ -83,7 +89,7 @@
             <li class="sidebar-item">
                 <a class="sidebar-link gap-3 py-2.5 my-1 text-base flex items-center relative rounded-md text-gray-500 w-full hover:bg-blue-100 transition duration-300"
                     href="./components/typography.html">
-                    <i class="fa-solid fa-user-pen text-xl pl-3"></i> <span>Edi Profile</span>
+                    <i class="fa-solid fa-user-pen text-xl pl-3"></i> <span>Edit Profile</span>
                 </a>
             </li>
             <li class="sidebar-item">

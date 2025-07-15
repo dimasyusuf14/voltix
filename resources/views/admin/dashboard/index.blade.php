@@ -34,35 +34,40 @@
 
         <!-- Grid Statistik Tambahan -->
         <div class="grid grid-cols-1 md:grid-cols-4 gap-6 mb-6">
-            <!-- Penggunaan Listrik -->
-            <div class="bg-white rounded-lg p-6 shadow">
-                <div class="flex items-center justify-between mb-2">
+            {{--  KARTU  --}}
+            <div class="bg-white rounded-lg p-6 shadow flex flex-col"> {{-- ⬅️ flex‑col --}}
+                <div class="flex items-center justify-between mb-4">
                     <h4 class="text-sm text-gray-500">Penggunaan Listrik</h4>
                     <span class="text-xs text-gray-400">Tahun ini</span>
                 </div>
-                <div class="flex items-center space-x-3">
-                    <div class="bg-blue-100 text-blue-600 p-2 rounded">
-                        <i class="ti ti-bolt text-xl"></i>
+                <div class="flex-1 flex flex-col items-center justify-center space-y-3 text-center">
+                    <div class="bg-blue-100 text-blue-600 p-3 rounded-full">
+                        <i class="ti ti-bolt text-2xl"></i>
                     </div>
-                    <div>
-                        @php
-                            $penggunaans = \App\Models\Penggunaan::all();
-                            $totalPenggunaan = $penggunaans->sum('meter_akhir') - $penggunaans->sum('meter_awal');
-                            $jumlahPemakaian = $penggunaans->count();
-                        @endphp
-                        <p class="text-2xl font-bold text-gray-800">{{ $totalPenggunaan ?: '0' }} kWh</p>
-                        <p class="text-xs text-green-600">{{ $jumlahPemakaian ?: '0' }} Pemakaian Listrik</p>
-                    </div>
+
+                    @php
+                        $penggunaans = \App\Models\Penggunaan::all();
+                        $totalPenggunaan = $penggunaans->sum('meter_akhir') - $penggunaans->sum('meter_awal');
+                        $jumlahPemakaian = $penggunaans->count();
+                    @endphp
+
+                    <p class="text-2xl font-bold text-gray-800">
+                        {{ $totalPenggunaan ?: 0 }} <span class="text-base font-normal">kWh</span>
+                    </p>
+                    <p class="text-xs text-green-600">
+                        {{ $jumlahPemakaian ?: 0 }} Pemakaian Listrik
+                    </p>
                 </div>
             </div>
 
+
             <!-- Pemasukan -->
-            <div class="bg-white rounded-lg p-6 shadow">
+            <div class="bg-white rounded-lg p-6 shadow flex flex-col">
                 <div class="flex items-center justify-between mb-2">
                     <h4 class="text-sm text-gray-500">Pemasukan</h4>
                     <span class="text-xs text-gray-400">Tahun ini</span>
                 </div>
-                <div class="flex items-center space-x-3">
+                <div class="flex-1 flex flex-col items-center justify-center space-y-3 text-center">
                     <div class="bg-green-100 text-green-600 p-2 rounded">
                         <span class="text-xl font-bold">Rp</span>
                     </div>

@@ -22,6 +22,8 @@
     <script src="https://cdn.datatables.net/buttons/2.4.1/js/dataTables.buttons.min.js"></script>
     <script src="https://cdn.datatables.net/buttons/2.4.1/js/buttons.html5.min.js"></script>
     <script src="https://cdn.datatables.net/buttons/2.4.1/js/buttons.print.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+
     @stack('scripts')
 
 
@@ -29,17 +31,23 @@
 </head>
 
 <body class="bg-blue-50 font-sans">
-    <div class="flex min-h-screen">
-        <!-- Sidebar -->
-
-        @include('admin.layouts.sidebar')
-
+    <div class="min-h-screen">
+        <!-- Sidebar - Fixed Position -->
+        <div class="fixed left-0 top-0 h-full z-40">
+            @include('admin.layouts.sidebar')
+        </div>
 
         <!-- Main Content -->
-        <main class="flex-1 p-6">
-            <!-- Topbar -->
-            @include('admin.layouts.topbar')
-            @yield('content')
+        <main class="ml-[380px]"> <!-- ml-[380px] = w-80 (320px) + ml-10 (40px) + mr-10 (20px) -->
+            <!-- Topbar - Fixed Position -->
+            <div class="fixed top-0 right-0 z-30" style="left: 380px;">
+                @include('admin.layouts.topbar')
+            </div>
+
+            <!-- Content Area -->
+            <div class="pt-24 pb-6"> <!-- pt-24 untuk memberikan ruang topbar -->
+                @yield('content')
+            </div>
         </main>
     </div>
 </body>

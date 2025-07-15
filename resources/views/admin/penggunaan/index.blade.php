@@ -58,7 +58,7 @@
         {{-- 📊 Tabel Penggunaan Listrik --}}
         <div class="bg-white p-4 rounded border shadow-sm">
             <h3 class="font-bold text-lg text-gray-700 mb-3">Tabel Penggunaan Listrik</h3>
-            <table id="tagihanTable" class="min-w-full text-sm border">
+            <table id="tagihanTable" class="min-w-full text-sm borde pt-5">
                 <thead class="bg-gray-100 text-left">
                     <tr>
                         <th class="py-2 px-4 border">#</th>

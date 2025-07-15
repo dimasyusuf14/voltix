@@ -1,8 +1,8 @@
-<aside class="w-80 bg-white shadow-md rounded-3xl ml-10 mt-10 overflow-hidden">
+<aside class="w-80 h-full bg-white shadow-md rounded-t-3xl ml-10 mt-5 overflow-hidden">
     <div class="sticky top-0 bg-white p-6 text-xl font-bold text-indigo-700 flex items-center gap-2 z-10">
         Voltix Admin
     </div>
-    <nav class=" w-full flex flex-col sidebar-nav px-4 mt-5">
+    <nav class=" w-full flex flex-col sidebar-nav px-4">
         <ul id="sidebarnav" class="text-gray-600 text-sm in overflow-y-auto max-h-[calc(100vh-100px)] pr-2">
             <li class="text-xs font-bold pb-[5px]">
                 <i class="ti ti-dots nav-small-cap-icon text-lg hidden text-center"></i>
@@ -80,13 +80,37 @@
                 </a>
             </li>
 
-
-
-            <!-- <li class="sidebar-item">
-                <a class="sidebar-link gap-3 py-2.5 my-1 text-base flex items-center relative rounded-md text-gray-500 w-full hover:bg-blue-100 transition duration-300" href="./components/typography.html">
-                    <i class="ti ti-typography ps-2 text-2xl"></i> <span>Tagihan Pelanggan</span>
+            <li class="sidebar-item">
+                <a class="sidebar-link gap-3 py-2.5 my-1 text-base flex items-center relative rounded-md text-gray-500 w-full hover:bg-blue-100 transition duration-300"
+                    href="./components/typography.html">
+                    <i class="fa-solid fa-user-pen text-xl pl-3"></i> <span>Edi Profile</span>
                 </a>
-            </li> -->
+            </li>
+            <li class="sidebar-item">
+                <a class="sidebar-link gap-3 py-2.5 my-1 text-base flex items-center relative rounded-md text-gray-500 w-full hover:bg-blue-100 transition duration-300"
+                    href="./components/typography.html">
+                    <span></span>
+                </a>
+            </li>
+            <li class="sidebar-item">
+                <a class="sidebar-link gap-3 py-2.5 my-1 text-base flex items-center relative rounded-md text-gray-500 w-full hover:bg-blue-100 transition duration-300"
+                    href="./components/typography.html">
+                    <span></span>
+                </a>
+            </li>
+            <li class="sidebar-item">
+                <a class="sidebar-link gap-3 py-2.5 my-1 text-base flex items-center relative rounded-md text-gray-500 w-full hover:bg-blue-100 transition duration-300"
+                    href="./components/typography.html">
+                    <span></span>
+                </a>
+            </li>
+            <li class="sidebar-item">
+                <a class="sidebar-link gap-3 py-2.5 my-1 text-base flex items-center relative rounded-md text-gray-500 w-full hover:bg-blue-100 transition duration-300"
+                    href="./components/typography.html">
+                    <span></span>
+                </a>
+            </li>
+
         </ul>
     </nav>
 </aside>

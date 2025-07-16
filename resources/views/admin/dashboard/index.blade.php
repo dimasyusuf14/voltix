@@ -8,7 +8,9 @@
                     <i class="ti ti-user-plus text-2xl"></i>
                 </div>
                 <div>
-                    <h4 class="text-sm text-gray-500">Pelanggan Baru (Menunggu Konfirmasi)</h4>
+                    <h4 class="text-xl font-semibold text-blue-700">Pelanggan Baru <span
+                            class="text-sm font-normal text-gray-500">(Menunggu
+                            Konfirmasi)</span></h4>
                     <p class="text-xl font-semibold">{{ $jumlahMenunggu }}</p>
                 </div>
             </div>
@@ -17,16 +19,16 @@
                     <i class="ti ti-users text-2xl"></i>
                 </div>
                 <div>
-                    <h4 class="text-sm text-gray-500">Pelanggan Aktif</h4>
+                    <h4 class="text-xl font-semibold text-blue-700">Pelanggan Aktif</h4>
                     <p class="text-xl font-semibold">{{ $jumlahAktif }}</p>
                 </div>
             </div>
             <div class="bg-white rounded-lg p-4 shadow flex items-center space-x-4">
                 <div class="bg-yellow-100 text-yellow-600 p-3 rounded-full">
-                    <i class="ti ti-bolt text-2xl"></i>
+                    <i class="ti ti-tag-starred text-2xl"></i>
                 </div>
                 <div>
-                    <h4 class="text-sm text-gray-500">Jumlah Tarif</h4>
+                    <h4 class="text-xl font-semibold text-blue-700">Jumlah Tarif</h4>
                     <p class="text-xl font-semibold">{{ $jumlahTarif }}</p>
                 </div>
             </div>
@@ -37,7 +39,7 @@
             {{--  KARTU  --}}
             <div class="bg-white rounded-lg p-6 shadow flex flex-col"> {{-- ⬅️ flex‑col --}}
                 <div class="flex items-center justify-between mb-4">
-                    <h4 class="text-sm text-gray-500">Penggunaan Listrik</h4>
+                    <h4 class="text-xl font-semibold text-blue-700">Penggunaan Listrik</h4>
                     <span class="text-xs text-gray-400">Tahun ini</span>
                 </div>
                 <div class="flex-1 flex flex-col items-center justify-center space-y-3 text-center">
@@ -64,7 +66,7 @@
             <!-- Pemasukan -->
             <div class="bg-white rounded-lg p-6 shadow flex flex-col">
                 <div class="flex items-center justify-between mb-2">
-                    <h4 class="text-sm text-gray-500">Pemasukan</h4>
+                    <h4 class="text-xl font-semibold text-blue-700">Pemasukan</h4>
                     <span class="text-xs text-gray-400">Tahun ini</span>
                 </div>
                 <div class="flex-1 flex flex-col items-center justify-center space-y-3 text-center">
@@ -95,7 +97,7 @@
             <!-- Status Tagihan -->
             <div class="bg-white rounded-lg p-6 shadow">
                 <div class="flex items-center justify-between mb-4">
-                    <h4 class="text-sm text-gray-500">Status Tagihan</h4>
+                    <h4 class="text-xl font-semibold text-blue-700">Status Tagihan</h4>
                     <span class="text-xs text-gray-400">Tahun ini</span>
                 </div>
 

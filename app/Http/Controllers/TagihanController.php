@@ -64,15 +64,17 @@ class TagihanController extends Controller
 
     public function preview($id)
     {
-        $tagihan = Tagihan::with('pelanggan.tarif')->findOrFail($id);
-        return view('admin.tagihan.struk', compact('tagihan'));
+        $tagihan = Tagihan::with(['pelanggan.tarif', 'pembayaranTerbaru.metodePembayaran'])->findOrFail($id);
+        $pembayaran = $tagihan->pembayaranTerbaru;
+        return view('admin.tagihan.struk', compact('tagihan', 'pembayaran'));
     }
 
     public function print($id)
     {
-        $tagihan = Tagihan::with('pelanggan.tarif')->findOrFail($id);
+        $tagihan = Tagihan::with(['pelanggan.tarif', 'pembayaranTerbaru.metodePembayaran'])->findOrFail($id);
+        $pembayaran = $tagihan->pembayaranTerbaru;
         $pdf = app('dompdf.wrapper');
-        $pdf->loadView('admin.tagihan.struk', compact('tagihan'));
+        $pdf->loadView('admin.tagihan.struk', compact('tagihan', 'pembayaran'));
         $pdf->setPaper('A5', 'portrait');
         return $pdf->stream('struk-tagihan-' . $tagihan->id_tagihan . '.pdf');
     }
@@ -116,7 +118,7 @@ class TagihanController extends Controller
 
     public function strukPelanggan($id)
     {
-        $tagihan = Tagihan::with(['pelanggan.tarif', 'pembayaran'])->findOrFail($id);
+        $tagihan = Tagihan::with(['pelanggan.tarif', 'pembayaranTerbaru.metodePembayaran'])->findOrFail($id);
 
         // Pastikan tagihan ini milik pelanggan yang sedang login
         $pelangganId = session('logged_id');
@@ -124,6 +126,9 @@ class TagihanController extends Controller
             abort(403, 'Unauthorized access');
         }
 
-        return view('admin.tagihan.struk', compact('tagihan'));
+        // Gunakan pembayaran terbaru jika ada
+        $pembayaran = $tagihan->pembayaranTerbaru;
+
+        return view('admin.tagihan.struk', compact('tagihan', 'pembayaran'));
     }
 }

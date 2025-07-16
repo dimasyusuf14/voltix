@@ -32,7 +32,12 @@ class Tagihan extends Model
 
     public function pembayaran()
     {
-        return $this->hasOne(Pembayaran::class, 'id_tagihan', 'id_tagihan');
+        return $this->hasMany(Pembayaran::class, 'id_tagihan', 'id_tagihan');
+    }
+
+    public function pembayaranTerbaru()
+    {
+        return $this->hasOne(Pembayaran::class, 'id_tagihan', 'id_tagihan')->latest('tanggal_pembayaran');
     }
 
     public function getNoInvoiceAttribute(): string

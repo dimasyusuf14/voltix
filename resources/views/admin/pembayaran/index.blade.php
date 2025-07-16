@@ -171,10 +171,36 @@
                                             </span>
                                         </td>
                                         <td class="py-4 px-6">
-                                            <span
-                                                class="bg-green-100 text-green-800 px-3 py-1 rounded-md text-sm font-medium">
-                                                Transfer Bank
-                                            </span>
+                                            @if ($pembayaran->metodePembayaran)
+                                                @php
+                                                    // Tentukan jenis pembayaran berdasarkan kode
+                                                    $kode = $pembayaran->metodePembayaran->kode;
+                                                    $jenisPembayaran = match (true) {
+                                                        in_array($kode, ['OVO', 'GOPAY', 'DANA', 'SHOPEEPAY'])
+                                                            => 'E-Wallet',
+                                                        in_array($kode, ['BCA', 'MANDIRI', 'BNI', 'BRI', 'BSI'])
+                                                            => 'Bank',
+                                                        $kode === 'QRIS' => 'QRIS',
+                                                        default => 'Lainnya',
+                                                    };
+
+                                                    $metodeBadgeClass = match ($jenisPembayaran) {
+                                                        'E-Wallet' => 'bg-purple-100 text-purple-800',
+                                                        'Bank' => 'bg-blue-100 text-blue-800',
+                                                        'QRIS' => 'bg-green-100 text-green-800',
+                                                        default => 'bg-gray-100 text-gray-800',
+                                                    };
+                                                @endphp
+                                                <span
+                                                    class="{{ $metodeBadgeClass }} px-3 py-1 rounded-md text-sm font-medium">
+                                                    {{ $pembayaran->metodePembayaran->nama }}
+                                                </span>
+                                            @else
+                                                <span
+                                                    class="bg-gray-100 text-gray-800 px-3 py-1 rounded-md text-sm font-medium">
+                                                    Tidak Diketahui
+                                                </span>
+                                            @endif
                                         </td>
                                     </tr>
                                 @empty

@@ -16,6 +16,7 @@ class Pembayaran extends Model
         'id_pelanggan',
         'tanggal_pembayaran',
         'bulan_bayar',
+        'metode_pembayaran_id',
         'biaya_admin',
         'total_bayar',
         'id', // Using 'id' instead of 'id_admin'
@@ -37,5 +38,10 @@ class Pembayaran extends Model
     public function admin()
     {
         return $this->belongsTo(User::class, 'id'); // Using 'id' field as you mentioned
+    }
+
+    public function metodePembayaran()
+    {
+        return $this->belongsTo(MetodePembayaran::class, 'metode_pembayaran_id');
     }
 }

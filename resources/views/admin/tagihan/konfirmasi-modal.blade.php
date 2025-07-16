@@ -9,23 +9,48 @@
         {{-- detail singkat --}}
         <div class="space-y-1 text-sm mb-6">
             <p><b>Periode:</b> {{ bulanIndo($tagihan->bulan) }} {{ $tagihan->tahun }}</p>
+            <p><b>Pelanggan:</b> {{ $tagihan->pelanggan->nama_pelanggan }}</p>
             <p><b>Jumlah Meter:</b> {{ $tagihan->jumlah_meter }} kWh</p>
-            <p><b>Total Bayar:</b>
-                Rp {{ number_format($tagihan->pembayaran->total_bayar ?? 0, 0, ',', '.') }}
-            </p>
+            @php
+                $pembayaranTerbaru = $tagihan->pembayaran->sortByDesc('tanggal_pembayaran')->first();
+            @endphp
+            @if ($pembayaranTerbaru)
+                <p><b>Metode Pembayaran:</b>
+                    {{ $pembayaranTerbaru->metodePembayaran->nama ?? 'Tidak diketahui' }}
+                </p>
+                <p><b>Biaya Admin:</b>
+                    Rp {{ number_format($pembayaranTerbaru->biaya_admin ?? 0, 0, ',', '.') }}
+                </p>
+                <p><b>Total Bayar:</b>
+                    Rp {{ number_format($pembayaranTerbaru->total_bayar ?? 0, 0, ',', '.') }}
+                </p>
+                <p><b>Tanggal Upload:</b>
+                    {{ $pembayaranTerbaru->created_at->format('d/m/Y H:i') }}
+                </p>
+            @else
+                <p><b>Total Bayar:</b>
+                    Rp
+                    {{ number_format($tagihan->jumlah_meter * ($tagihan->pelanggan->tarif->tarifperkwh ?? 0) + 2500, 0, ',', '.') }}
+                </p>
+            @endif
         </div>
 
         {{-- bukti pembayaran --}}
         <div class="mb-6">
             <label class="block font-medium mb-2">Bukti Pembayaran</label>
 
-            @if (optional($tagihan->pembayaran)->bukti_pembayaran &&
-                    Storage::disk('public')->exists($tagihan->pembayaran->bukti_pembayaran))
+            @if (
+                $pembayaranTerbaru &&
+                    $pembayaranTerbaru->bukti_pembayaran &&
+                    Storage::disk('public')->exists($pembayaranTerbaru->bukti_pembayaran))
                 <div class="flex justify-center">
-                    <img class="w-100 h-100 rounded object-contain"
-                        src="{{ Storage::disk('public')->url($tagihan->pembayaran->bukti_pembayaran) }}"
-                        alt="Bukti pembayaran">
+                    <img class="max-w-full max-h-80 rounded object-contain border"
+                        src="{{ Storage::disk('public')->url($pembayaranTerbaru->bukti_pembayaran) }}"
+                        alt="Bukti pembayaran"
+                        onclick="openImageModal('{{ Storage::disk('public')->url($pembayaranTerbaru->bukti_pembayaran) }}')"
+                        style="cursor: pointer;">
                 </div>
+                <p class="text-xs text-gray-500 text-center mt-2">Klik gambar untuk memperbesar</p>
             @else
                 <div class="bg-gray-100 text-gray-500 text-center py-8 rounded">
                     Belum ada bukti pembayaran
@@ -34,23 +59,14 @@
         </div>
 
         {{-- form konfirmasi --}}
-        @if ($tagihan->pembayaran && $tagihan->pembayaran->id_pembayaran)
-            <form action="{{ route('admin.pembayaran.verif', $tagihan->pembayaran->id_pembayaran) }}" method="POST"
+        @if ($pembayaranTerbaru && $pembayaranTerbaru->id_pembayaran)
+            <form action="{{ route('admin.pembayaran.verif', $pembayaranTerbaru->id_pembayaran) }}" method="POST"
                 class="space-y-4">
                 @csrf
-                <div>
-                    <label class="block font-medium mb-1">Metode Pembayaran</label>
-                    <select name="metode" class="w-full border rounded px-3 py-2 bg-gray-50">
-                        @foreach (['Tunai', 'Transfer Bank', 'E‑Wallet', 'QRIS'] as $mtd)
-                            <option value="{{ $mtd }}" @selected(optional($tagihan->pembayaran)->metode == $mtd)>{{ $mtd }}
-                            </option>
-                        @endforeach
-                    </select>
-                </div>
 
                 <div class="flex justify-end gap-2 pt-2">
                     <button type="submit" class="bg-green-600 hover:bg-green-700 text-white px-4 py-2 rounded">
-                        Setujui
+                        Setujui Pembayaran
                     </button>
                     <button type="button" onclick="closeModal('{{ $tagihan->id_tagihan }}')"
                         class="bg-red-500 hover:bg-red-600 text-white px-4 py-2 rounded">

@@ -81,6 +81,9 @@
             <p>Invoice: {{ $tagihan->no_invoice ?? '#' . str_pad($tagihan->id_tagihan, 8, '0', STR_PAD_LEFT) }}</p>
             <p>Nama Pelanggan: {{ $tagihan->pelanggan->nama_pelanggan }}</p>
             <p>Periode: {{ bulanIndo($tagihan->bulan) }} {{ $tagihan->tahun }}</p>
+            @if (isset($pembayaran) && $pembayaran && $pembayaran->metodePembayaran)
+                <p>Metode Pembayaran: {{ $pembayaran->metodePembayaran->nama }}</p>
+            @endif
             <p>Tanggal Cetak: {{ now()->format('d/m/Y H:i') }}</p>
             <hr style="border: 1px dotted #000; margin: 10px 0;">
         </div>
@@ -121,12 +124,22 @@
                 </tr>
                 <tr>
                     <td>Biaya Admin</td>
-                    <td class="text-right">Rp {{ number_format(2500, 0, ',', '.') }}</td>
+                    <td class="text-right">Rp
+                        @if (isset($pembayaran) && $pembayaran->biaya_admin)
+                            {{ number_format($pembayaran->biaya_admin, 0, ',', '.') }}
+                        @else
+                            {{ number_format(2500, 0, ',', '.') }}
+                        @endif
+                    </td>
                 </tr>
                 <tr>
                     <td class="total">TOTAL TAGIHAN</td>
                     <td class="text-right total">Rp
-                        {{ number_format($tagihan->jumlah_meter * ($tagihan->pelanggan->tarif->tarifperkwh ?? 0) + 2500, 0, ',', '.') }}
+                        @if (isset($pembayaran) && $pembayaran->total_bayar)
+                            {{ number_format($pembayaran->total_bayar, 0, ',', '.') }}
+                        @else
+                            {{ number_format($tagihan->jumlah_meter * ($tagihan->pelanggan->tarif->tarifperkwh ?? 0) + 2500, 0, ',', '.') }}
+                        @endif
                     </td>
                 </tr>
             </tbody>

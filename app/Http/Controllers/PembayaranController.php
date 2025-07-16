@@ -14,7 +14,7 @@ class PembayaranController extends Controller
 {
     public function index(Request $request)
     {
-        $query = Pembayaran::with(['tagihan', 'pelanggan', 'admin'])
+        $query = Pembayaran::with(['tagihan', 'pelanggan', 'admin', 'metodePembayaran'])
             ->whereHas('tagihan', function ($q) {
                 $q->where('status', 'Sudah Lunas');
             })
@@ -75,32 +75,63 @@ class PembayaranController extends Controller
 
     public function store(Request $r, $tagihanId)
     {
-        $tagihan = Tagihan::with('pelanggan')->findOrFail($tagihanId);
+        try {
+            $tagihan = Tagihan::with('pelanggan')->findOrFail($tagihanId);
 
-        $r->validate([
-            'bukti_pembayaran' => 'required|image|max:2048',
-        ]);
+            // Debug logging
+            Log::info('Payment submission started', [
+                'tagihan_id' => $tagihanId,
+                'request_data' => $r->all(),
+                'has_file' => $r->hasFile('bukti_pembayaran')
+            ]);
 
-        $path = $r->file('bukti_pembayaran')->store('bukti_pembayaran', 'public');
+            $r->validate([
+                'bukti_pembayaran' => 'required|image|max:2048',
+                'metode_pembayaran_id' => 'required|exists:metode_pembayaran,id',
+            ]);
 
-        $biayaAdmin = 2500;
-        $total      = $tagihan->jumlah_meter * $tagihan->pelanggan->tarif->tarifperkwh + $biayaAdmin;
+            $path = $r->file('bukti_pembayaran')->store('bukti_pembayaran', 'public');
 
-        Pembayaran::create([
-            'id_tagihan'        => $tagihan->id_tagihan,
-            'id_pelanggan'      => $tagihan->id_pelanggan,
-            'tanggal_pembayaran' => now()->toDateString(),
-            'bulan_bayar'       => $tagihan->bulan,
-            'biaya_admin'       => $biayaAdmin,
-            'total_bayar'       => $total,
-            'id'          => null,
-            'bukti_pembayaran'  => $path,
-        ]);
+            // Get admin fee from selected payment method
+            $metodePembayaran = \App\Models\MetodePembayaran::findOrFail($r->metode_pembayaran_id);
+            $biayaAdmin = $metodePembayaran->biaya_admin;
+            $total      = $tagihan->jumlah_meter * $tagihan->pelanggan->tarif->tarifperkwh + $biayaAdmin;
 
-        $tagihan->update(['status' => 'Menunggu Verifikasi']);
+            $pembayaran = Pembayaran::create([
+                'id_tagihan'        => $tagihan->id_tagihan,
+                'id_pelanggan'      => $tagihan->id_pelanggan,
+                'tanggal_pembayaran' => now()->toDateString(),
+                'bulan_bayar'       => $tagihan->bulan,
+                'metode_pembayaran_id' => $r->metode_pembayaran_id,
+                'biaya_admin'       => $biayaAdmin,
+                'total_bayar'       => $total,
+                'id'          => null,
+                'bukti_pembayaran'  => $path,
+            ]);
 
-        return redirect()->route('pelanggan.tagihan')
-            ->with('success', 'Bukti pembayaran diunggah, menunggu verifikasi.');
+            $tagihan->update(['status' => 'Menunggu Verifikasi']);
+
+            Log::info('Payment submission successful', [
+                'payment_id' => $pembayaran->id_pembayaran
+            ]);
+
+            return redirect()->route('pelanggan.tagihan')
+                ->with('success', 'Bukti pembayaran diunggah, menunggu verifikasi.');
+
+        } catch (\Illuminate\Validation\ValidationException $e) {
+            Log::error('Payment validation failed', [
+                'errors' => $e->errors(),
+                'request_data' => $r->all()
+            ]);
+            return back()->withErrors($e->errors())->withInput();
+
+        } catch (\Exception $e) {
+            Log::error('Payment submission failed', [
+                'error' => $e->getMessage(),
+                'trace' => $e->getTraceAsString()
+            ]);
+            return back()->with('error', 'Terjadi kesalahan saat mengunggah pembayaran. Silakan coba lagi.');
+        }
     }
 
     public function verifikasi($pembayaranId)
@@ -172,7 +203,7 @@ class PembayaranController extends Controller
 
     public function printStruk($pembayaranId)
     {
-        $pembayaran = Pembayaran::with(['tagihan.pelanggan.tarif', 'admin'])->findOrFail($pembayaranId);
+        $pembayaran = Pembayaran::with(['tagihan.pelanggan.tarif', 'admin', 'metodePembayaran'])->findOrFail($pembayaranId);
 
         // Pastikan pembayaran ini milik pelanggan yang sedang login
         $pelangganId = session('logged_id');

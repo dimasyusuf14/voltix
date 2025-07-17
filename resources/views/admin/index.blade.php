@@ -40,12 +40,12 @@
         <!-- Main Content -->
         <main class="ml-[380px]"> <!-- ml-[380px] = w-80 (320px) + ml-10 (40px) + mr-10 (20px) -->
             <!-- Topbar - Fixed Position -->
-            <div class="fixed top-0 right-0 z-30" style="left: 380px;">
+            <div class="fixed top-0 right-0 z-30 mr-4" style="left: 380px;">
                 @include('admin.layouts.topbar')
             </div>
 
             <!-- Content Area -->
-            <div class="pt-24 pb-6"> <!-- pt-24 untuk memberikan ruang topbar -->
+            <div class="pt-24 pb-6 mr-4"> <!-- pt-24 untuk memberikan ruang topbar -->
                 @yield('content')
             </div>
         </main>

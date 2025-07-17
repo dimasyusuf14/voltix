@@ -11,16 +11,25 @@
                     <h4 class="text-xl font-semibold text-blue-700">Pelanggan Baru <span
                             class="text-sm font-normal text-gray-500">(Menunggu
                             Konfirmasi)</span></h4>
-                    <p class="text-xl font-semibold">{{ $jumlahMenunggu }}</p>
+                    <p class="text-2xl font-bold text-gray-80">{{ $jumlahMenunggu }}
+                        <span class="text-sm font-normal text-gray-500">
+                            Pelanggan Menunggu Konfirmasi
+                        </span>
+                    </p>
                 </div>
             </div>
-            <div class="bg-white rounded-lg p-4 shadow flex items-center space-x-4">
+            <div class="bg-white
+                            rounded-lg p-4 shadow flex items-center space-x-4">
                 <div class="bg-green-100 text-green-600 p-3 rounded-full">
                     <i class="ti ti-users text-2xl"></i>
                 </div>
                 <div>
                     <h4 class="text-xl font-semibold text-blue-700">Pelanggan Aktif</h4>
-                    <p class="text-xl font-semibold">{{ $jumlahAktif }}</p>
+                    <p class="text-2xl font-bold text-gray-80">{{ $jumlahAktif }}
+                        <span class="text-sm font-normal text-gray-500">
+                            Pelanggan Dengan Status Aktif
+                        </span>
+                    </p>
                 </div>
             </div>
             <div class="bg-white rounded-lg p-4 shadow flex items-center space-x-4">
@@ -29,7 +38,11 @@
                 </div>
                 <div>
                     <h4 class="text-xl font-semibold text-blue-700">Jumlah Tarif</h4>
-                    <p class="text-xl font-semibold">{{ $jumlahTarif }}</p>
+                    <p class="text-2xl font-bold text-gray-80">{{ $jumlahTarif }}
+                        <span class="text-sm font-normal text-gray-500">
+                            Tarif Listrik Tersedia
+                        </span>
+                    </p>
                 </div>
             </div>
         </div>
@@ -40,7 +53,7 @@
             <div class="bg-white rounded-lg p-6 shadow flex flex-col"> {{-- ⬅️ flex‑col --}}
                 <div class="flex items-center justify-between mb-4">
                     <h4 class="text-xl font-semibold text-blue-700">Penggunaan Listrik</h4>
-                    <span class="text-xs text-gray-400">Tahun ini</span>
+                    <span class="text-sm font-normal text-gray-500">Tahun ini</span>
                 </div>
                 <div class="flex-1 flex flex-col items-center justify-center space-y-3 text-center">
                     <div class="bg-blue-100 text-blue-600 p-3 rounded-full">
@@ -56,18 +69,44 @@
                     <p class="text-2xl font-bold text-gray-800">
                         {{ $totalPenggunaan ?: 0 }} <span class="text-base font-normal">kWh</span>
                     </p>
-                    <p class="text-xs text-green-600">
+                    <p class="text-md text-green-600">
                         {{ $jumlahPemakaian ?: 0 }} Pemakaian Listrik
                     </p>
                 </div>
             </div>
+
+            <!-- Metode Pembayaran -->
+            <div class="bg-white rounded-lg p-6 shadow flex flex-col">
+                <div class="flex items-center justify-between mb-4">
+                    <h4 class="text-xl font-semibold text-blue-700">Metode Pembayaran</h4>
+                    <span class="text-sm font-normal text-gray-500">Aktif</span>
+                </div>
+                <div class="flex-1 flex flex-col items-center justify-center space-y-3 text-center">
+                    <div class="bg-purple-100 text-purple-600 p-3 rounded-full">
+                        <i class="ti ti-credit-card text-2xl"></i>
+                    </div>
+
+                    @php
+                        $metodePembayaranAktif = \App\Models\MetodePembayaran::where('is_aktif', true)->count();
+                        $metodePembayaranTotal = \App\Models\MetodePembayaran::count();
+                    @endphp
+
+                    <p class="text-2xl font-bold text-gray-800">
+                        {{ $metodePembayaranAktif ?: 0 }}
+                    </p>
+                    <p class="text-md text-purple-600">
+                        dari {{ $metodePembayaranTotal ?: 0 }} Total Metode
+                    </p>
+                </div>
+            </div>
+
 
 
             <!-- Pemasukan -->
             <div class="bg-white rounded-lg p-6 shadow flex flex-col">
                 <div class="flex items-center justify-between mb-2">
                     <h4 class="text-xl font-semibold text-blue-700">Pemasukan</h4>
-                    <span class="text-xs text-gray-400">Tahun ini</span>
+                    <span class="ttext-sm font-normal text-gray-500">Tahun ini</span>
                 </div>
                 <div class="flex-1 flex flex-col items-center justify-center space-y-3 text-center">
                     <div class="bg-green-100 text-green-600 p-2 rounded">
@@ -87,7 +126,7 @@
                         <div class="text-2xl font-bold text-gray-800">
                             Rp {{ number_format($totalPemasukan ?: 0, 0, ',', '.') }}
                         </div>
-                        <div class="text-xs text-green-600">
+                        <div class="text-md text-green-600">
                             {{ $jumlahTransaksi ?: '0' }} Transaksi Pembayaran
                         </div>
                     </div>
@@ -98,7 +137,7 @@
             <div class="bg-white rounded-lg p-6 shadow">
                 <div class="flex items-center justify-between mb-4">
                     <h4 class="text-xl font-semibold text-blue-700">Status Tagihan</h4>
-                    <span class="text-xs text-gray-400">Tahun ini</span>
+                    <span class="text-sm font-normal text-gray-500">Tahun ini</span>
                 </div>
 
                 @php

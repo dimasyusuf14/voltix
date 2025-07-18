@@ -3,11 +3,11 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\Model;
+use Illuminate\Foundation\Auth\User as Authenticatable;
 use Stringable;
 use Illuminate\Support\Str;
 
-class Pelanggan extends Model
+class Pelanggan extends Authenticatable
 {
     use HasFactory;
 
@@ -21,6 +21,15 @@ class Pelanggan extends Model
         'password',
         'status',
         'no_telp', // Tambahan: Nomor Telepon
+    ];
+
+    protected $hidden = [
+        'password',
+        'remember_token',
+    ];
+
+    protected $casts = [
+        'password' => 'hashed',
     ];
 
     public function tarif()

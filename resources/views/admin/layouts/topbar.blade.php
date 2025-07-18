@@ -4,9 +4,16 @@
 
     <div class="flex items-center gap-4">
 
+        @php
+            $currentUser = \App\Models\User::find(session('logged_id'));
+        @endphp
+
 
         <!-- Avatar -->
-        <img src="https://i.pravatar.cc/40" alt="User" class="w-8 h-8 rounded-full">
+        <div
+            class="w-10 h-10 bg-gradient-to-br from-blue-500 to-purple-600 rounded-full flex items-center justify-center text-white text-2xl font-bold">
+            {{ strtoupper(substr($currentUser->nama_admin ?? 'A', 0, 1)) }}
+        </div>
 
         <!-- Dropdown -->
         <div class="relative select-none">
@@ -24,13 +31,15 @@
 
                 <!-- Menu -->
                 <ul
-                    class="absolute right-0 mt-2 w-48 bg-white border shadow-md rounded-md
+                    class="absolute right-0 mt-2 w-48 bg-red-500 hover:bg-red-600 border shadow-md rounded-md
                    py-2 z-50 text-sm">
 
                     <li>
                         <form method="POST" action="{{ route('logout') }}">
                             @csrf
-                            <button type="submit" class="w-full text-left px-4 py-2 hover:bg-gray-100">Logout</button>
+                            <button type="submit" class=" w-full text-left px-4 py-2 text-md text-white">Logout
+                                <span><i class="fa-solid fa-right-from-bracket text-md"></i></span>
+                            </button>
                         </form>
                     </li>
                 </ul>

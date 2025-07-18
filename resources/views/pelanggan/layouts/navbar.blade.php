@@ -71,18 +71,15 @@
 
                 <!-- Menu -->
                 <ul
-                    class="absolute right-0 mt-2 w-48 bg-white border shadow-md rounded-md
+                    class="absolute right-0 mt-2 w-48 bg-red-500 hover:bg-red-600 border shadow-md rounded-md
                    py-2 z-50 text-sm">
-                    <li>
-                        <a href="#" class="block px-4 py-2 hover:bg-gray-100">Lihat Profil</a>
-                    </li>
-                    <li>
-                        <a href="#" class="block px-4 py-2 hover:bg-gray-100">Pengaturan</a>
-                    </li>
+
                     <li>
                         <form method="POST" action="{{ route('logout') }}">
                             @csrf
-                            <button type="submit" class="w-full text-left px-4 py-2 hover:bg-gray-100">Logout</button>
+                            <button type="submit" class=" w-full text-left px-4 py-2 text-md text-white">Logout
+                                <span><i class="fa-solid fa-right-from-bracket text-md"></i></span>
+                            </button>
                         </form>
                     </li>
                 </ul>

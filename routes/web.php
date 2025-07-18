@@ -6,6 +6,7 @@ use App\Http\Controllers\PelangganController;
 use App\Http\Controllers\PelangganDashboardController;
 use App\Http\Controllers\PembayaranController;
 use App\Http\Controllers\PenggunaanController;
+use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\TagihanController;
 use App\Http\Controllers\TarifController;
 use Illuminate\Support\Facades\Route;
@@ -90,9 +91,14 @@ Route::middleware('level:1')->prefix('admin')->group(function () {
 
     // Tarif management
     Route::resource('tarif', TarifController::class)->except(['show']);
-});
 
-// 🔐 Pelanggan Routes (Level 2)
+    // Profile management
+    Route::prefix('profile')->name('admin.profile.')->group(function () {
+        Route::get('/', [ProfileController::class, 'index'])->name('index');
+        Route::put('/update', [ProfileController::class, 'update'])->name('update');
+        Route::put('/password', [ProfileController::class, 'updatePassword'])->name('password.update');
+    });
+});// 🔐 Pelanggan Routes (Level 2)
 Route::middleware('level:2')->prefix('pelanggan')->group(function () {
     // Dashboard
     Route::view('/', 'pelanggan.index')->name('pelanggan.index');

@@ -17,7 +17,7 @@ class User extends Authenticatable
     protected $keyType = 'int';        // Bertipe integer
 
     protected $fillable = [
-        'username',
+        'email',
         'password',
         'nama_admin',
         'id_level',

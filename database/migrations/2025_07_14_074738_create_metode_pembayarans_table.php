@@ -11,6 +11,9 @@ return new class extends Migration
      */
     public function up(): void
     {
+        // Drop table if exists first (for schema conflicts)
+        Schema::dropIfExists('metode_pembayaran');
+
         Schema::create('metode_pembayaran', function (Blueprint $table) {
             $table->id();
             $table->string('nama');
@@ -21,8 +24,19 @@ return new class extends Migration
             $table->text('deskripsi')->nullable();
             $table->string('logo')->nullable();
             $table->boolean('is_aktif')->default(true);
+            $table->enum('jenis_pembayaran', ['E-Wallet', 'Bank', 'QRIS', 'Retail'])->default('Bank');
             $table->timestamps();
         });
+
+        // Add foreign key to pembayarans table if it exists
+        if (Schema::hasTable('pembayarans')) {
+            Schema::table('pembayarans', function (Blueprint $table) {
+                if (!Schema::hasColumn('pembayarans', 'metode_pembayaran_id')) {
+                    $table->unsignedBigInteger('metode_pembayaran_id')->nullable();
+                    $table->foreign('metode_pembayaran_id')->references('id')->on('metode_pembayaran')->onDelete('set null');
+                }
+            });
+        }
     }
 
     /**
@@ -30,6 +44,14 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('pembayaran_pembayarans');
+        // Drop foreign key from pembayarans table if it exists
+        if (Schema::hasTable('pembayarans')) {
+            Schema::table('pembayarans', function (Blueprint $table) {
+                $table->dropForeign(['metode_pembayaran_id']);
+                $table->dropColumn('metode_pembayaran_id');
+            });
+        }
+
+        Schema::dropIfExists('metode_pembayaran');
     }
 };

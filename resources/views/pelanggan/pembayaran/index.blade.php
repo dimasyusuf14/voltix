@@ -185,22 +185,12 @@
 
                         {{-- Payment Methods from Database --}}
                         @php
-                            // Group payment methods by type
+                            // Group payment methods by jenis_pembayaran from database
                             $metodePembayarans = \App\Models\MetodePembayaran::where('is_aktif', true)->get();
-                            $banks = $metodePembayarans->filter(function ($metode) {
-                                return in_array(strtolower($metode->nama), ['bca', 'bni', 'bri', 'mandiri']);
-                            });
-                            $ewallets = $metodePembayarans->filter(function ($metode) {
-                                return in_array(strtolower($metode->nama), [
-                                    'gopay',
-                                    'ovo',
-                                    'dana',
-                                    'shopeepay',
-                                    'linkaja',
-                                    'qris',
-                                ]);
-                            });
-                            $otherBanks = $metodePembayarans->diff($banks)->diff($ewallets);
+                            $banks = $metodePembayarans->where('jenis_pembayaran', 'Bank');
+                            $ewallets = $metodePembayarans->where('jenis_pembayaran', 'E-Wallet');
+                            $qris = $metodePembayarans->where('jenis_pembayaran', 'QRIS');
+                            $retail = $metodePembayarans->where('jenis_pembayaran', 'Retail');
                         @endphp
 
                         <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
@@ -229,37 +219,9 @@
                                         </label>
                                     @endforeach
                                 </div>
-                            @else
-                                {{-- Show Other Banks in first column if no main banks --}}
-                                @if ($otherBanks->count() > 0)
-                                    <div class="bg-gray-50 rounded-xl p-6 border">
-                                        <h3 class="text-center font-semibold text-lg mb-4">Bank</h3>
-
-                                        @foreach ($otherBanks as $otherBank)
-                                            <label
-                                                class="flex items-center gap-4 bg-white hover:bg-blue-50 border rounded-lg p-4 mb-3 cursor-pointer payment-option">
-                                                <input type="radio" name="metode_pembayaran"
-                                                    value="{{ $otherBank->nama }}" data-id="{{ $otherBank->id }}"
-                                                    data-biaya="{{ $otherBank->biaya_admin }}"
-                                                    class="form-radio text-blue-600" required>
-                                                <img src="{{ $otherBank->logo_url }}" alt="{{ $otherBank->nama }}"
-                                                    class="w-14 h-8 object-contain">
-                                                <div class="flex-1">
-                                                    <p class="font-semibold">{{ $otherBank->nama }}</p>
-                                                    <p class="text-xs text-gray-500">{{ $otherBank->atas_nama }}</p>
-                                                    <p class="text-sm font-mono">{{ $otherBank->nomor_rekening }}</p>
-                                                    @if ($otherBank->biaya_admin > 0)
-                                                        <p class="text-xs text-orange-600">+ Biaya Admin:
-                                                            {{ $otherBank->biaya_admin_format }}</p>
-                                                    @endif
-                                                </div>
-                                            </label>
-                                        @endforeach
-                                    </div>
-                                @endif
                             @endif
 
-                            {{-- ==== E‑Wallets or Other Banks ==== --}}
+                            {{-- ==== E‑WALLETS ==== --}}
                             @if ($ewallets->count() > 0)
                                 <div class="bg-gray-50 rounded-xl p-6 border">
                                     <h3 class="text-center font-semibold text-lg mb-4">E‑Wallet</h3>
@@ -285,27 +247,57 @@
                                         </label>
                                     @endforeach
                                 </div>
-                            @elseif ($banks->count() > 0 && $otherBanks->count() > 0)
-                                {{-- Show Other Banks in second column if main banks exist --}}
-                                <div class="bg-gray-50 rounded-xl p-6 border">
-                                    <h3 class="text-center font-semibold text-lg mb-4">Bank Lainnya</h3>
+                            @endif
 
-                                    @foreach ($otherBanks as $otherBank)
+                            {{-- ==== QRIS ==== --}}
+                            @if ($qris->count() > 0)
+                                <div class="bg-gray-50 rounded-xl p-6 border">
+                                    <h3 class="text-center font-semibold text-lg mb-4">QRIS</h3>
+
+                                    @foreach ($qris as $qr)
                                         <label
                                             class="flex items-center gap-4 bg-white hover:bg-blue-50 border rounded-lg p-4 mb-3 cursor-pointer payment-option">
-                                            <input type="radio" name="metode_pembayaran"
-                                                value="{{ $otherBank->nama }}" data-id="{{ $otherBank->id }}"
-                                                data-biaya="{{ $otherBank->biaya_admin }}"
+                                            <input type="radio" name="metode_pembayaran" value="{{ $qr->nama }}"
+                                                data-id="{{ $qr->id }}" data-biaya="{{ $qr->biaya_admin }}"
                                                 class="form-radio text-blue-600" required>
-                                            <img src="{{ $otherBank->logo_url }}" alt="{{ $otherBank->nama }}"
+                                            <img src="{{ $qr->logo_url }}" alt="{{ $qr->nama }}"
                                                 class="w-14 h-8 object-contain">
                                             <div class="flex-1">
-                                                <p class="font-semibold">{{ $otherBank->nama }}</p>
-                                                <p class="text-xs text-gray-500">{{ $otherBank->atas_nama }}</p>
-                                                <p class="text-sm font-mono">{{ $otherBank->nomor_rekening }}</p>
-                                                @if ($otherBank->biaya_admin > 0)
+                                                <p class="font-semibold">{{ $qr->nama }}</p>
+                                                <p class="text-xs text-gray-500">{{ $qr->atas_nama }}</p>
+                                                <p class="text-sm font-mono">
+                                                    {{ $qr->nomor_rekening ?: 'Scan QR Code' }}</p>
+                                                @if ($qr->biaya_admin > 0)
                                                     <p class="text-xs text-orange-600">+ Biaya Admin:
-                                                        {{ $otherBank->biaya_admin_format }}</p>
+                                                        {{ $qr->biaya_admin_format }}</p>
+                                                @endif
+                                            </div>
+                                        </label>
+                                    @endforeach
+                                </div>
+                            @endif
+
+                            {{-- ==== RETAIL ==== --}}
+                            @if ($retail->count() > 0)
+                                <div class="bg-gray-50 rounded-xl p-6 border">
+                                    <h3 class="text-center font-semibold text-lg mb-4">Retail</h3>
+
+                                    @foreach ($retail as $ret)
+                                        <label
+                                            class="flex items-center gap-4 bg-white hover:bg-blue-50 border rounded-lg p-4 mb-3 cursor-pointer payment-option">
+                                            <input type="radio" name="metode_pembayaran" value="{{ $ret->nama }}"
+                                                data-id="{{ $ret->id }}" data-biaya="{{ $ret->biaya_admin }}"
+                                                class="form-radio text-blue-600" required>
+                                            <img src="{{ $ret->logo_url }}" alt="{{ $ret->nama }}"
+                                                class="w-14 h-8 object-contain">
+                                            <div class="flex-1">
+                                                <p class="font-semibold">{{ $ret->nama }}</p>
+                                                <p class="text-xs text-gray-500">{{ $ret->atas_nama }}</p>
+                                                <p class="text-sm font-mono">
+                                                    {{ $ret->nomor_rekening ?: 'Kode Pembayaran' }}</p>
+                                                @if ($ret->biaya_admin > 0)
+                                                    <p class="text-xs text-orange-600">+ Biaya Admin:
+                                                        {{ $ret->biaya_admin_format }}</p>
                                                 @endif
                                             </div>
                                         </label>

@@ -26,12 +26,7 @@
                 <ul
                     class="absolute right-0 mt-2 w-48 bg-white border shadow-md rounded-md
                    py-2 z-50 text-sm">
-                    <li>
-                        <a href="#" class="block px-4 py-2 hover:bg-gray-100">Lihat Profil</a>
-                    </li>
-                    <li>
-                        <a href="#" class="block px-4 py-2 hover:bg-gray-100">Pengaturan</a>
-                    </li>
+
                     <li>
                         <form method="POST" action="{{ route('logout') }}">
                             @csrf

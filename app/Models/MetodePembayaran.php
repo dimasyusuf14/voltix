@@ -20,6 +20,7 @@ class MetodePembayaran extends Model
         'deskripsi',
         'logo',
         'is_aktif',
+        'jenis_pembayaran',
     ];
 
     protected $casts = [

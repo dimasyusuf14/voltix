@@ -87,8 +87,8 @@
             </li>
 
             <li class="sidebar-item">
-                <a class="sidebar-link gap-3 py-2.5 my-1 text-base flex items-center relative rounded-md text-gray-500 w-full hover:bg-blue-100 transition duration-300"
-                    href="./components/typography.html">
+                <a class="sidebar-link gap-3 py-2.5 my-1 text-base flex items-center relative rounded-md text-gray-500 w-full hover:bg-blue-100 transition duration-300 {{ request()->routeIs('admin.profile.index') ? 'bg-blue-100 font-semibold' : '' }}"
+                    href="#">
                     <i class="fa-solid fa-user-pen text-xl pl-3"></i> <span>Edit Profile</span>
                 </a>
             </li>

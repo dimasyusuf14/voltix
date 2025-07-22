@@ -75,7 +75,7 @@
                    py-2 z-50 text-sm">
 
                     <li>
-                        <form method="POST" action="{{ route('logout') }}">
+                        <form method="POST" action="{{ route('pelanggan.logout') }}">
                             @csrf
                             <button type="submit" class=" w-full text-left px-4 py-2 text-md text-white">Logout
                                 <span><i class="fa-solid fa-right-from-bracket text-md"></i></span>

@@ -12,7 +12,7 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('levels', function (Blueprint $table) {
-            $table->id('id_level'); // Ini otomatis 'unsignedBigInteger'
+            $table->id('id_level');
             $table->string('nama_level');
             $table->timestamps();
         });

@@ -19,7 +19,7 @@ return new class extends Migration
             $table->integer('bulan_bayar');
             $table->decimal('biaya_admin', 10, 2);
             $table->decimal('total_bayar', 12, 2);
-            $table->unsignedBigInteger('id')->nullable(); // admin yg memproses
+            $table->unsignedBigInteger('id')->nullable();
             $table->timestamps();
             $table->string('bukti_pembayaran');
             $table->foreign('id_tagihan')->references('id_tagihan')->on('tagihans');

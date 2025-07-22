@@ -27,6 +27,7 @@ class PenggunaanController extends Controller
 
         $penggunaans = $query->get();
         $pelanggans = Pelanggan::where('status', 'aktif')->get();
+        dd($penggunaans, $pelanggans);
 
         return view('admin.penggunaan.index', compact('penggunaans', 'pelanggans'));
     }
@@ -45,6 +46,13 @@ class PenggunaanController extends Controller
             'tahun' => 'required|integer|min:2020',
             'meter_awal' => 'required|integer|min:0',
             'meter_akhir' => 'required|integer|gte:meter_awal',
+        ], [
+            'meter_akhir.gte' => 'Meter akhir harus lebih besar atau sama dengan meter awal.',
+            'meter_akhir.required' => 'Meter akhir wajib diisi.',
+            'meter_akhir.integer' => 'Meter akhir harus berupa angka.',
+            'meter_awal.required' => 'Meter awal wajib diisi.',
+            'meter_awal.integer' => 'Meter awal harus berupa angka.',
+            'meter_awal.min' => 'Meter awal tidak boleh negatif.',
         ]);
 
         $exists = Penggunaan::where('id_pelanggan', $request->id_pelanggan)
@@ -99,6 +107,13 @@ class PenggunaanController extends Controller
             'tahun' => 'required|digits:4',
             'meter_awal' => 'required|numeric|min:0',
             'meter_akhir' => 'required|numeric|min:0|gte:meter_awal',
+        ], [
+            'meter_akhir.gte' => 'Meter akhir harus lebih besar atau sama dengan meter awal.',
+            'meter_akhir.required' => 'Meter akhir wajib diisi.',
+            'meter_akhir.numeric' => 'Meter akhir harus berupa angka.',
+            'meter_awal.required' => 'Meter awal wajib diisi.',
+            'meter_awal.numeric' => 'Meter awal harus berupa angka.',
+            'meter_awal.min' => 'Meter awal tidak boleh negatif.',
         ]);
 
         // Cek apakah ada perubahan pada periode yang sama untuk pelanggan lain

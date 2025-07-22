@@ -26,8 +26,6 @@
 
     @stack('scripts')
 
-
-
 </head>
 
 <body class="bg-blue-50 font-sans">

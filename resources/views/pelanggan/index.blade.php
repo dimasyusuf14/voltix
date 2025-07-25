@@ -1,6 +1,9 @@
 @extends('pelanggan.layouts.index')
 
 @section('content')
+    <!-- Include Alert Component -->
+    @include('components.alert')
+
     <section class="min-h-screen py-20 md:py-24 px-4 md:px-8 lg:px-20 xl:px-24 flex items-center">
         <div class="container mx-auto flex flex-col-reverse md:flex-row items-center gap-12 w-full">
             <div class="md:w-1/2 text-center md:text-left">

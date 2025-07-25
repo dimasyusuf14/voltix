@@ -10,6 +10,9 @@
             <p class="text-sm text-gray-500">Tambahkan metode pembayaran baru untuk pelanggan.</p>
         </div>
 
+        <!-- Include Alert Component -->
+        @include('components.alert')
+
         <form action="{{ route('metode.store') }}" method="POST" enctype="multipart/form-data" class="space-y-6">
             @csrf
 

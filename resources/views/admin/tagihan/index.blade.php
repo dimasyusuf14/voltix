@@ -4,6 +4,9 @@
     <div class="p-6 bg-white rounded-xl shadow-md">
         <h2 class="text-2xl font-bold mb-4">Data Tagihan</h2>
 
+        <!-- Include Alert Component -->
+        @include('components.alert')
+
         {{-- Filter --}}
         <div class="bg-white p-4 rounded shadow mb-6">
             <form method="GET" action="{{ route('admin.tagihan.index') }}"

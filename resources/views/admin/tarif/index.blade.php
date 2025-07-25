@@ -8,10 +8,8 @@
         </button>
         @include('admin.tarif.create-modal')
 
-
-        @if (session('success'))
-            <div class="bg-green-100 text-green-800 p-2 rounded mt-4">{{ session('success') }}</div>
-        @endif
+        <!-- Include Alert Component -->
+        @include('components.alert')
 
         <table id="tarifTable" class="display nowrap w-full border text-sm">
             <thead>

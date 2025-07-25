@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 
 /**
  * Model Pembayaran untuk mengelola data pembayaran tagihan listrik
- * 
+ *
  * Model ini menyimpan informasi tentang pembayaran yang dilakukan pelanggan
  * termasuk metode pembayaran, bukti pembayaran, dan detail transaksi
  */
@@ -17,16 +17,16 @@ class Pembayaran extends Model
 
     /**
      * Primary key yang digunakan untuk model ini
-     * 
+     *
      * @var string
      */
     protected $primaryKey = 'id_pembayaran';
 
     /**
      * Atribut yang dapat diisi secara mass assignment
-     * 
+     *
      * Daftar kolom yang diizinkan untuk diisi langsung melalui create() atau fill()
-     * 
+     *
      * @var array<string>
      */
     protected $fillable = [
@@ -43,16 +43,16 @@ class Pembayaran extends Model
 
     /**
      * Atribut yang akan di-cast ke Carbon instance
-     * 
+     *
      * @var array<string>
      */
     protected $dates = ['tanggal_pembayaran'];
 
     /**
      * Relasi Many-to-One dengan model Tagihan
-     * 
+     *
      * Setiap pembayaran terkait dengan satu tagihan tertentu
-     * 
+     *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
     public function tagihan()
@@ -62,9 +62,9 @@ class Pembayaran extends Model
 
     /**
      * Relasi Many-to-One dengan model Pelanggan
-     * 
+     *
      * Setiap pembayaran dilakukan oleh satu pelanggan
-     * 
+     *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
     public function pelanggan()
@@ -74,9 +74,9 @@ class Pembayaran extends Model
 
     /**
      * Relasi Many-to-One dengan model User (Admin)
-     * 
+     *
      * Setiap pembayaran diproses oleh satu admin
-     * 
+     *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
     public function admin()
@@ -86,9 +86,9 @@ class Pembayaran extends Model
 
     /**
      * Relasi Many-to-One dengan model MetodePembayaran
-     * 
+     *
      * Setiap pembayaran menggunakan satu metode pembayaran
-     * 
+     *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
     public function metodePembayaran()
@@ -98,7 +98,7 @@ class Pembayaran extends Model
 
     /**
      * Accessor untuk format total pembayaran dalam rupiah
-     * 
+     *
      * @return string
      */
     public function getTotalBayarFormattedAttribute()
@@ -108,7 +108,7 @@ class Pembayaran extends Model
 
     /**
      * Accessor untuk format biaya admin dalam rupiah
-     * 
+     *
      * @return string
      */
     public function getBiayaAdminFormattedAttribute()
@@ -118,7 +118,7 @@ class Pembayaran extends Model
 
     /**
      * Accessor untuk format tanggal pembayaran dalam bahasa Indonesia
-     * 
+     *
      * @return string
      */
     public function getTanggalPembayaranFormattedAttribute()
@@ -128,7 +128,7 @@ class Pembayaran extends Model
 
     /**
      * Accessor untuk URL bukti pembayaran
-     * 
+     *
      * @return string|null
      */
     public function getBuktiPembayaranUrlAttribute()
@@ -141,7 +141,7 @@ class Pembayaran extends Model
 
     /**
      * Scope untuk pembayaran dalam rentang tanggal
-     * 
+     *
      * @param \Illuminate\Database\Eloquent\Builder $query
      * @param string $startDate
      * @param string $endDate
@@ -154,7 +154,7 @@ class Pembayaran extends Model
 
     /**
      * Scope untuk pembayaran bulan tertentu
-     * 
+     *
      * @param \Illuminate\Database\Eloquent\Builder $query
      * @param int $bulan
      * @param int $tahun
@@ -163,17 +163,17 @@ class Pembayaran extends Model
     public function scopeByBulan($query, $bulan, $tahun = null)
     {
         $query = $query->where('bulan_bayar', $bulan);
-        
+
         if ($tahun) {
             $query = $query->whereYear('tanggal_pembayaran', $tahun);
         }
-        
+
         return $query;
     }
 
     /**
      * Scope untuk pembayaran berdasarkan metode pembayaran
-     * 
+     *
      * @param \Illuminate\Database\Eloquent\Builder $query
      * @param int $metodeId
      * @return \Illuminate\Database\Eloquent\Builder

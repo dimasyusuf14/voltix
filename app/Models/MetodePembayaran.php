@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 
 /**
  * Model MetodePembayaran untuk mengelola data metode pembayaran
- * 
+ *
  * Model ini menyimpan informasi tentang berbagai metode pembayaran
  * yang tersedia untuk pelanggan seperti bank transfer, e-wallet, dll
  */
@@ -17,16 +17,16 @@ class MetodePembayaran extends Model
 
     /**
      * Nama tabel di database
-     * 
+     *
      * @var string
      */
     protected $table = 'metode_pembayaran';
 
     /**
      * Atribut yang dapat diisi secara mass assignment
-     * 
+     *
      * Daftar kolom yang diizinkan untuk diisi langsung melalui create() atau fill()
-     * 
+     *
      * @var array<string>
      */
     protected $fillable = [
@@ -43,7 +43,7 @@ class MetodePembayaran extends Model
 
     /**
      * Casting atribut ke tipe data tertentu
-     * 
+     *
      * @var array<string, string>
      */
     protected $casts = [
@@ -53,9 +53,9 @@ class MetodePembayaran extends Model
 
     /**
      * Scope untuk metode pembayaran aktif
-     * 
+     *
      * Query scope untuk mendapatkan hanya metode pembayaran yang aktif
-     * 
+     *
      * @param \Illuminate\Database\Eloquent\Builder $query
      * @return \Illuminate\Database\Eloquent\Builder
      */
@@ -66,7 +66,7 @@ class MetodePembayaran extends Model
 
     /**
      * Accessor untuk format biaya admin dalam rupiah
-     * 
+     *
      * @return string
      */
     public function getBiayaAdminFormatAttribute()
@@ -76,7 +76,7 @@ class MetodePembayaran extends Model
 
     /**
      * Accessor untuk status dalam bahasa Indonesia
-     * 
+     *
      * @return string
      */
     public function getStatusAttribute()
@@ -86,9 +86,9 @@ class MetodePembayaran extends Model
 
     /**
      * Accessor untuk URL logo metode pembayaran
-     * 
+     *
      * Mengembalikan URL logo atau default logo jika tidak ada
-     * 
+     *
      * @return string
      */
     public function getLogoUrlAttribute()
@@ -101,9 +101,9 @@ class MetodePembayaran extends Model
 
     /**
      * Relasi One-to-Many dengan model Pembayaran
-     * 
+     *
      * Satu metode pembayaran dapat digunakan untuk banyak pembayaran
-     * 
+     *
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
     public function pembayarans()
@@ -113,7 +113,7 @@ class MetodePembayaran extends Model
 
     /**
      * Scope untuk filter berdasarkan jenis pembayaran
-     * 
+     *
      * @param \Illuminate\Database\Eloquent\Builder $query
      * @param string $jenis
      * @return \Illuminate\Database\Eloquent\Builder

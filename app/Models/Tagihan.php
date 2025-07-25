@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 
 /**
  * Model Tagihan untuk mengelola data tagihan listrik pelanggan
- * 
+ *
  * Model ini menyimpan informasi tagihan bulanan berdasarkan penggunaan listrik
  * dan mengelola status pembayaran serta relasi dengan pembayaran
  */
@@ -17,16 +17,16 @@ class Tagihan extends Model
 
     /**
      * Primary key yang digunakan untuk model ini
-     * 
+     *
      * @var string
      */
     protected $primaryKey = 'id_tagihan';
 
     /**
      * Atribut yang dapat diisi secara mass assignment
-     * 
+     *
      * Daftar kolom yang diizinkan untuk diisi langsung melalui create() atau fill()
-     * 
+     *
      * @var array<string>
      */
     protected $fillable = [
@@ -40,9 +40,9 @@ class Tagihan extends Model
 
     /**
      * Relasi Many-to-One dengan model Pelanggan
-     * 
+     *
      * Setiap tagihan milik satu pelanggan tertentu
-     * 
+     *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
     public function pelanggan()
@@ -52,9 +52,9 @@ class Tagihan extends Model
 
     /**
      * Relasi Many-to-One dengan model Penggunaan
-     * 
+     *
      * Setiap tagihan berdasarkan satu data penggunaan
-     * 
+     *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
     public function penggunaan()
@@ -64,9 +64,9 @@ class Tagihan extends Model
 
     /**
      * Relasi One-to-Many dengan model Pembayaran
-     * 
+     *
      * Satu tagihan dapat memiliki beberapa catatan pembayaran (histori)
-     * 
+     *
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
     public function pembayaran()
@@ -76,9 +76,9 @@ class Tagihan extends Model
 
     /**
      * Relasi One-to-One dengan model Pembayaran terbaru
-     * 
+     *
      * Mendapatkan pembayaran terakhir dari tagihan ini
-     * 
+     *
      * @return \Illuminate\Database\Eloquent\Relations\HasOne
      */
     public function pembayaranTerbaru()
@@ -88,10 +88,10 @@ class Tagihan extends Model
 
     /**
      * Accessor untuk generate nomor invoice unik
-     * 
+     *
      * Membuat nomor invoice berdasarkan hash dari ID tagihan
      * untuk keperluan pembayaran dan dokumentasi
-     * 
+     *
      * @return string
      */
     public function getNoInvoiceAttribute(): string
@@ -104,7 +104,7 @@ class Tagihan extends Model
 
     /**
      * Accessor untuk menghitung total tagihan
-     * 
+     *
      * @return float
      */
     public function getTotalTagihanAttribute()
@@ -117,7 +117,7 @@ class Tagihan extends Model
 
     /**
      * Accessor untuk format total tagihan dalam rupiah
-     * 
+     *
      * @return string
      */
     public function getTotalTagihanFormattedAttribute()
@@ -127,7 +127,7 @@ class Tagihan extends Model
 
     /**
      * Accessor untuk status tagihan dalam bahasa Indonesia
-     * 
+     *
      * @return string
      */
     public function getStatusFormattedAttribute()

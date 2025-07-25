@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 
 /**
  * Model Penggunaan untuk mengelola data penggunaan listrik bulanan
- * 
+ *
  * Model ini menyimpan informasi meter awal dan akhir setiap bulan
  * untuk menghitung konsumsi listrik pelanggan
  */
@@ -17,23 +17,23 @@ class Penggunaan extends Model
 
     /**
      * Nama tabel di database
-     * 
+     *
      * @var string
      */
     protected $table = 'penggunaans'; // Nama tabel di database
 
     /**
      * Primary key yang digunakan untuk model ini
-     * 
+     *
      * @var string
      */
     protected $primaryKey = 'id_penggunaan'; // Primary key sesuai skema kamu
 
     /**
      * Atribut yang dapat diisi secara mass assignment
-     * 
+     *
      * Daftar kolom yang diizinkan untuk diisi langsung melalui create() atau fill()
-     * 
+     *
      * @var array<string>
      */
     protected $fillable = [
@@ -46,9 +46,9 @@ class Penggunaan extends Model
 
     /**
      * Relasi Many-to-One dengan model Pelanggan
-     * 
+     *
      * Setiap penggunaan milik satu pelanggan tertentu
-     * 
+     *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
     public function pelanggan()
@@ -58,9 +58,9 @@ class Penggunaan extends Model
 
     /**
      * Relasi One-to-One dengan model Tagihan
-     * 
+     *
      * Setiap penggunaan akan menghasilkan satu tagihan
-     * 
+     *
      * @return \Illuminate\Database\Eloquent\Relations\HasOne
      */
     public function tagihan()
@@ -70,7 +70,7 @@ class Penggunaan extends Model
 
     /**
      * Accessor untuk menghitung jumlah kWh yang digunakan
-     * 
+     *
      * @return int
      */
     public function getJumlahKwhAttribute()
@@ -80,7 +80,7 @@ class Penggunaan extends Model
 
     /**
      * Accessor untuk format periode penggunaan
-     * 
+     *
      * @return string
      */
     public function getPeriodeAttribute()
@@ -90,7 +90,7 @@ class Penggunaan extends Model
             5 => 'Mei', 6 => 'Juni', 7 => 'Juli', 8 => 'Agustus',
             9 => 'September', 10 => 'Oktober', 11 => 'November', 12 => 'Desember'
         ];
-        
+
         return $bulanNama[$this->bulan] . ' ' . $this->tahun;
     }
 }

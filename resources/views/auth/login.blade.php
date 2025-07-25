@@ -20,11 +20,8 @@
                 <h2 class="text-2xl font-bold text-[#ff654d] mb-1 text-center">⚡ Voltix Admin</h2>
                 <p class="text-center text-sm text-gray-500 mb-6">Masuk ke akun Anda untuk mengakses layanan</p>
 
-                @if (session('error'))
-                    <div class="bg-red-100 border border-red-400 text-red-700 px-4 py-2 rounded mb-4 text-sm">
-                        {{ session('error') }}
-                    </div>
-                @endif
+                <!-- Include Alert Component -->
+                @include('components.alert')
 
                 <form action="{{ route('login.attempt') }}" method="POST">
                     @csrf

@@ -7,6 +7,9 @@
             <h1 class="text-3xl font-bold text-gray-800 mb-2">Riwayat Pembayaran</h1>
         </div>
 
+        <!-- Include Alert Component -->
+        @include('components.alert')
+
         <!-- Main Content Grid -->
         <div class="grid lg:grid-cols-3 gap-6">
             <!-- Left Section: Filter -->

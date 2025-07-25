@@ -1,5 +1,8 @@
 @extends('pelanggan.layouts.index')
 
+<!-- Include Alert Component -->
+@include('components.alert')
+
 @push('styles')
     <style>
         .step-content {

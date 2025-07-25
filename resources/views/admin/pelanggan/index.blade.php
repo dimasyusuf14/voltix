@@ -4,11 +4,8 @@
     <div class="bg-white p-6 rounded-xl shadow-md">
         <h2 class="text-xl font-bold mb-4">📋 Daftar Pelanggan Aktif</h2>
 
-        @if (session('success'))
-            <div class="bg-green-100 text-green-700 p-3 rounded mb-4 text-sm">
-                {{ session('success') }}
-            </div>
-        @endif
+        <!-- Include Alert Component -->
+        @include('components.alert')
 
         <div class="overflow-x-auto">
             <table id="pelangganTable" class="min-w-full text-sm border display nowrap">

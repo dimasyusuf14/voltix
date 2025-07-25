@@ -8,6 +8,9 @@
             <p class="text-gray-600">Kelola informasi akun dan keamanan Anda</p>
         </div>
 
+        <!-- Include Alert Component -->
+        @include('components.alert')
+
         <!-- Profile Grid -->
         @if (session('logged_in') && session('level') == 1)
             @php

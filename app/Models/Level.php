@@ -7,26 +7,26 @@ use Illuminate\Database\Eloquent\Model;
 
 /**
  * Model Level untuk mengelola data level/peran pengguna
- * 
+ *
  * Model ini menyimpan informasi tentang tingkatan atau peran pengguna
  * dalam sistem seperti admin, super admin, operator, dll
  */
 class Level extends Model
 {
     use HasFactory;
-    
+
     /**
      * Primary key yang digunakan untuk model ini
-     * 
+     *
      * @var string
      */
     protected $primaryKey = 'id_level';
-    
+
     /**
      * Atribut yang dapat diisi secara mass assignment
-     * 
+     *
      * Daftar kolom yang diizinkan untuk diisi langsung melalui create() atau fill()
-     * 
+     *
      * @var array<string>
      */
     protected $fillable = [
@@ -35,9 +35,9 @@ class Level extends Model
 
     /**
      * Relasi One-to-Many dengan model User
-     * 
+     *
      * Satu level dapat dimiliki oleh banyak pengguna
-     * 
+     *
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
     public function users()
@@ -47,7 +47,7 @@ class Level extends Model
 
     /**
      * Accessor untuk format nama level dengan kapitalisasi
-     * 
+     *
      * @return string
      */
     public function getNamaLevelFormattedAttribute()
@@ -57,7 +57,7 @@ class Level extends Model
 
     /**
      * Scope untuk mencari level berdasarkan nama
-     * 
+     *
      * @param \Illuminate\Database\Eloquent\Builder $query
      * @param string $nama
      * @return \Illuminate\Database\Eloquent\Builder

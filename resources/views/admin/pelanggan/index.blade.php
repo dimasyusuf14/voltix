@@ -4,8 +4,10 @@
     <div class="bg-white p-6 rounded-xl shadow-md">
         <h2 class="text-xl font-bold mb-4">📋 Daftar Pelanggan Aktif</h2>
 
-        <!-- Include Alert Component -->
-        @include('components.alert')
+        <!-- Include Alert Component dengan Fixed Position -->
+        <div class="fixed top-4 right-4 z-50 max-w-md">
+            @include('components.alert')
+        </div>
 
         <div class="overflow-x-auto">
             <table id="pelangganTable" class="min-w-full text-sm border display nowrap">

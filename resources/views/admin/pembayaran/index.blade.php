@@ -7,8 +7,10 @@
             <h1 class="text-3xl font-bold text-gray-800 mb-2">Riwayat Pembayaran</h1>
         </div>
 
-        <!-- Include Alert Component -->
-        @include('components.alert')
+        <!-- Include Alert Component dengan Fixed Position -->
+        <div class="fixed top-4 right-4 z-50 max-w-md">
+            @include('components.alert')
+        </div>
 
         <!-- Main Content Grid -->
         <div class="grid lg:grid-cols-3 gap-6">

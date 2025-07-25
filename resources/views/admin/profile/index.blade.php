@@ -8,8 +8,10 @@
             <p class="text-gray-600">Kelola informasi akun dan keamanan Anda</p>
         </div>
 
-        <!-- Include Alert Component -->
-        @include('components.alert')
+        <!-- Include Alert Component dengan Fixed Position -->
+        <div class="fixed top-4 right-4 z-50 max-w-md">
+            @include('components.alert')
+        </div>
 
         <!-- Profile Grid -->
         @if (session('logged_in') && session('level') == 1)

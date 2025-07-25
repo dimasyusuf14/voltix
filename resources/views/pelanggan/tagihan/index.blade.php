@@ -8,8 +8,10 @@
             <p class="text-gray-600 mt-2">Berikut adalah daftar tagihan listrik Anda.</p>
         </div>
 
-        <!-- Include Alert Component -->
-        @include('components.alert')
+        <!-- Include Alert Component dengan Fixed Position -->
+        <div class="fixed top-4 right-4 z-50 max-w-md">
+            @include('components.alert')
+        </div>
 
         <form method="GET" action="{{ route('pelanggan.tagihan') }}" class="w-full max-w-3xl mx-auto mb-8">
             <div class="flex items-center gap-3">

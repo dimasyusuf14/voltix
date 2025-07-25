@@ -1,8 +1,10 @@
 @extends('pelanggan.layouts.index')
 
 @section('content')
-    <!-- Include Alert Component -->
-    @include('components.alert')
+    <!-- Include Alert Component dengan Fixed Position -->
+    <div class="fixed top-4 right-4 z-50 max-w-md">
+        @include('components.alert')
+    </div>
 
     <section class="min-h-screen py-20 md:py-24 px-4 md:px-8 lg:px-20 xl:px-24 flex items-center">
         <div class="container mx-auto flex flex-col-reverse md:flex-row items-center gap-12 w-full">

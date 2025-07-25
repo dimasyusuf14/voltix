@@ -7,8 +7,10 @@
             <p class="text-center text-gray-600 mb-8">Berikut adalah daftar riwayat pembayaran listrik Anda sebagai
                 pelanggan.</p>
 
-            <!-- Include Alert Component -->
-            @include('components.alert')
+            <!-- Include Alert Component dengan Fixed Position -->
+            <div class="fixed top-4 right-4 z-50 max-w-md">
+                @include('components.alert')
+            </div>
 
             <div class="grid lg:grid-cols-3 gap-6">
                 {{-- Payment History Cards - Left Column (2/3 width) --}}

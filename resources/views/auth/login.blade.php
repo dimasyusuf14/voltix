@@ -20,8 +20,10 @@
                 <h2 class="text-2xl font-bold text-[#ff654d] mb-1 text-center">⚡ Voltix Admin</h2>
                 <p class="text-center text-sm text-gray-500 mb-6">Masuk ke akun Anda untuk mengakses layanan</p>
 
-                <!-- Include Alert Component -->
-                @include('components.alert')
+                <!-- Include Alert Component dengan Fixed Position -->
+                <div class="fixed top-4 right-4 z-50 max-w-md">
+                    @include('components.alert')
+                </div>
 
                 <form action="{{ route('login.attempt') }}" method="POST">
                     @csrf

@@ -4,8 +4,10 @@
     <div class="p-6 bg-white rounded-xl shadow-md">
         <h2 class="text-2xl font-bold mb-4">Data Tagihan</h2>
 
-        <!-- Include Alert Component -->
-        @include('components.alert')
+        <!-- Include Alert Component dengan Fixed Position -->
+        <div class="fixed top-4 right-4 z-50 max-w-md">
+            @include('components.alert')
+        </div>
 
         {{-- Filter --}}
         <div class="bg-white p-4 rounded shadow mb-6">

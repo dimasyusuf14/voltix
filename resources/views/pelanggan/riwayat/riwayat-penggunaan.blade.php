@@ -7,8 +7,10 @@
             <p class="text-gray-600 mb-6 text-center">Berikut adalah daftar riwayat penggunaan listrik Anda sebagai
                 pelanggan.</p>
 
-            <!-- Include Alert Component -->
-            @include('components.alert')
+            <!-- Include Alert Component dengan Fixed Position -->
+            <div class="fixed top-4 right-4 z-50 max-w-md">
+                @include('components.alert')
+            </div>
 
             <div class="flex flex-col lg:flex-row gap-6">
                 {{-- Bagian Kiri: Riwayat Penggunaan --}}

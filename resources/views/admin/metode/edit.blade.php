@@ -10,8 +10,10 @@
             <p class="text-sm text-gray-500">Perbarui informasi metode pembayaran.</p>
         </div>
 
-        <!-- Include Alert Component -->
-        @include('components.alert')
+        <!-- Include Alert Component dengan Fixed Position -->
+        <div class="fixed top-4 right-4 z-50 max-w-md">
+            @include('components.alert')
+        </div>
 
         <form action="{{ route('metode.update', $metode) }}" method="POST" enctype="multipart/form-data" class="space-y-6">
             @csrf

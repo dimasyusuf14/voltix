@@ -1,6 +1,7 @@
 <!-- Alert Success dengan Auto Hide -->
 @if (session('success'))
-    <div id="successAlert" class="bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded relative mt-4"
+    <div id="successAlert"
+        class="bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded relative mb-4 shadow-lg"
         role="alert">
         <strong class="font-bold">Berhasil!</strong>
         <span class="block sm:inline">{{ session('success') }}</span>
@@ -17,7 +18,7 @@
 
 <!-- Alert Error dengan Auto Hide -->
 @if (session('error'))
-    <div id="errorAlert" class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative mt-4"
+    <div id="errorAlert" class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative mb-4 shadow-lg"
         role="alert">
         <strong class="font-bold">Gagal!</strong>
         <span class="block sm:inline">{{ session('error') }}</span>
@@ -35,7 +36,8 @@
 <!-- Alert Warning dengan Auto Hide -->
 @if (session('warning'))
     <div id="warningAlert"
-        class="bg-yellow-100 border border-yellow-400 text-yellow-700 px-4 py-3 rounded relative mt-4" role="alert">
+        class="bg-yellow-100 border border-yellow-400 text-yellow-700 px-4 py-3 rounded relative mb-4 shadow-lg"
+        role="alert">
         <strong class="font-bold">Perhatian!</strong>
         <span class="block sm:inline">{{ session('warning') }}</span>
         <span class="absolute top-0 bottom-0 right-0 px-4 py-3">
@@ -51,7 +53,8 @@
 
 <!-- Alert Info dengan Auto Hide -->
 @if (session('info'))
-    <div id="infoAlert" class="bg-blue-100 border border-blue-400 text-blue-700 px-4 py-3 rounded relative mt-4"
+    <div id="infoAlert"
+        class="bg-blue-100 border border-blue-400 text-blue-700 px-4 py-3 rounded relative mb-4 shadow-lg"
         role="alert">
         <strong class="font-bold">Informasi!</strong>
         <span class="block sm:inline">{{ session('info') }}</span>
@@ -68,8 +71,8 @@
 
 <!-- Alert untuk Validation Errors -->
 @if ($errors->any())
-    <div id="validationAlert" class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative mt-4"
-        role="alert">
+    <div id="validationAlert"
+        class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative mb-4 shadow-lg" role="alert">
         <strong class="font-bold">Terjadi Kesalahan!</strong>
         <ul class="mt-2 list-disc list-inside">
             @foreach ($errors->all() as $error)
@@ -88,11 +91,12 @@
 @endif
 
 <script>
-    // Fungsi untuk menutup alert secara manual
+    // Fungsi untuk menutup alert secara manual dengan animasi slide-up
     function closeAlert(alertId) {
         const alert = document.getElementById(alertId);
         if (alert) {
-            alert.style.transition = 'opacity 0.3s ease-out';
+            alert.style.transition = 'transform 0.3s ease-out, opacity 0.3s ease-out';
+            alert.style.transform = 'translateX(100%)';
             alert.style.opacity = '0';
             setTimeout(() => {
                 alert.remove();
@@ -100,24 +104,27 @@
         }
     }
 
-    // Auto hide alerts setelah 3 detik
+    // Auto hide alerts setelah 5 detik dengan animasi slide-in
     document.addEventListener('DOMContentLoaded', function() {
         const alerts = ['successAlert', 'errorAlert', 'warningAlert', 'infoAlert', 'validationAlert'];
 
         alerts.forEach(alertId => {
             const alert = document.getElementById(alertId);
             if (alert) {
-                // Tambahkan animasi fade-in
+                // Tambahkan animasi slide-in dari kanan
+                alert.style.transform = 'translateX(100%)';
                 alert.style.opacity = '0';
-                alert.style.transition = 'opacity 0.3s ease-in';
+                alert.style.transition = 'transform 0.3s ease-in, opacity 0.3s ease-in';
+
                 setTimeout(() => {
+                    alert.style.transform = 'translateX(0)';
                     alert.style.opacity = '1';
                 }, 100);
 
-                // Auto hide setelah 3 detik
+                // Auto hide setelah 5 detik
                 setTimeout(() => {
                     closeAlert(alertId);
-                }, 3000);
+                }, 5000);
             }
         });
     });

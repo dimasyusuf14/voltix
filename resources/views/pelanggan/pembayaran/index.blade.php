@@ -1,7 +1,9 @@
 @extends('pelanggan.layouts.index')
 
-<!-- Include Alert Component -->
-@include('components.alert')
+<!-- Include Alert Component dengan Fixed Position -->
+<div class="fixed top-4 right-4 z-50 max-w-md">
+    @include('components.alert')
+</div>
 
 @push('styles')
     <style>

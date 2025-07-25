@@ -8,8 +8,10 @@
         </button>
         @include('admin.tarif.create-modal')
 
-        <!-- Include Alert Component -->
-        @include('components.alert')
+        <!-- Include Alert Component dengan Fixed Position -->
+        <div class="fixed top-4 right-4 z-50 max-w-md">
+            @include('components.alert')
+        </div>
 
         <table id="tarifTable" class="display nowrap w-full border text-sm">
             <thead>

@@ -4,11 +4,10 @@
     <div class="bg-white p-6 rounded-xl shadow-md">
         <h2 class="text-xl font-bold mb-4">Konfirmasi Pelanggan Baru</h2>
 
-        @if (session('success'))
-            <div class="bg-green-100 text-green-700 px-4 py-2 rounded mb-4">
-                {{ session('success') }}
-            </div>
-        @endif
+        <!-- Include Alert Component dengan Fixed Position -->
+        <div class="fixed top-4 right-4 z-50 max-w-md">
+            @include('components.alert')
+        </div>
 
         <table class="w-full text-sm text-left">
             <thead class="bg-gray-100 text-gray-600">

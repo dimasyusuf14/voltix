@@ -6,8 +6,10 @@
         <p class="text-center text-gray-600 mb-8">Lihat tarif listrik yang tersedia untuk membantu Anda memilih paket yang
             tepat.</p>
 
-        <!-- Include Alert Component -->
-        @include('components.alert')
+        <!-- Include Alert Component dengan Fixed Position -->
+        <div class="fixed top-4 right-4 z-50 max-w-md">
+            @include('components.alert')
+        </div>
 
         <div class="grid grid-cols-1 lg:grid-cols-3 gap-6 items-start">
             <!-- Kolom Tarif -->

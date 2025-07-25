@@ -57,9 +57,9 @@
                                     class="w-10 h-10 object-contain rounded-md border border-gray-100">
                                 <div>
                                     <h3 class="font-semibold text-gray-900 text-sm">{{ $metode->nama }}</h3>
-                                    <span class="bg-blue-100 text-blue-800 text-xs px-2 py-1 rounded">
+                                    {{-- <span class="bg-blue-100 text-blue-800 text-xs px-2 py-1 rounded">
                                         {{ $metode->kode }}
-                                    </span>
+                                    </span> --}}
                                 </div>
                             </div>
                             <div class="flex items-center space-x-1">

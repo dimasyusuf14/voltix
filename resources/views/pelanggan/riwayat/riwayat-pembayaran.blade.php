@@ -198,43 +198,7 @@
                     <div class="bg-white rounded-lg shadow p-6">
                         <h4 class="text-lg font-semibold mb-4 text-gray-800">Grafik Pembayaran</h4>
                         <div class="relative">
-                            {{-- Y-axis labels --}}
-                            <div class="absolute left-0 top-0 h-48 flex flex-col justify-between text-xs text-gray-500">
-                                <span>Rp 450.000</span>
-                                <span>Rp 400.000</span>
-                                <span>Rp 350.000</span>
-                                <span>Rp 300.000</span>
-                                <span>Rp 250.000</span>
-                                <span>Rp 200.000</span>
-                                <span>Rp 150.000</span>
-                                <span>Rp 100.000</span>
-                                <span>Rp 50.000</span>
-                                <span>Rp 0</span>
-                            </div>
-
-                            {{-- Chart area --}}
-                            <div
-                                class="ml-16 h-48 bg-gradient-to-t from-blue-50 to-white border border-gray-200 rounded relative overflow-hidden">
-                                {{-- Sample bar chart --}}
-                                <div class="absolute bottom-0 left-4 w-12 bg-blue-600 rounded-t" style="height: 85%;"></div>
-                                <div class="absolute bottom-0 left-20 w-12 bg-blue-500 rounded-t" style="height: 75%;">
-                                </div>
-                                <div class="absolute bottom-0 left-36 w-12 bg-blue-400 rounded-t" style="height: 65%;">
-                                </div>
-                                <div class="absolute bottom-0 right-20 w-12 bg-blue-300 rounded-t" style="height: 55%;">
-                                </div>
-                                <div class="absolute bottom-0 right-4 w-12 bg-blue-200 rounded-t" style="height: 45%;">
-                                </div>
-                            </div>
-
-                            {{-- X-axis labels --}}
-                            <div class="ml-16 mt-2 flex justify-between text-xs text-gray-500">
-                                <span>Jan</span>
-                                <span>Feb</span>
-                                <span>Mar</span>
-                                <span>Apr</span>
-                                <span>Mei</span>
-                            </div>
+                            <canvas id="paymentChart" width="400" height="200" class="w-full"></canvas>
                         </div>
 
                         {{-- Chart legend --}}
@@ -273,6 +237,158 @@
     </div>
 
     <script>
+        // Chart.js untuk grafik pembayaran
+        document.addEventListener('DOMContentLoaded', function() {
+            const ctx = document.getElementById('paymentChart').getContext('2d');
+
+            // Prepare data from PHP
+            @php
+                $chartData = $pembayarans
+                    ->groupBy(function ($item) {
+                        return $item->bulan_bayar . '-' . ($item->tagihan->tahun ?? date('Y'));
+                    })
+                    ->map(function ($group) {
+                        $firstItem = $group->first();
+                        return [
+                            'periode' => \Carbon\Carbon::create($firstItem->tagihan->tahun ?? date('Y'), $firstItem->bulan_bayar, 1)->format('M Y'),
+                            'total' => $group->sum('total_bayar'),
+                            'bulan' => $firstItem->bulan_bayar,
+                            'tahun' => $firstItem->tagihan->tahun ?? date('Y'),
+                        ];
+                    })
+                    ->sortBy(function ($item) {
+                        return $item['tahun'] . '-' . str_pad($item['bulan'], 2, '0', STR_PAD_LEFT);
+                    })
+                    ->take(12)
+                    ->values();
+            @endphp
+
+            const chartData = @json($chartData);
+
+            if (chartData.length === 0) {
+                // Tampilkan pesan jika tidak ada data
+                ctx.canvas.style.display = 'none';
+                const parentDiv = ctx.canvas.parentNode;
+                parentDiv.innerHTML = `
+                    <div class="text-center text-gray-500 py-8">
+                        <i class="fas fa-chart-bar text-4xl mb-3 opacity-50"></i>
+                        <p>Belum ada data pembayaran untuk ditampilkan</p>
+                    </div>
+                `;
+                return;
+            }
+
+            const labels = chartData.map(item => item.periode);
+            const data = chartData.map(item => item.total);
+
+            const paymentChart = new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels: labels,
+                    datasets: [{
+                        label: 'Total Pembayaran',
+                        data: data,
+                        backgroundColor: [
+                            'rgba(59, 130, 246, 0.8)', // blue-600
+                            'rgba(99, 102, 241, 0.8)', // indigo-500
+                            'rgba(139, 92, 246, 0.8)', // violet-500
+                            'rgba(168, 85, 247, 0.8)', // purple-500
+                            'rgba(236, 72, 153, 0.8)', // pink-500
+                            'rgba(239, 68, 68, 0.8)', // red-500
+                            'rgba(34, 197, 94, 0.8)', // green-500
+                            'rgba(251, 146, 60, 0.8)', // orange-500
+                            'rgba(245, 158, 11, 0.8)', // amber-500
+                            'rgba(14, 165, 233, 0.8)', // sky-500
+                            'rgba(168, 85, 247, 0.8)', // purple-500
+                            'rgba(219, 39, 119, 0.8)' // pink-600
+                        ],
+                        borderColor: [
+                            'rgba(59, 130, 246, 1)',
+                            'rgba(99, 102, 241, 1)',
+                            'rgba(139, 92, 246, 1)',
+                            'rgba(168, 85, 247, 1)',
+                            'rgba(236, 72, 153, 1)',
+                            'rgba(239, 68, 68, 1)',
+                            'rgba(34, 197, 94, 1)',
+                            'rgba(251, 146, 60, 1)',
+                            'rgba(245, 158, 11, 1)',
+                            'rgba(14, 165, 233, 1)',
+                            'rgba(168, 85, 247, 1)',
+                            'rgba(219, 39, 119, 1)'
+                        ],
+                        borderWidth: 1,
+                        borderRadius: 4,
+                        borderSkipped: false,
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: {
+                            display: false
+                        },
+                        tooltip: {
+                            backgroundColor: 'rgba(0, 0, 0, 0.8)',
+                            titleColor: 'white',
+                            bodyColor: 'white',
+                            borderColor: 'rgba(59, 130, 246, 1)',
+                            borderWidth: 1,
+                            callbacks: {
+                                label: function(context) {
+                                    return 'Total: Rp ' + new Intl.NumberFormat('id-ID').format(context
+                                        .parsed.y);
+                                }
+                            }
+                        }
+                    },
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                            ticks: {
+                                callback: function(value) {
+                                    return 'Rp ' + new Intl.NumberFormat('id-ID', {
+                                        minimumFractionDigits: 0,
+                                        maximumFractionDigits: 0,
+                                        notation: 'compact',
+                                        compactDisplay: 'short'
+                                    }).format(value);
+                                },
+                                font: {
+                                    size: 10
+                                },
+                                color: '#6B7280'
+                            },
+                            grid: {
+                                color: 'rgba(0, 0, 0, 0.1)',
+                                drawBorder: false
+                            }
+                        },
+                        x: {
+                            ticks: {
+                                font: {
+                                    size: 10
+                                },
+                                color: '#6B7280'
+                            },
+                            grid: {
+                                display: false
+                            }
+                        }
+                    },
+                    layout: {
+                        padding: {
+                            top: 10,
+                            bottom: 5
+                        }
+                    }
+                }
+            });
+
+            // Set chart height
+            ctx.canvas.parentNode.style.height = '250px';
+        });
+
         function showBuktiModal(imageUrl, pembayaranId) {
             document.getElementById('buktiImage').src = imageUrl;
             document.getElementById('downloadBukti').href = '/pelanggan/pembayaran/' + pembayaranId + '/download-bukti';

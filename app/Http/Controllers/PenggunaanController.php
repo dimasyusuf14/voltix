@@ -27,7 +27,6 @@ class PenggunaanController extends Controller
 
         $penggunaans = $query->get();
         $pelanggans = Pelanggan::where('status', 'aktif')->get();
-        dd($penggunaans, $pelanggans);
 
         return view('admin.penggunaan.index', compact('penggunaans', 'pelanggans'));
     }
